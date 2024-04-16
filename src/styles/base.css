@@ -1,0 +1,93 @@
+html {
+  font-family: Pretendard, sans-serif;
+}
+
+input,
+textarea {
+  @apply outline-none;
+}
+
+:root {
+  /* 기본 텍스트 색 */
+  --jammin-text-color: #222222;
+  /* 기본 외곽선 색 */
+  --jammin-border-color: #cccccc;
+  --jammin-border-width: 1px;
+  --jammin-rounded-sm: 4px;
+  --jammin-rounded: 8px;
+  --jammin-rounded-lg: 12px;
+
+  --jammin-control-height-sm: 24px;
+  --jammin-control-height: 32px;
+  --jammin-control-height-lg: 38px;
+  --jammin-control-gap: 4px;
+
+  --jammin-font-size-xs: 13px;
+  --jammin-font-size-sm: 14px;
+  --jammin-font-size-md: 16px;
+  --jammin-font-size-lg: 18px;
+  --jammin-font-size-xl: 20px;
+
+  --jammin-primary-color-main: #37a8fe;
+  --jammin-primary-color-light: #ebf6ff;
+  --jammin-primary-color-dark: #1d9afb;
+
+  --jammin-secondary-color-main: #636364;
+  --jammin-secondary-color-light: #dcdcdc;
+  --jammin-secondary-color-dark: #323232;
+
+  --jammin-error-color-main: #ff4713;
+  --jammin-error-color-light: #ff471329;
+  --jammin-error-color-dark: #f81f55;
+
+  --jammin-warning-color-main: #ff8a00;
+  --jammin-warning-color-light: #ffcc80;
+  --jammin-warning-color-dark: #f57c00;
+
+  --jammin-info-color-main: #0288d1;
+  --jammin-info-color-light: #03a9f4;
+  --jammin-info-color-dark: #01579b;
+
+  --jammin-success-color-main: #03bf4e;
+  --jammin-success-color-light: #1dfc76;
+  --jammin-success-color-dark: #198602;
+
+  --jammin-gray-color-main: #636364;
+  --jammin-gray-color-light: #dcdcdc;
+  --jammin-gray-color-dark: #323232;
+
+  --jammin-dark-color-main: #212529;
+  --jammin-dark-color-light: #424649;
+  --jammin-dark-color-dark: #222222;
+
+  --jammin-disable-background: #f7f7fa;
+  --jammin-disable-text-color: #dcdcdc;
+  --jammin-disable-border-color: #dcdcdc;
+  --jammin-disable-cursor: not-allowed;
+  --jammin-disable-opacity: 0.25;
+
+  --jammin-focus-outline-size: 2px;
+  --jammin-focus-outline-offset: 2px;
+  --jammin-focus-outline-color: #3b82f6;
+
+  --jammin-placeholder-text-color: #dcdcdc;
+  --jammin-placeholder-font-weight: 500;
+}
+
+/* Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  width: 1px;
+  height: 0px;
+  background-color: transparent;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 1px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #c9c9c9;
+  border-radius: 10px;
+  border: none;
+}
