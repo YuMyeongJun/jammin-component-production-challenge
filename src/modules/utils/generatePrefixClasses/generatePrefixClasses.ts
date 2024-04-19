@@ -11,7 +11,7 @@ export function generatePrefixClasses<T extends string>(
   return result;
 }
 
-const GLOBAL_PREFIX = "weekly";
+const GLOBAL_PREFIX = "jammin";
 
 type ClassType = { [key: string]: ClassType | string };
 

@@ -1,6 +1,5 @@
 import { DefaultLayout } from "@components";
-
-import { AppPage } from "@pages";
+import { AppPage } from "@pages/AppPage";
 
 import { RouteObject } from "react-router";
 import { createBrowserRouter } from "react-router-dom";

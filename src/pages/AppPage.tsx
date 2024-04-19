@@ -1,3 +1,9 @@
+import { Input } from "@components";
+
 export const AppPage = () => {
-  return <></>
-}
+  return (
+    <>
+      <Input />
+    </>
+  );
+};

@@ -1,0 +1,39 @@
+$ns: .jammin;
+
+$(ns) {
+  &-input {
+    @apply rounded-[var(--jammin-rounded)] border-[length:var(--jammin-border-width)] border-[var(--jammin-border-color)] px-2;
+    &:hover {
+      @apply border-[var(--jammin-gray-color-dark)];
+
+      input {
+        @apply caret-[var(--jammin-primary-color-main)];
+      }
+      svg {
+        @apply fill-[var(--jammin-gray-color-main)];
+      }
+    }
+
+    &:focus-within {
+      svg {
+        @apply fill-[var(--jammin-primary-color-main)];
+      }
+    }
+
+    &-sm {
+      @apply h-[var(--jammin-control-height-sm)] text-[length:var(--jammin-font-size-sm)];
+    }
+
+    &-md {
+      @apply h-[var(--jammin-control-height)] text-[length:var(--jammin-font-size-md)];
+    }
+
+    &-lg {
+      @apply h-[var(--jammin-control-height-lg)] text-[length:var(--jammin-font-size-lg)];
+    }
+
+    &.invalid {
+      @apply border-[var(--jammin-error-color-main)] ring-2 ring-[var(--jammin-error-color-light)];
+    }
+  }
+}
