@@ -1,0 +1,30 @@
+$prefix: jammin;
+$ns: .$(prefix)-btn;
+
+/* prettier-ignore */
+$(ns) {
+  @apply inline-flex flex-wrap items-center justify-center border-solid bg-transparent font-pretendard text-center select-none cursor-pointer no-underline;
+
+  /* default */
+  & {
+    @apply text-[var(--jammin-gray-color-main)] focus:ring-2 ring-[var(--jammin-primary-color-light)] outline-none;
+    /* focus-visible:input-focus; */
+  }
+
+  &-sm {
+    @apply py-0 px-[7px] min-h-[24px] text-sm;
+  }
+
+  &-md {
+    @apply py-[3px] px-[15px] min-h-[32px] text-base;
+  }
+
+  &-lg {
+    @apply py-[5px] px-[15px] min-h-[40px] text-lg;
+  }
+
+  /* disabled */
+  &:disabled {
+    @apply text-[var(--jammin-disable-text-color)] cursor-not-allowed;
+  }
+}

@@ -6,18 +6,17 @@ import { composeRef } from "@modules";
 
 export const Input = forwardRef<HTMLInputElement, IInputProps>((args, ref) => {
   const inputRef = useRef<HTMLInputElement | null>(null);
-  const handleRef = composeRef(inputRef, ref);
-  const { controlSize, ...inputProps } = args;
+  const { controlSize, className, ...inputProps } = args;
 
-  const inputClassName = classNames(args.className, inputClasses.root, {
+  const inputClassName = classNames(className, inputClasses.root, {
     [inputClasses.error]: false,
-    [inputClasses.normal.sm]: controlSize === "sm",
-    [inputClasses.normal.md]: controlSize === "md",
-    [inputClasses.normal.lg]: controlSize === "lg",
+    [inputClasses.sm]: controlSize === "sm",
+    [inputClasses.md]: controlSize === "md",
+    [inputClasses.lg]: controlSize === "lg",
   });
   return (
     <input
-      ref={handleRef}
+      ref={composeRef(inputRef, ref)}
       className={inputClassName}
       onKeyDown={args.onKeyDown}
       onMouseDown={(e) => e.stopPropagation()}
