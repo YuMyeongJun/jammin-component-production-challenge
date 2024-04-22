@@ -18,9 +18,7 @@ export const Input = forwardRef<HTMLInputElement, IInputProps>((args, ref) => {
     <input
       ref={composeRef(inputRef, ref)}
       className={inputClassName}
-      onKeyDown={args.onKeyDown}
       onMouseDown={(e) => e.stopPropagation()}
-      readOnly={args.readOnly}
       title={inputRef.current?.value}
       autoComplete="off"
       {...inputProps}
