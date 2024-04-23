@@ -6,7 +6,7 @@ import { buttonClasses } from "./ButtonClasses";
 
 export const Button = forwardRef<HTMLButtonElement, IButtonProps>(
   (args, ref) => {
-    const { controlSize, className, ...buttonProps } = args;
+    const { controlSize, className, ...props } = args;
     const buttonRef = useRef<HTMLButtonElement | null>(null);
     const rootClassName = classNames(className, buttonClasses.root, {
       [buttonClasses.sm]: controlSize === "sm",
@@ -15,9 +15,9 @@ export const Button = forwardRef<HTMLButtonElement, IButtonProps>(
     });
     return (
       <button
+        {...props}
         ref={composeRef(buttonRef, ref)}
         className={rootClassName}
-        {...buttonProps}
       >
         {args.children}
       </button>

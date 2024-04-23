@@ -6,7 +6,7 @@ import { composeRef } from "@modules";
 
 export const Input = forwardRef<HTMLInputElement, IInputProps>((args, ref) => {
   const inputRef = useRef<HTMLInputElement | null>(null);
-  const { controlSize, className, ...inputProps } = args;
+  const { controlSize, className, ...props } = args;
 
   const inputClassName = classNames(className, inputClasses.root, {
     [inputClasses.error]: false,
@@ -16,12 +16,12 @@ export const Input = forwardRef<HTMLInputElement, IInputProps>((args, ref) => {
   });
   return (
     <input
+      {...props}
       ref={composeRef(inputRef, ref)}
       className={inputClassName}
       onMouseDown={(e) => e.stopPropagation()}
       title={inputRef.current?.value}
       autoComplete="off"
-      {...inputProps}
     />
   );
 });
