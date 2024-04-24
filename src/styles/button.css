@@ -7,8 +7,13 @@ $(ns) {
 
   /* default */
   & {
-    @apply text-[var(--jammin-gray-color-main)] focus:ring-2 ring-[var(--jammin-primary-color-light)] outline-none;
+    @apply text-[var(--bc-gray-color-main)] focus:ring-2 ring-[var(--bc-primary-color-light)] outline-none;
     /* focus-visible:input-focus; */
+  }
+
+  /* sizes */
+  &-xs {
+    @apply py-0 px-[7px] min-h-[18px] text-xs;
   }
 
   &-sm {
@@ -23,8 +28,291 @@ $(ns) {
     @apply py-[5px] px-[15px] min-h-[40px] text-lg;
   }
 
+  /* block */
+  &-block {
+    @apply w-full;
+  }
+
+  /* shape */
+  &-round {
+    @apply rounded-[var(--bc-rounded)];
+  }
+
+  &-circle {
+    &:where($(ns)-xs) {
+      @apply p-0 h-6 w-6 rounded-full;
+    }
+
+    &:where($(ns)-sm) {
+      @apply p-0 h-8 w-8 rounded-full;
+    }
+
+    &:where($(ns)-md) {
+      @apply p-0 h-12 w-12 rounded-full;
+    }
+
+    &:where($(ns)-lg) {
+      @apply p-0 h-16 w-16 rounded-full;
+    }
+  }
+
+  /* variant */
+  &-text {
+    @apply text-[var(--bc-gray-color-main)] border-0;
+
+    &:hover:not($(ns)-disabled) {
+      @apply bg-[var(--bc-gray-color-light)];
+    }
+
+    &$(ns)-primary {
+      @apply text-[var(--bc-primary-color-main)];
+
+      &:hover:not($(ns)-disabled) {
+        @apply bg-[var(--bc-primary-color-light)];
+      }
+    }
+
+    &$(ns)-secondary {
+      @apply text-[var(--bc-secondary-color-main)];
+
+      &:hover:not($(ns)-disabled) {
+        @apply bg-[var(--bc-secondary-color-light)];
+      }
+    }
+
+    &$(ns)-success {
+      @apply text-[var(--bc-success-color-main)];
+
+      &:hover:not($(ns)-disabled) {
+        @apply bg-[var(--bc-success-color-light)];
+      }
+    }
+
+    &$(ns)-error {
+      @apply text-[var(--bc-error-color-main)];
+
+      &:hover:not($(ns)-disabled) {
+        @apply bg-[var(--bc-error-color-light)];
+      }
+    }
+
+    &$(ns)-info {
+      @apply text-[var(--bc-info-color-main)];
+
+      &:hover:not($(ns)-disabled) {
+        @apply bg-[var(--bc-info-color-light)];
+      }
+    }
+
+    &$(ns)-warning {
+      @apply text-[var(--bc-warning-color-main)];
+
+      &:hover:not($(ns)-disabled) {
+        @apply bg-[var(--bc-warning-color-light)];
+      }
+    }
+
+    &$(ns)-dark {
+      @apply text-[var(--bc-dark-color-main)];
+
+      &:hover:not($(ns)-disabled) {
+        @apply bg-[var(--bc-dark-color-light)];
+      }
+    }
+  }
+
+  &-contained {
+    @apply bg-[var(--bc-gray-color-main)] text-white;
+
+    &:hover:not($(ns)-disabled) {
+      @apply bg-[var(--bc-gray-color-light)];
+    }
+
+    &$(ns)-primary {
+      @apply bg-[var(--bc-primary-color-main)] text-white;
+
+      &:hover:not($(ns)-disabled) {
+        @apply bg-[var(--bc-primary-color-light)];
+      }
+    }
+
+    &$(ns)-secondary {
+      @apply bg-[var(--bc-secondary-color-main)] text-white;
+
+      &:hover:not($(ns)-disabled) {
+        @apply bg-[var(--bc-secondary-color-light)];
+      }
+    }
+
+    &$(ns)-success {
+      @apply bg-[var(--bc-success-color-main)] text-white;
+
+      &:hover:not($(ns)-disabled) {
+        @apply bg-[var(--bc-success-color-light)];
+      }
+    }
+
+    &$(ns)-error {
+      @apply bg-[var(--bc-error-color-main)] text-white;
+
+      &:hover:not($(ns)-disabled) {
+        @apply bg-[var(--bc-error-color-light)];
+      }
+    }
+
+    &$(ns)-info {
+      @apply bg-[var(--bc-info-color-main)] text-white;
+
+      &:hover:not($(ns)-disabled) {
+        @apply bg-[var(--bc-info-color-light)];
+      }
+    }
+
+    &$(ns)-warning {
+      @apply bg-[var(--bc-warning-color-main)] text-white;
+
+      &:hover:not($(ns)-disabled) {
+        @apply bg-[var(--bc-warning-color-light)];
+      }
+    }
+
+    &$(ns)-dark {
+      @apply bg-[var(--bc-dark-color-main)] text-white;
+
+      &:hover:not($(ns)-disabled) {
+        @apply bg-[var(--bc-dark-color-light)]
+      }
+    }
+  }
+
+  &-outlined,
+  &-dashed {
+    @apply border-[var(--bc-gray-color-light)] bg-white text-[var(--bc-gray-color-main)] border-[length:var(--bc-border-width)];
+
+    &:hover:not($(ns)-disabled) {
+      @apply bg-[var(--bc-gray-color-light)];
+    }
+
+    &$(ns)-primary {
+      @apply border-[var(--bc-primary-color-main)] text-[var(--bc-primary-color-main)];
+
+      &:hover:not($(ns)-disabled) {
+        @apply bg-[var(--bc-primary-color-light)];
+      }
+    }
+
+    &$(ns)-secondary {
+      @apply border-[var(--bc-secondary-color-main)] text-[var(--bc-secondary-color-main)];
+
+      &:hover:not($(ns)-disabled) {
+        @apply bg-[var(--bc-secondary-color-light)];
+      }
+    }
+
+    &$(ns)-success {
+      @apply border-[var(--bc-success-color-main)] text-[var(--bc-success-color-main)];
+
+      &:hover:not($(ns)-disabled) {
+        @apply bg-[var(--bc-success-color-light)];
+      }
+    }
+
+    &$(ns)-error {
+      @apply border-[var(--bc-error-color-main)] text-[var(--bc-error-color-main)];
+
+      &:hover:not($(ns)-disabled) {
+        @apply bg-[var(--bc-error-color-light)];
+      }
+    }
+
+    &$(ns)-info {
+      @apply border-[var(--bc-info-color-main)] text-[var(--bc-info-color-main)];
+
+      &:hover:not($(ns)-disabled) {
+        @apply bg-[var(--bc-info-color-light)];
+      }
+    }
+
+    &$(ns)-warning {
+      @apply border-[var(--bc-warning-color-main)] text-[var(--bc-warning-color-main)];
+
+      &:hover:not($(ns)-disabled) {
+        @apply bg-[var(--bc-warning-color-light)];
+      }
+    }
+
+    &$(ns)-dark {
+      @apply border-[var(--bc-dark-color-main)] text-[var(--bc-dark-color-main)];
+
+      &:hover:not($(ns)-disabled) {
+        @apply bg-[var(--bc-dark-color-light)];
+      }
+    }
+  }
+
+  &-dashed {
+    @apply border-dashed;
+  }
+
+  /* icon */
+  &-start-icon,
+  &-end-icon {
+    display: inherit;
+  }
+
+  &-start-icon {
+    @apply mr-2;
+  }
+
+  &-end-icon {
+    @apply ml-2;
+  }
+
+  svg {
+    @apply inline-block fill-current select-none;
+    width: 1em;
+    height: 1em;
+    font-size: inherit;
+  }
+
+  >span>.icon,
+  >.icon {
+    &-xs {
+      svg {
+        @apply text-lg;
+      }
+    }
+
+    &-sm {
+      svg {
+        @apply text-xl;
+      }
+    }
+
+    &-md {
+      svg {
+        @apply text-2xl;
+      }
+    }
+
+    &-lg {
+      svg {
+        @apply text-3xl;
+      }
+    }
+  }
+
   /* disabled */
+  &-disabled,
   &:disabled {
-    @apply text-[var(--jammin-disable-text-color)] cursor-not-allowed;
+    @apply text-[var(--bc-disable-text-color)] cursor-not-allowed;
+
+    &:where($(ns)-contained) {
+      @apply border-[var(--bc-disable-border-color)] bg-[var(--bc-disable-background)];
+    }
+
+    &:where($(ns)-outlined, $(ns)-dashed) {
+      @apply border-[var(--bc-disable-border-color)];
+    }
   }
 }
