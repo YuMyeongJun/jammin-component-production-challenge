@@ -2,52 +2,52 @@ $ns: .jammin;
 
 $(ns) {
   &-input-wrapped {
-    @apply inline-flex items-center rounded-[var(--bc-rounded)] border-[var(--bc-border-color)] bg-white px-2;
+    @apply inline-flex items-center rounded-[var(--jammin-rounded)] border-[var(--jammin-border-color)] bg-white px-2;
     &:hover {
-      @apply border-[var(--bc-gray-color-dark)];
+      @apply border-[var(--jammin-gray-color-dark)];
       svg {
-        @apply fill-[var(--bc-gray-color-main)];
+        @apply fill-[var(--jammin-gray-color-main)];
       }
     }
 
     &:focus-within {
       svg {
-        @apply fill-[var(--bc-gray-color-main)];
+        @apply fill-[var(--jammin-gray-color-main)];
       }
     }
     input {
-      @apply h-[calc(var(--bc-control-height)-4px)] caret-[var(--bc-primary-color-main)];
+      @apply h-[calc(var(--jammin-control-height)-4px)] caret-[var(--jammin-primary-color-main)];
 
       &:valid {
         svg {
-          @apply fill-[var(--bc-error-color-main)];
+          @apply fill-[var(--jammin-error-color-main)];
         }
       }
     }
     &-sm {
-      @apply h-[var(--bc-control-height-sm)] text-[length:var(--bc-font-size-xs)];
+      @apply h-[var(--jammin-control-height-sm)] text-[length:var(--jammin-font-size-xs)];
 
       input {
-        @apply h-[calc(var(--bc-control-height-sm)-4px)];
+        @apply h-[calc(var(--jammin-control-height-sm)-4px)];
       }
     }
 
     &-md {
-      @apply h-[var(--bc-control-height)] text-[length:var(--bc-font-size-sm)];
+      @apply h-[var(--jammin-control-height)] text-[length:var(--jammin-font-size-sm)];
       input {
-        @apply h-[calc(var(--bc-control-height)-4px)];
+        @apply h-[calc(var(--jammin-control-height)-4px)];
       }
     }
 
     &-lg {
-      @apply h-[var(--bc-control-height-lg)] text-[length:var(--bc-font-size-lg)];
+      @apply h-[var(--jammin-control-height-lg)] text-[length:var(--jammin-font-size-lg)];
       input {
-        @apply h-[calc(var(--bc-control-height-lg)-4px)];
+        @apply h-[calc(var(--jammin-control-height-lg)-4px)];
       }
     }
 
     .bc-input-suffix-wrapper {
-      @apply flex items-center pl-[var(--bc-control-gap)] text-end;
+      @apply flex items-center pl-[var(--jammin-control-gap)] text-end;
 
       .suffix {
         &[data-disabled="true"] {
@@ -84,61 +84,61 @@ $(ns) {
       @apply w-full grow placeholder:not-italic placeholder:text-[var(bc-placeholder-text-color)] focus:outline-none;
 
       &:disabled {
-        @apply !border-[var(--bc-disable-border-color)] bg-[var(--bc-disable-background)] text-[var(--bc-disable-text-color)];
+        @apply !border-[var(--jammin-disable-border-color)] bg-[var(--jammin-disable-background)] text-[var(--jammin-disable-text-color)];
       }
     }
 
     &:has(input:disabled) {
-      @apply bg-[var(--bc-disable-background)];
+      @apply bg-[var(--jammin-disable-background)];
     }
 
     &.invalid {
-      @apply border-[var(--bc-error-color-main)] ring-2 ring-[var(--bc-error-color-light)];
+      @apply border-[var(--jammin-error-color-main)] ring-2 ring-[var(--jammin-error-color-light)];
     }
   }
 
   &-input-normal {
-    @apply rounded-[var(--bc-rounded)] border-[length:var(--bc-border-width)] border-[var(--bc-border-color)] px-2;
+    @apply rounded-[var(--jammin-rounded)] border-[length:var(--jammin-border-width)] border-[var(--jammin-border-color)] px-2;
 
     &:disabled {
-      @apply !border-[var(--bc-disable-border-color)] bg-[var(--bc-disable-background)] text-[var(--bc-disable-text-color)];
+      @apply !border-[var(--jammin-disable-border-color)] bg-[var(--jammin-disable-background)] text-[var(--jammin-disable-text-color)];
     }
     &:hover {
-      @apply border-[var(--bc-gray-color-dark)];
+      @apply border-[var(--jammin-gray-color-dark)];
 
       input {
-        @apply caret-[var(--bc-primary-color-main)];
+        @apply caret-[var(--jammin-primary-color-main)];
       }
       svg {
-        @apply fill-[var(--bc-gray-color-main)];
+        @apply fill-[var(--jammin-gray-color-main)];
       }
     }
 
     &:focus-within {
       svg {
-        @apply fill-[var(--bc-primary-color-main)];
+        @apply fill-[var(--jammin-primary-color-main)];
       }
     }
 
     &-sm {
-      @apply h-[var(--bc-control-height-sm)] text-[length:var(--bc-font-size-sm)];
+      @apply h-[var(--jammin-control-height-sm)] text-[length:var(--jammin-font-size-sm)];
     }
 
     &-md {
-      @apply h-[var(--bc-control-height)] text-[length:var(--bc-font-size-md)];
+      @apply h-[var(--jammin-control-height)] text-[length:var(--jammin-font-size-md)];
     }
 
     &-lg {
-      @apply h-[var(--bc-control-height-lg)] text-[length:var(--bc-font-size-lg)];
+      @apply h-[var(--jammin-control-height-lg)] text-[length:var(--jammin-font-size-lg)];
     }
 
     &.invalid {
-      @apply border-[var(--bc-error-color-main)] ring-2 ring-[var(--bc-error-color-light)];
+      @apply border-[var(--jammin-error-color-main)] ring-2 ring-[var(--jammin-error-color-light)];
     }
   }
 
   &-input-title-counter-wrapper {
-    @apply flex resize-none items-center justify-between rounded-[var(--bc-rounded)];
+    @apply flex resize-none items-center justify-between rounded-[var(--jammin-rounded)];
 
     .bc-input-label {
       @apply font-semibold;
@@ -149,10 +149,10 @@ $(ns) {
     }
 
     &.inside {
-      @apply block border-[length:var(--bc-border-width)] border-solid border-[var(--bc-border-color)] text-right;
+      @apply block border-[length:var(--jammin-border-width)] border-solid border-[var(--jammin-border-color)] text-right;
 
       &.invalid {
-        @apply border-[length:var(--bc-border-width)] border-solid ring-[var(--bc-error-color-main)];
+        @apply border-[length:var(--jammin-border-width)] border-solid ring-[var(--jammin-error-color-main)];
       }
 
       .bc-input-counter {

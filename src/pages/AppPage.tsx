@@ -4,7 +4,9 @@ export const AppPage = () => {
   return (
     <>
       <Input />
-      <Button>test</Button>
+      <Button variant="contained" color="info">
+        test
+      </Button>
     </>
   );
 };

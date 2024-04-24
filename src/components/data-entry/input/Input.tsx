@@ -80,7 +80,7 @@ export const Input = forwardRef<HTMLInputElement, IInputProps>((args, ref) => {
   const inputClassName = classNames(
     wrappingType
       ? ""
-      : `${args.className ?? ""} ${inputClasses.normal.root} ${useFocus && !isError ? "focus:ring-2 ring-[var(--bc-primary-color-light)] focus:border-[var(--bc-primary-color-main)]" : ""} `,
+      : `${args.className ?? ""} ${inputClasses.normal.root} ${useFocus && !isError ? "focus:ring-2 ring-[var(--jammin-primary-color-light)] focus:border-[var(--jammin-primary-color-main)]" : ""} `,
     {
       invalid: isError,
     },
@@ -97,9 +97,9 @@ export const Input = forwardRef<HTMLInputElement, IInputProps>((args, ref) => {
   const inputWrapClassName = classNames(
     wrappingType ? `${args.className ?? ""} ${inputClasses.wrapped.root}` : "",
     useFocus && !args.disabled
-      ? "focus-within:ring-2 ring-[var(--bc-primary-color-light)] focus-within:border-[var(--bc-primary-color-main)]"
+      ? "focus-within:ring-2 ring-[var(--jammin-primary-color-light)] focus-within:border-[var(--jammin-primary-color-main)]"
       : "",
-    useBorder && "border-[length:var(--bc-border-width)]",
+    useBorder && "border-[length:var(--jammin-border-width)]",
     {
       invalid: isError && useBorder,
     },

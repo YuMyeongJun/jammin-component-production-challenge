@@ -7,7 +7,7 @@ $(ns) {
 
   /* default */
   & {
-    @apply text-[var(--bc-gray-color-main)] focus:ring-2 ring-[var(--bc-primary-color-light)] outline-none;
+    @apply text-[var(--jammin-gray-color-main)] focus:ring-2 ring-[var(--jammin-primary-color-light)] outline-none;
     /* focus-visible:input-focus; */
   }
 
@@ -35,7 +35,7 @@ $(ns) {
 
   /* shape */
   &-round {
-    @apply rounded-[var(--bc-rounded)];
+    @apply rounded-[var(--jammin-rounded)];
   }
 
   &-circle {
@@ -58,194 +58,194 @@ $(ns) {
 
   /* variant */
   &-text {
-    @apply text-[var(--bc-gray-color-main)] border-0;
+    @apply text-[var(--jammin-gray-color-main)] border-0;
 
     &:hover:not($(ns)-disabled) {
-      @apply bg-[var(--bc-gray-color-light)];
+      @apply bg-[var(--jammin-gray-color-light)];
     }
 
     &$(ns)-primary {
-      @apply text-[var(--bc-primary-color-main)];
+      @apply text-[var(--jammin-primary-color-main)];
 
       &:hover:not($(ns)-disabled) {
-        @apply bg-[var(--bc-primary-color-light)];
+        @apply bg-[var(--jammin-primary-color-light)];
       }
     }
 
     &$(ns)-secondary {
-      @apply text-[var(--bc-secondary-color-main)];
+      @apply text-[var(--jammin-secondary-color-main)];
 
       &:hover:not($(ns)-disabled) {
-        @apply bg-[var(--bc-secondary-color-light)];
+        @apply bg-[var(--jammin-secondary-color-light)];
       }
     }
 
     &$(ns)-success {
-      @apply text-[var(--bc-success-color-main)];
+      @apply text-[var(--jammin-success-color-main)];
 
       &:hover:not($(ns)-disabled) {
-        @apply bg-[var(--bc-success-color-light)];
+        @apply bg-[var(--jammin-success-color-light)];
       }
     }
 
     &$(ns)-error {
-      @apply text-[var(--bc-error-color-main)];
+      @apply text-[var(--jammin-error-color-main)];
 
       &:hover:not($(ns)-disabled) {
-        @apply bg-[var(--bc-error-color-light)];
+        @apply bg-[var(--jammin-error-color-light)];
       }
     }
 
     &$(ns)-info {
-      @apply text-[var(--bc-info-color-main)];
+      @apply text-[var(--jammin-info-color-main)];
 
       &:hover:not($(ns)-disabled) {
-        @apply bg-[var(--bc-info-color-light)];
+        @apply bg-[var(--jammin-info-color-light)];
       }
     }
 
     &$(ns)-warning {
-      @apply text-[var(--bc-warning-color-main)];
+      @apply text-[var(--jammin-warning-color-main)];
 
       &:hover:not($(ns)-disabled) {
-        @apply bg-[var(--bc-warning-color-light)];
+        @apply bg-[var(--jammin-warning-color-light)];
       }
     }
 
     &$(ns)-dark {
-      @apply text-[var(--bc-dark-color-main)];
+      @apply text-[var(--jammin-dark-color-main)];
 
       &:hover:not($(ns)-disabled) {
-        @apply bg-[var(--bc-dark-color-light)];
+        @apply bg-[var(--jammin-dark-color-light)];
       }
     }
   }
 
   &-contained {
-    @apply bg-[var(--bc-gray-color-main)] text-white;
+    @apply bg-[var(--jammin-gray-color-main)] text-white;
 
     &:hover:not($(ns)-disabled) {
-      @apply bg-[var(--bc-gray-color-light)];
+      @apply bg-[var(--jammin-gray-color-light)];
     }
 
     &$(ns)-primary {
-      @apply bg-[var(--bc-primary-color-main)] text-white;
+      @apply bg-[var(--jammin-primary-color-main)] text-white;
 
       &:hover:not($(ns)-disabled) {
-        @apply bg-[var(--bc-primary-color-light)];
+        @apply bg-[var(--jammin-primary-color-light)];
       }
     }
 
     &$(ns)-secondary {
-      @apply bg-[var(--bc-secondary-color-main)] text-white;
+      @apply bg-[var(--jammin-secondary-color-main)] text-white;
 
       &:hover:not($(ns)-disabled) {
-        @apply bg-[var(--bc-secondary-color-light)];
+        @apply bg-[var(--jammin-secondary-color-light)];
       }
     }
 
     &$(ns)-success {
-      @apply bg-[var(--bc-success-color-main)] text-white;
+      @apply bg-[var(--jammin-success-color-main)] text-white;
 
       &:hover:not($(ns)-disabled) {
-        @apply bg-[var(--bc-success-color-light)];
+        @apply bg-[var(--jammin-success-color-light)];
       }
     }
 
     &$(ns)-error {
-      @apply bg-[var(--bc-error-color-main)] text-white;
+      @apply bg-[var(--jammin-error-color-main)] text-white;
 
       &:hover:not($(ns)-disabled) {
-        @apply bg-[var(--bc-error-color-light)];
+        @apply bg-[var(--jammin-error-color-light)];
       }
     }
 
     &$(ns)-info {
-      @apply bg-[var(--bc-info-color-main)] text-white;
+      @apply bg-[var(--jammin-info-color-main)] text-white;
 
       &:hover:not($(ns)-disabled) {
-        @apply bg-[var(--bc-info-color-light)];
+        @apply bg-[var(--jammin-info-color-light)];
       }
     }
 
     &$(ns)-warning {
-      @apply bg-[var(--bc-warning-color-main)] text-white;
+      @apply bg-[var(--jammin-warning-color-main)] text-white;
 
       &:hover:not($(ns)-disabled) {
-        @apply bg-[var(--bc-warning-color-light)];
+        @apply bg-[var(--jammin-warning-color-light)];
       }
     }
 
     &$(ns)-dark {
-      @apply bg-[var(--bc-dark-color-main)] text-white;
+      @apply bg-[var(--jammin-dark-color-main)] text-white;
 
       &:hover:not($(ns)-disabled) {
-        @apply bg-[var(--bc-dark-color-light)]
+        @apply bg-[var(--jammin-dark-color-light)]
       }
     }
   }
 
   &-outlined,
   &-dashed {
-    @apply border-[var(--bc-gray-color-light)] bg-white text-[var(--bc-gray-color-main)] border-[length:var(--bc-border-width)];
+    @apply border-[var(--jammin-gray-color-light)] bg-white text-[var(--jammin-gray-color-main)] border-[length:var(--jammin-border-width)];
 
     &:hover:not($(ns)-disabled) {
-      @apply bg-[var(--bc-gray-color-light)];
+      @apply bg-[var(--jammin-gray-color-light)];
     }
 
     &$(ns)-primary {
-      @apply border-[var(--bc-primary-color-main)] text-[var(--bc-primary-color-main)];
+      @apply border-[var(--jammin-primary-color-main)] text-[var(--jammin-primary-color-main)];
 
       &:hover:not($(ns)-disabled) {
-        @apply bg-[var(--bc-primary-color-light)];
+        @apply bg-[var(--jammin-primary-color-light)];
       }
     }
 
     &$(ns)-secondary {
-      @apply border-[var(--bc-secondary-color-main)] text-[var(--bc-secondary-color-main)];
+      @apply border-[var(--jammin-secondary-color-main)] text-[var(--jammin-secondary-color-main)];
 
       &:hover:not($(ns)-disabled) {
-        @apply bg-[var(--bc-secondary-color-light)];
+        @apply bg-[var(--jammin-secondary-color-light)];
       }
     }
 
     &$(ns)-success {
-      @apply border-[var(--bc-success-color-main)] text-[var(--bc-success-color-main)];
+      @apply border-[var(--jammin-success-color-main)] text-[var(--jammin-success-color-main)];
 
       &:hover:not($(ns)-disabled) {
-        @apply bg-[var(--bc-success-color-light)];
+        @apply bg-[var(--jammin-success-color-light)];
       }
     }
 
     &$(ns)-error {
-      @apply border-[var(--bc-error-color-main)] text-[var(--bc-error-color-main)];
+      @apply border-[var(--jammin-error-color-main)] text-[var(--jammin-error-color-main)];
 
       &:hover:not($(ns)-disabled) {
-        @apply bg-[var(--bc-error-color-light)];
+        @apply bg-[var(--jammin-error-color-light)];
       }
     }
 
     &$(ns)-info {
-      @apply border-[var(--bc-info-color-main)] text-[var(--bc-info-color-main)];
+      @apply border-[var(--jammin-info-color-main)] text-[var(--jammin-info-color-main)];
 
       &:hover:not($(ns)-disabled) {
-        @apply bg-[var(--bc-info-color-light)];
+        @apply bg-[var(--jammin-info-color-light)];
       }
     }
 
     &$(ns)-warning {
-      @apply border-[var(--bc-warning-color-main)] text-[var(--bc-warning-color-main)];
+      @apply border-[var(--jammin-warning-color-main)] text-[var(--jammin-warning-color-main)];
 
       &:hover:not($(ns)-disabled) {
-        @apply bg-[var(--bc-warning-color-light)];
+        @apply bg-[var(--jammin-warning-color-light)];
       }
     }
 
     &$(ns)-dark {
-      @apply border-[var(--bc-dark-color-main)] text-[var(--bc-dark-color-main)];
+      @apply border-[var(--jammin-dark-color-main)] text-[var(--jammin-dark-color-main)];
 
       &:hover:not($(ns)-disabled) {
-        @apply bg-[var(--bc-dark-color-light)];
+        @apply bg-[var(--jammin-dark-color-light)];
       }
     }
   }
@@ -305,14 +305,14 @@ $(ns) {
   /* disabled */
   &-disabled,
   &:disabled {
-    @apply text-[var(--bc-disable-text-color)] cursor-not-allowed;
+    @apply text-[var(--jammin-disable-text-color)] cursor-not-allowed;
 
     &:where($(ns)-contained) {
-      @apply border-[var(--bc-disable-border-color)] bg-[var(--bc-disable-background)];
+      @apply border-[var(--jammin-disable-border-color)] bg-[var(--jammin-disable-background)];
     }
 
     &:where($(ns)-outlined, $(ns)-dashed) {
-      @apply border-[var(--bc-disable-border-color)];
+      @apply border-[var(--jammin-disable-border-color)];
     }
   }
 }
