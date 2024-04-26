@@ -19,8 +19,8 @@ export const Flex = forwardRef<HTMLDivElement, IFlexProps>((args, ref) => {
 
   return (
     <div
-      ref={ref}
       {...props}
+      ref={ref}
       className={classNames(
         "flex",
         vertical

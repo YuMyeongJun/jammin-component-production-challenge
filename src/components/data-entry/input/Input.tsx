@@ -10,7 +10,7 @@ import { inputUtil } from "@modules/utils/input";
 import classNames from "classnames";
 
 import { IInputProps } from "./Input.types";
-import { inputClasses } from "./InputClasses";
+import { inputClasses as classes } from "./InputClasses";
 import { Button } from "../button";
 
 export const Input = forwardRef<HTMLInputElement, IInputProps>((args, ref) => {
@@ -80,14 +80,14 @@ export const Input = forwardRef<HTMLInputElement, IInputProps>((args, ref) => {
   const inputClassName = classNames(
     wrappingType
       ? ""
-      : `${args.className ?? ""} ${inputClasses.normal.root} ${useFocus && !isError ? "focus:ring-2 ring-[var(--jammin-primary-color-light)] focus:border-[var(--jammin-primary-color-main)]" : ""} `,
+      : `${args.className ?? ""} ${classes.normal.root} ${useFocus && !isError ? "focus:ring-2 ring-[var(--jammin-primary-color-light)] focus:border-[var(--jammin-primary-color-main)]" : ""} `,
     {
       invalid: isError,
     },
     {
-      [inputClasses.normal.sm]: controlSize === "sm",
-      [inputClasses.normal.md]: controlSize === "md",
-      [inputClasses.normal.lg]: controlSize === "lg",
+      [classes.normal.sm]: controlSize === "sm",
+      [classes.normal.md]: controlSize === "md",
+      [classes.normal.lg]: controlSize === "lg",
     },
     {
       "text-ellipsis": useEllipsis,
@@ -95,7 +95,7 @@ export const Input = forwardRef<HTMLInputElement, IInputProps>((args, ref) => {
   );
 
   const inputWrapClassName = classNames(
-    wrappingType ? `${args.className ?? ""} ${inputClasses.wrapped.root}` : "",
+    wrappingType ? `${args.className ?? ""} ${classes.wrapped.root}` : "",
     useFocus && !args.disabled
       ? "focus-within:ring-2 ring-[var(--jammin-primary-color-light)] focus-within:border-[var(--jammin-primary-color-main)]"
       : "",
@@ -104,9 +104,9 @@ export const Input = forwardRef<HTMLInputElement, IInputProps>((args, ref) => {
       invalid: isError && useBorder,
     },
     {
-      [inputClasses.wrapped.sm]: controlSize === "sm",
-      [inputClasses.wrapped.md]: controlSize === "md",
-      [inputClasses.wrapped.lg]: controlSize === "lg",
+      [classes.wrapped.sm]: controlSize === "sm",
+      [classes.wrapped.md]: controlSize === "md",
+      [classes.wrapped.lg]: controlSize === "lg",
     },
   );
 
@@ -148,17 +148,14 @@ export const Input = forwardRef<HTMLInputElement, IInputProps>((args, ref) => {
       }}
     >
       {customPrefix ? (
-        <div
-          className={inputClasses.prefixWrapper}
-          data-disabled={args.disabled}
-        >
+        <div className={classes.prefixWrapper} data-disabled={args.disabled}>
           {customPrefix}
         </div>
       ) : null}
       <div className="grow">{input}</div>
-      <div className={inputClasses.suffixWrapper}>
+      <div className={classes.suffixWrapper}>
         {showCount && direction === "inside" ? (
-          <span className={inputClasses.count}>
+          <span className={classes.count}>
             <>
               {args.textLength || textLength}
               {args.maxLength ? `/${args.maxLength}` : undefined}
@@ -170,7 +167,7 @@ export const Input = forwardRef<HTMLInputElement, IInputProps>((args, ref) => {
             <Button
               variant="text"
               size="sm"
-              className={inputClasses.button.root}
+              className={classes.button.root}
               onClick={() => {
                 inputUtil.TriggerInputOnChange(inputRef.current, "");
                 setTextLength(0);
@@ -179,8 +176,8 @@ export const Input = forwardRef<HTMLInputElement, IInputProps>((args, ref) => {
               disabled={args.disabled}
             >
               <div
-                className={classNames(inputClasses.button.search, {
-                  [inputClasses.button.clear]: textLength,
+                className={classNames(classes.button.search, {
+                  [classes.button.clear]: textLength,
                 })}
               />
             </Button>
@@ -188,7 +185,7 @@ export const Input = forwardRef<HTMLInputElement, IInputProps>((args, ref) => {
         ) : null}
         {isClearable && (isShowAlwaysClear || textLength) && !isSearch ? (
           <Button
-            className={inputClasses.button.root}
+            className={classes.button.root}
             variant="text"
             size="sm"
             onClick={() => {
@@ -202,7 +199,7 @@ export const Input = forwardRef<HTMLInputElement, IInputProps>((args, ref) => {
             }}
             disabled={args.disabled}
           >
-            <div className={inputClasses.button.clear} />
+            <div className={classes.button.clear} />
           </Button>
         ) : null}
         <div className="suffix" data-disabled={args.disabled}>

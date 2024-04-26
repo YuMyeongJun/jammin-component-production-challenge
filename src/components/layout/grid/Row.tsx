@@ -2,7 +2,7 @@ import React, { forwardRef, ReactNode } from "react";
 import classNames from "classnames";
 
 import { IRowProps } from "./Row.types";
-import { rowClasses } from "./RowClasses";
+import { rowClasses as classes } from "./RowClasses";
 
 export const Row = forwardRef<HTMLDivElement, IRowProps>((args, ref) => {
   const {
@@ -15,7 +15,7 @@ export const Row = forwardRef<HTMLDivElement, IRowProps>((args, ref) => {
     className,
     ...props
   } = args;
-  const rootClassName = classNames(rowClasses.root, rowClasses.boxBorder);
+  const rootClassName = classNames(classes.root, classes.boxBorder);
 
   const rowValue = Array.isArray(gutter) ? gutter[1] : gutter ? gutter : 0;
   const colValue = Array.isArray(gutter)

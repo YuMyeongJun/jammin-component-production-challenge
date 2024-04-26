@@ -5,7 +5,7 @@ import { remUtil } from "@modules/utils/rem";
 import classNames from "classnames";
 
 import { ISpinProps } from "./Spin.types";
-import { spinClasses } from "./SpinClasses";
+import { spinClasses as classes } from "./SpinClasses";
 import { composeRef } from "@modules";
 
 export const Spin = forwardRef<HTMLElement, ISpinProps>((args, ref) => {
@@ -28,18 +28,18 @@ export const Spin = forwardRef<HTMLElement, ISpinProps>((args, ref) => {
   const handleRef = composeRef(ref);
   console.log(handleRef);
 
-  const rootClassName = classNames(spinClasses.area, {
-    [spinClasses.option.fullScreen]: fullscreen,
-    [spinClasses.option.bgColor]: children,
-    [spinClasses.option.hidden]: !spinning && !children,
+  const rootClassName = classNames(classes.area, {
+    [classes.option.fullScreen]: fullscreen,
+    [classes.option.bgColor]: children,
+    [classes.option.hidden]: !spinning && !children,
   });
 
   const defaultClassName = classNames({
-    [spinClasses.inline]: tip,
+    [classes.inline]: tip,
   });
-  const childrenClassName = classNames(spinClasses.root, {
-    [spinClasses.children]: fullscreen || children,
-    [spinClasses.option.hidden]: !spinning && children,
+  const childrenClassName = classNames(classes.root, {
+    [classes.children]: fullscreen || children,
+    [classes.option.hidden]: !spinning && children,
   });
 
   useEffect(() => {
@@ -58,7 +58,7 @@ export const Spin = forwardRef<HTMLElement, ISpinProps>((args, ref) => {
             <div {...props} className={classNames(childrenClassName)}>
               {indicator ? (
                 <span
-                  className={classNames(spinClasses.indicator)}
+                  className={classNames(classes.indicator)}
                   style={{ ...style }}
                 >
                   {indicator}
@@ -84,11 +84,11 @@ export const Spin = forwardRef<HTMLElement, ISpinProps>((args, ref) => {
           container!,
         )
       ) : (
-        <div className={classNames(className, spinClasses.default.root)}>
-          <div {...props} className={classNames(spinClasses.default.spin)}>
+        <div className={classNames(className, classes.default.root)}>
+          <div {...props} className={classNames(classes.default.spin)}>
             {indicator ? (
               <span
-                className={classNames(spinClasses.indicator)}
+                className={classNames(classes.indicator)}
                 style={{ ...style }}
               >
                 {indicator}
@@ -109,9 +109,7 @@ export const Spin = forwardRef<HTMLElement, ISpinProps>((args, ref) => {
             )}
             {tip !== undefined && <div>{tip}</div>}
           </div>
-          <div className={classNames(spinClasses.default.children)}>
-            {children}
-          </div>
+          <div className={classNames(classes.default.children)}>{children}</div>
         </div>
       )}
     </div>
