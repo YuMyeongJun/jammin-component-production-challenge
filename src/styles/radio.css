@@ -1,0 +1,29 @@
+$ns: .jammin;
+
+$(ns) {
+  &-radio-container {
+    @apply flex cursor-pointer items-center gap-[var(--jammin-control-gap)];
+
+    .jammin-radio {
+      @apply h-14pxr w-14pxr appearance-none rounded-full border-[3px] border-white bg-white shadow-[0_0_0_1px] shadow-[var(--jammin-primary-color-main)];
+      &:checked {
+        @apply bg-[var(--jammin-primary-color-main)] shadow-[var(--jammin-primary-color-main)];
+      }
+      &.invalid {
+        @apply shadow-[var(--jammin-error-color-main)];
+
+        &:checked {
+          @apply bg-[var(--jammin-error-color-main)] shadow-[var(--jammin-error-color-main)];
+        }
+      }
+
+      &:disabled {
+        @apply shadow-[var(--jammin-disable-border-color)];
+
+        &:checked {
+          @apply bg-[var(--jammin-disable-background)] shadow-[var(--jammin-disable-background)];
+        }
+      }
+    }
+  }
+}

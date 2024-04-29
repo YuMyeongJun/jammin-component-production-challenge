@@ -139,7 +139,7 @@ export const Checkbox = React.forwardRef<HTMLInputElement, ICheckboxProps>(
             data-color={color}
             data-indeterminate={indeterminate}
           />
-          {/* <span className={iconClass}>{icon}</span> */}
+          <span className={iconClass}>{icon}</span>
         </span>
         {label && (
           <span className={classNames(classes.label, labelSlot.className)}>
