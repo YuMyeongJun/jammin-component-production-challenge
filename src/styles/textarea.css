@@ -1,0 +1,68 @@
+$ns: .bc;
+
+$(ns) {
+  &-textarea {
+    @apply w-full resize-none rounded-[var(--jammin-rounded)] border-[length:var(--jammin-border-width)] p-8pxr;
+
+    &.invalid {
+      @apply border-[var(--jammin-error-color-main)] ring-2 ring-[var(--jammin-error-color-light)];
+    }
+
+    &-border:focus {
+      @apply border-[length:var(--jammin-border-width)] border-[var(--jammin-primary-color-main)] ring-2 ring-[var(--jammin-primary-color-light)];
+    }
+
+    &-size {
+      &-sm {
+        @apply text-[length:var(--jammin-font-size-xs)];
+      }
+
+      &-md {
+        @apply text-[length:var(--jammin-font-size-sm)];
+      }
+
+      &-lg {
+        @apply text-[length:var(--jammin-font-size-lg)];
+      }
+    }
+  }
+
+  &-textarea-title-counter-wrapper {
+    @apply flex w-full resize-none items-center justify-between rounded-[var(--jammin-rounded)];
+
+    .bc-textarea-label {
+      @apply font-semibold;
+
+      &.light {
+        @apply font-normal;
+      }
+    }
+
+    .bc-textarea-inside-wrapper {
+      @apply flex items-end justify-between;
+
+      .bc-textarea-children {
+        @apply text-left;
+      }
+    }
+    &.inside {
+      @apply block border-[length:var(--jammin-border-width)] border-[var(--jammin-border-color)] bg-white text-right;
+
+      &:has(textarea:disabled) {
+        @apply bg-[var(--jammin-disable-background)];
+      }
+
+      &.invalid {
+        @apply border-[length:var(--jammin-border-width)] border-solid border-[var(--jammin-error-color-main)] ring-2 ring-[var(--jammin-error-color-light)];
+      }
+
+      .bc-textarea-counter {
+        @apply py-2pxr pr-10pxr text-[length:var(--jammin-font-size-sm)];
+      }
+
+      textarea {
+        @apply border-transparent focus:outline-none focus-visible:border-transparent;
+      }
+    }
+  }
+}
