@@ -1,7 +1,7 @@
 /** @type {import('tailwindcss').Config} */
-import type { Config } from "tailwindcss";
-import plugin from "tailwindcss/plugin";
+
 import { fontFamily } from "tailwindcss/defaultTheme";
+import plugin from "tailwindcss/plugin";
 
 export const BASE_PIXEL = 16;
 const pxToRem = (px, base = BASE_PIXEL) => `${px / base}rem`;
@@ -67,6 +67,9 @@ export default {
           light: "#ffcc80",
           dark: "#f57c00",
         },
+        "label-primary": "#38373E",
+        "label-secondary": "#8A8A8E",
+        separator: "#3c3c4314",
       },
       height: {
         ...rem(41),
@@ -76,6 +79,17 @@ export default {
       },
       spacing: {
         ...rem(301),
+      },
+      fontSize: {
+        xs: ["13px", "16px"],
+        sm: ["14px", "20px"],
+        md: ["16px", "24px"],
+        lg: ["18px", "28px"],
+        xl: ["20px", "28px"],
+        ...rem(40),
+      },
+      fontFamily: {
+        pretendard: ["Pretendard", ...fontFamily.sans],
       },
       minWidth: {
         ...rem(155),
@@ -94,30 +108,90 @@ export default {
         8: "8px",
         12: "12px",
       },
-      fontSize: {
-        xs: ["13px", "16px"],
-        sm: ["14px", "20px"],
-        md: ["16px", "24px"],
-        lg: ["18px", "28px"],
-        xl: ["20px", "28px"],
-        ...rem(40),
-      },
-      fontFamily: {
-        pretendard: ["Pretendard", ...fontFamily.sans],
-      },
       aria: {
         invalid: "invalid=true",
       },
+      boxShadow: {
+        elevated: "0px 8px 20px 0px rgba(0, 0, 0, 0.16)",
+      },
     },
-    plugins: [
-      plugin(({ addUtilities }) => {
-        addUtilities({
-          // input custom focus
-          ".input-focus": {
-            "@apply outline-none ring-2 ring-blue-700": "",
-          },
-        });
-      }),
-    ],
   },
-} satisfies Config;
+  plugins: [
+    ({ addUtilities }) => {
+      addUtilities({
+        ".text-large-title": {
+          fontSize: "28px",
+          lineHeight: "34px",
+          fontWeight: 700,
+          letterSpacing: "-0.3px",
+        },
+        ".text-title1": {
+          fontSize: "20px",
+          lineHeight: "34px",
+          fontWeight: 700,
+          letterSpacing: "-0.45px",
+        },
+        ".text-title2": {
+          fontSize: "17px",
+          lineHeight: "22px",
+          fontWeight: 700,
+          letterSpacing: "-0.43px",
+        },
+        ".text-title3": {
+          fontSize: "15px",
+          lineHeight: "20px",
+          fontWeight: 700,
+          letterSpacing: "-0.23px",
+        },
+        ".text-title4": {
+          fontSize: "14px",
+          lineHeight: "20px",
+          fontWeight: 700,
+          letterSpacing: "-0.23px",
+        },
+        ".text-body-title": {
+          fontSize: "14px",
+          lineHeight: "20px",
+          fontWeight: 700,
+          letterSpacing: "-0.18px",
+        },
+        ".text-body-text": {
+          fontSize: "14px",
+          lineHeight: "20px",
+          fontWeight: 500,
+          letterSpacing: "-0.28px",
+        },
+        ".text-sub-title": {
+          fontSize: "13px",
+          lineHeight: "18px",
+          fontWeight: 700,
+          letterSpacing: "-0.28px",
+        },
+        ".text-sub-text": {
+          fontSize: "12px",
+          lineHeight: "16px",
+          fontWeight: 500,
+          letterSpacing: "-0.15px",
+        },
+        ".text-body-action15": {
+          fontSize: "15px",
+          lineHeight: "20px",
+          fontWeight: 700,
+          letterSpacing: "-0.23px",
+        },
+        ".text-body-action13": {
+          fontSize: "13px",
+          lineHeight: "18px",
+          fontWeight: 700,
+          letterSpacing: "-0.18px",
+        },
+        ".text-title-modal": {
+          fontSize: "18px",
+          lineHeight: "24px",
+          fontWeight: 700,
+          letterSpacing: "-0.45px",
+        },
+      });
+    },
+  ],
+};
