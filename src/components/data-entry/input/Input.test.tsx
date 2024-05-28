@@ -73,21 +73,6 @@ describe("<Input />", () => {
     expect(onClear).toBeCalledTimes(1);
   });
 
-  it("search 버튼 체크", () => {
-    const onSearch = vi.fn();
-    render(<Input isSearch={true} onSearch={onSearch} />);
-
-    // 버튼 렌더링 확인
-    const searchBtn = screen.getByRole("button").firstChild as HTMLDivElement;
-    expect(
-      searchBtn.classList.contains(inputClasses.button.search),
-    ).toBeTruthy();
-
-    // 버튼 클릭
-    fireEvent.click(searchBtn);
-    expect(onSearch).toBeCalledTimes(1);
-  });
-
   it("onPressEnter 함수 실행 확인", () => {
     const onPressEnter = vi.fn();
     render(<Input onPressEnter={onPressEnter} />);

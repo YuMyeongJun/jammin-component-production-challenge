@@ -1,13 +1,42 @@
+import { IcSearch } from "@assets/icons";
 import { Input } from "@components/data-entry/input/Input";
 import { Meta, StoryObj } from "@storybook/react";
 
 import { IInputProps } from "./Input.types";
-import { IcSearch } from "@assets/icon";
 
 const meta: Meta = {
   title: "components/data-entry/Input/Input",
   component: Input,
   tags: ["autodocs"],
+  argTypes: {
+    showCount: {
+      control: { type: "boolean" },
+    },
+    isError: {
+      control: { type: "boolean" },
+    },
+    isSearch: {
+      control: { type: "boolean" },
+    },
+    isClearable: {
+      control: { type: "boolean" },
+    },
+    isShowAlwaysClear: {
+      control: { type: "boolean" },
+    },
+    suffix: {
+      control: { type: "object" },
+    },
+    placeholder: {
+      control: { type: "text" },
+    },
+    disabled: {
+      control: { type: "boolean" },
+    },
+    customPrefix: {
+      control: { type: "object" },
+    },
+  },
   parameters: {
     componentSubtitle: "입력창",
     docs: {
@@ -27,15 +56,7 @@ export const Default: Story = {
     return <Input {...args} />;
   },
   args: {
-    // showCount: true,
-    isError: false,
-    // isSearch: true,
-    // isClearable: true,
-    // isShowAlwaysClear: true,
-    // customPrefix: '$',
-    // suffix: 'USD',
     placeholder: "입력해주세요",
-    disabled: false,
     customPrefix: <IcSearch />,
   },
 };

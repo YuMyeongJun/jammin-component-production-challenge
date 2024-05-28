@@ -1,4 +1,4 @@
-import { InputHTMLAttributes, ReactNode } from "react";
+import { InputHTMLAttributes, ReactNode } from 'react';
 
 export interface IInputProps extends InputHTMLAttributes<HTMLInputElement> {
   /**
@@ -9,7 +9,7 @@ export interface IInputProps extends InputHTMLAttributes<HTMLInputElement> {
    * @default md
    * @type "sm" | "md" | "lg"
    */
-  controlSize?: "sm" | "md" | "lg";
+  controlSize?: 'sm' | 'md' | 'lg';
 
   /**
    * 숫자 카운터의 최대 길이('showCount' true일때만 확인 가능)
@@ -69,7 +69,7 @@ export interface IInputProps extends InputHTMLAttributes<HTMLInputElement> {
    * Input에서 노출되는 title과 counter의 위치(label은 값이 없을 경우 노출되지 않음)
    * @type "top" | "bottom" | "inside"
    */
-  direction?: "top" | "bottom" | "inside";
+  direction?: 'top' | 'bottom' | 'inside';
 
   /**
    * 클릭했을 때 input: focus css 사용 여부
@@ -85,6 +85,16 @@ export interface IInputProps extends InputHTMLAttributes<HTMLInputElement> {
    * Input 입력 후 ellipsis 처리 여부
    */
   useEllipsis?: boolean;
+
+  /**
+   * Input에 number만 입력가능하게 사용
+   */
+  isNumeric?: boolean;
+
+  /**
+   * Input이 Wrapper로 감싸인 경우 <input />태그에 줄수있는 className
+   */
+  inputClassNames?: string;
 
   /**
    * Input에서 Enter 입력 시 실행되는 함수
