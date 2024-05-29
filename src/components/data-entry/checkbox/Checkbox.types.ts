@@ -1,7 +1,7 @@
-import * as React from "react";
+import * as React from 'react';
 
-export interface ICheckboxProps
-  extends Omit<React.HTMLAttributes<HTMLInputElement>, "onChange"> {
+export interface CheckboxProps
+  extends Omit<React.HTMLAttributes<HTMLInputElement>, 'onChange'> {
   /**
    * `true`인 경우 구성 요소가 체크됩니다.
    * @default false
@@ -17,14 +17,14 @@ export interface ICheckboxProps
    * @default 'primary'
    */
   color?:
-    | "default"
-    | "primary"
-    | "secondary"
-    | "success"
-    | "error"
-    | "info"
-    | "warning"
-    | "dark";
+    | 'default'
+    | 'primary'
+    | 'secondary'
+    | 'success'
+    | 'error'
+    | 'info'
+    | 'warning'
+    | 'dark';
   /**
    * 기본 선택 상태입니다. 비제어 컴포넌트일때 사용합니다.
    */
@@ -75,10 +75,10 @@ export interface ICheckboxProps
    * 슬롯 커스텀 속성
    */
   slotProps?: {
-    root?: React.ComponentPropsWithRef<"label">;
-    checkbox?: React.ComponentPropsWithRef<"span">;
-    input?: React.ComponentPropsWithRef<"input">;
-    label?: React.ComponentPropsWithRef<"span">;
+    root?: React.ComponentPropsWithRef<'label'>;
+    checkbox?: React.ComponentPropsWithRef<'span'>;
+    input?: React.ComponentPropsWithRef<'input'>;
+    label?: React.ComponentPropsWithRef<'span'>;
   };
   // /**
   //  * 구성 요소의 크기입니다.
@@ -89,11 +89,16 @@ export interface ICheckboxProps
    * 구성 요소의 값입니다. DOM API는 이를 문자열로 변환합니다.
    * 브라우저는 "on"을 기본값으로 사용합니다.
    */
-  value?: React.AllHTMLAttributes<HTMLInputElement>["value"];
+  value?: React.AllHTMLAttributes<HTMLInputElement>['value'];
   /**
    * 값이 변경되면 호출할 콜백함수.
    * @param {React.ChangeEvent<HTMLInputElement>} event 콜백 이벤트
    * @param {boolean} checked 새로운값
    */
   onChange?: (e: React.ChangeEvent<HTMLInputElement>, checked: boolean) => void;
+
+  /**
+   * Checkbox가 boolean 값을 리턴해야 할 경우 사용
+   */
+  useBoolean?: boolean;
 }

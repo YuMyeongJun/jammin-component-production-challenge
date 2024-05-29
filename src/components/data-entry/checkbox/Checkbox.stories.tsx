@@ -1,34 +1,34 @@
-import * as React from "react";
-import { Flex } from "@components/layout/flex";
-import { Meta, StoryObj } from "@storybook/react";
-import classNames from "classnames";
+import * as React from 'react';
+import { Flex } from '@components/layout/flex';
+import { Meta, StoryObj } from '@storybook/react';
+import classNames from 'classnames';
 
-import { Checkbox } from "./Checkbox";
-import { ICheckboxProps } from "./Checkbox.types";
+import { Checkbox } from './Checkbox';
+import { CheckboxProps } from './Checkbox.types';
 
-const meta: Meta<ICheckboxProps> = {
-  title: "components/data-entry/Checkbox/Checkbox",
+const meta: Meta<CheckboxProps> = {
+  title: 'components/data-entry/Checkbox/Checkbox',
   component: Checkbox,
   decorators: [
     (Story) => (
-      <Flex align="center" className={classNames("gap-4 p-2")}>
+      <Flex align="center" className={classNames('gap-4 p-2')}>
         <Story />
       </Flex>
     ),
   ],
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
-    checkedIcon: { control: { type: null } },
-    uncheckedIcon: { control: { type: null } },
-    indeterminateIcon: { control: { type: null } },
-    checked: { control: { type: null } },
-    slotProps: { control: { type: null } },
-    onChange: { action: "onChange" },
+    checkedIcon: { control: { type: undefined } },
+    uncheckedIcon: { control: { type: undefined } },
+    indeterminateIcon: { control: { type: undefined } },
+    checked: { control: { type: undefined } },
+    slotProps: { control: { type: undefined } },
+    onChange: { action: 'onChange' },
   },
 };
 
 export default meta;
-type Story = StoryObj<ICheckboxProps>;
+type Story = StoryObj<CheckboxProps>;
 
 export const Default: Story = {
   render: (args) => {
@@ -40,7 +40,7 @@ export const Default: Story = {
   },
   argTypes: {
     color: {
-      control: "select",
+      control: 'select',
     },
     // size: {
     //   control: 'select',
@@ -48,11 +48,11 @@ export const Default: Story = {
   },
   args: {
     indeterminate: false,
-    label: "checkbox",
+    label: 'checkbox',
     readOnly: false,
     required: false,
     // size: 'md',
-    color: "primary",
+    color: 'primary',
   },
 };
 
@@ -112,10 +112,7 @@ export const Color: Story = {
 export const Icon: Story = {
   render: () => {
     const HeartBorderIcon = React.forwardRef(
-      (
-        props: React.SVGProps<SVGSVGElement>,
-        ref: React.ForwardedRef<SVGSVGElement>,
-      ) => {
+      (props: React.SVGProps<SVGSVGElement>, ref: React.ForwardedRef<SVGSVGElement>) => {
         return (
           <svg viewBox="0 0 48 48" ref={ref} {...props}>
             <path d="M0 0h48v48H0z" fill="none" />
@@ -126,10 +123,7 @@ export const Icon: Story = {
     );
 
     const HeartIcon = React.forwardRef(
-      (
-        props: React.SVGProps<SVGSVGElement>,
-        ref: React.ForwardedRef<SVGSVGElement>,
-      ) => {
+      (props: React.SVGProps<SVGSVGElement>, ref: React.ForwardedRef<SVGSVGElement>) => {
         return (
           <svg viewBox="0 0 48 48" ref={ref} {...props}>
             <path d="M0 0h48v48H0z" fill="none" />
@@ -140,10 +134,7 @@ export const Icon: Story = {
     );
 
     const BookmarkBorderIcon = React.forwardRef(
-      (
-        props: React.SVGProps<SVGSVGElement>,
-        ref: React.ForwardedRef<SVGSVGElement>,
-      ) => {
+      (props: React.SVGProps<SVGSVGElement>, ref: React.ForwardedRef<SVGSVGElement>) => {
         return (
           <svg viewBox="0 0 48 48" ref={ref} {...props}>
             <path d="M34 6H14c-2.21 0-3.98 1.79-3.98 4L10 42l14-6 14 6V10c0-2.21-1.79-4-4-4zm0 30l-10-4.35L14 36V10h20v26z" />
@@ -154,10 +145,7 @@ export const Icon: Story = {
     );
 
     const BookmarkIcon = React.forwardRef(
-      (
-        props: React.SVGProps<SVGSVGElement>,
-        ref: React.ForwardedRef<SVGSVGElement>,
-      ) => {
+      (props: React.SVGProps<SVGSVGElement>, ref: React.ForwardedRef<SVGSVGElement>) => {
         return (
           <svg viewBox="0 0 48 48" ref={ref} {...props}>
             <path d="M34 6H14c-2.21 0-3.98 1.79-3.98 4L10 42l14-6 14 6V10c0-2.21-1.79-4-4-4z" />
@@ -189,8 +177,8 @@ export const Controlled: Story = {
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const [value, setValue] = React.useState<boolean>(true);
 
-    const onChange: ICheckboxProps["onChange"] = (event, checked) => {
-      console.log("parent - onChange: ", event, checked);
+    const onChange: CheckboxProps['onChange'] = (event, checked) => {
+      console.log('parent - onChange: ', event, checked);
       setValue(checked);
     };
 
@@ -198,7 +186,7 @@ export const Controlled: Story = {
       <>
         <Checkbox
           name="controlled-value"
-          value={["1", "2"]}
+          value={['1', '2']}
           // value={3}
           // value="john"
           checked={value}
@@ -212,10 +200,7 @@ export const Controlled: Story = {
 export const Indeterminate: Story = {
   render: () => {
     // eslint-disable-next-line react-hooks/rules-of-hooks
-    const [checkedIndeterminate, setCheckedIndeterminate] = React.useState([
-      true,
-      false,
-    ]);
+    const [checkedIndeterminate, setCheckedIndeterminate] = React.useState([true, false]);
 
     return (
       <>
@@ -233,20 +218,14 @@ export const Indeterminate: Story = {
               label="Child 1"
               checked={checkedIndeterminate[0]}
               onChange={(e) =>
-                setCheckedIndeterminate([
-                  e.target.checked,
-                  checkedIndeterminate[1],
-                ])
+                setCheckedIndeterminate([e.target.checked, checkedIndeterminate[1]])
               }
             />
             <Checkbox
               label="Child 2"
               checked={checkedIndeterminate[1]}
               onChange={(e) =>
-                setCheckedIndeterminate([
-                  checkedIndeterminate[0],
-                  e.target.checked,
-                ])
+                setCheckedIndeterminate([checkedIndeterminate[0], e.target.checked])
               }
             />
           </Flex>

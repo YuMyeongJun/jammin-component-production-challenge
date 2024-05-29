@@ -1,15 +1,9 @@
-import { ICheckboxProps } from "./Checkbox.types";
+import { CheckboxProps } from './Checkbox.types';
 
 export interface CheckboxOption
   extends Pick<
-    ICheckboxProps,
-    | "label"
-    | "id"
-    | "disabled"
-    | "readOnly"
-    | "required"
-    | "slotProps"
-    | "onChange"
+    CheckboxProps,
+    'label' | 'id' | 'disabled' | 'readOnly' | 'required' | 'slotProps' | 'onChange'
   > {
   /**
    * 현재 선택된 값을 설정하는 데 사용됩니다.
@@ -17,18 +11,18 @@ export interface CheckboxOption
   value: string;
 }
 
-export interface ICheckboxGroupProps
+export interface CheckboxGroupProps
   extends Pick<
-    ICheckboxProps,
-    | "name"
-    | "disabled"
-    | "checkedIcon"
-    | "uncheckedIcon"
-    | "readOnly"
-    | "required"
+    CheckboxProps,
+    | 'name'
+    | 'disabled'
+    | 'checkedIcon'
+    | 'uncheckedIcon'
+    | 'readOnly'
+    | 'required'
     // | 'size'
-    | "color"
-    | "slotProps"
+    | 'color'
+    | 'slotProps'
   > {
   className?: string;
   style?: React.CSSProperties;
