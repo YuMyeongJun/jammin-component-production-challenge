@@ -1,31 +1,30 @@
-import { forwardRef, InputHTMLAttributes, useRef } from "react";
+import { forwardRef, InputHTMLAttributes, useState } from 'react';
 
-import { radioClasses } from "./RadioClasses";
-import { composeRef } from "@modules";
+import { radioClasses } from './RadioClasses';
 
-export const Radio = forwardRef<
-  HTMLInputElement,
-  InputHTMLAttributes<HTMLInputElement>
->((args, ref) => {
-  const inputRef = useRef<HTMLInputElement | null>(null);
+export const Radio = forwardRef<HTMLInputElement, InputHTMLAttributes<HTMLInputElement>>(
+  (args, ref) => {
+    const [value, setValue] = useState<any>();
+    const { children, name, ...inputArgs } = args;
 
-  const { children, name, ...inputProps } = args;
+    return (
+      <label className={radioClasses.container}>
+        <input
+          {...inputArgs}
+          className={radioClasses.root}
+          type="radio"
+          name={name}
+          ref={ref}
+          disabled={args.disabled}
+          checked={args.checked}
+          value={args.value}
+          defaultChecked={args.defaultChecked}
+          onChange={args.onChange}
+        />
+        {children}
+      </label>
+    );
+  },
+);
 
-  return (
-    <label className={radioClasses.container}>
-      <input
-        {...inputProps}
-        className={radioClasses.root}
-        type="radio"
-        name={name}
-        ref={composeRef(inputRef, ref)}
-        disabled={args.disabled}
-        checked={args.checked}
-        value={args.value}
-        defaultChecked={args.defaultChecked}
-        onChange={args.onChange}
-      />
-      {children}
-    </label>
-  );
-});
+Radio.displayName = 'bc_radio';

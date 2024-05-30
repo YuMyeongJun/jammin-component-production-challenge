@@ -1,17 +1,17 @@
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from '@storybook/react';
 
-import { RadioGroup } from "./RadioGroup";
-import { IRadioOptions } from "./RadioGroup.types";
+import { RadioGroup } from './RadioGroup';
+import { IRadioOptionsProps } from './RadioGroup.types';
 
 const meta: Meta = {
-  title: "components/data-entry/Radio/RadioGroup",
+  title: 'components/data-entry/Radio/RadioGroup',
   component: RadioGroup,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   parameters: {
-    componentSubtitle: "라디오 버튼이 여러개 있는 컴포넌트",
+    componentSubtitle: '라디오 버튼이 여러개 있는 컴포넌트',
     docs: {
       source: {
-        type: "code",
+        type: 'code',
       },
     },
   },
@@ -19,7 +19,7 @@ const meta: Meta = {
 
 export default meta;
 
-type Story = StoryObj<IRadioOptions>;
+type Story = StoryObj<IRadioOptionsProps>;
 
 export const Default: Story = {
   render: (args) => {
@@ -33,12 +33,12 @@ export const Default: Story = {
     );
   },
   args: {
-    name: "test1",
+    name: 'test1',
     options: [
-      { label: "1", value: "1", defaultChecked: true },
-      { label: "2", value: 2 },
-      { label: "3", value: "3", disabled: true },
-      { label: "4", value: "4" },
+      { label: '1', value: '1', defaultChecked: true },
+      { label: '2', value: 2 },
+      { label: '3', value: '3', disabled: true },
+      { label: '4', value: '4' },
     ],
     vertical: false,
     gap: 20,

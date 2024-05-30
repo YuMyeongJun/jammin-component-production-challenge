@@ -1,4 +1,4 @@
-import { InputHTMLAttributes } from "react";
+import { InputHTMLAttributes } from 'react';
 
 export interface IRadioOption extends InputHTMLAttributes<HTMLInputElement> {
   /**
@@ -28,7 +28,7 @@ export interface IRadioOption extends InputHTMLAttributes<HTMLInputElement> {
   defaultChecked?: boolean;
 }
 
-export interface IRadioOptions extends InputHTMLAttributes<HTMLInputElement> {
+export interface IRadioOptionsProps extends InputHTMLAttributes<HTMLInputElement> {
   /**
    * 라디오 옵션사항
    */
@@ -45,7 +45,7 @@ export interface IRadioOptions extends InputHTMLAttributes<HTMLInputElement> {
    * @type number
    * @default 0
    */
-  gap?: React.CSSProperties["gap"];
+  gap?: React.CSSProperties['gap'];
 
   /**
    * Radio 입력 에러

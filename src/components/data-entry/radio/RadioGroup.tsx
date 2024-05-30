@@ -1,23 +1,16 @@
-import { forwardRef, useRef } from "react";
-import { Flex } from "@components/layout/flex";
+import { forwardRef } from 'react';
+import { Flex } from '@components/layout/flex';
 
-import { Radio } from "./Radio";
-import { radioClasses } from "./RadioClasses";
-import { IRadioOptions } from "./RadioGroup.types";
-import { composeRef } from "@modules";
+import { Radio } from './Radio';
+import { radioClasses } from './RadioClasses';
+import { IRadioOptionsProps } from './RadioGroup.types';
 
-export const RadioGroup = forwardRef<HTMLInputElement, IRadioOptions>(
+export const RadioGroup = forwardRef<HTMLInputElement, IRadioOptionsProps>(
   (args, ref) => {
-    const divRef = useRef<HTMLDivElement | null>(null);
-    const { options, name, vertical, gap, ...inputProps } = args;
+    const { style, options, name, disabled, vertical, gap, ...inputProps } = args;
 
     return (
-      <Flex
-        ref={composeRef(divRef, ref)}
-        vertical={vertical}
-        gap={gap}
-        className={radioClasses.groupWrapper}
-      >
+      <Flex vertical={vertical} gap={gap} className={radioClasses.groupWrapper}>
         {options.map((option, i) => (
           <Radio
             name={name}
@@ -36,3 +29,5 @@ export const RadioGroup = forwardRef<HTMLInputElement, IRadioOptions>(
     );
   },
 );
+
+RadioGroup.displayName = 'bc_radio_group';

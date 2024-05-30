@@ -1,9 +1,9 @@
-import { attachPrefixClasses } from "@modules/utils/generatePrefixClasses/generatePrefixClasses";
+import { attachPrefixClasses } from '@modules/utils/generatePrefixClasses/generatePrefixClasses';
 
 const classes = {
-  root: "",
-  container: "container",
-  groupWrapper: "gruop-wrapper",
+  root: '',
+  container: 'container',
+  groupWrapper: 'gruop-wrapper',
 } as const;
 
-export const radioClasses = attachPrefixClasses(classes, "radio", true);
+export const radioClasses = attachPrefixClasses(classes, 'radio', true);

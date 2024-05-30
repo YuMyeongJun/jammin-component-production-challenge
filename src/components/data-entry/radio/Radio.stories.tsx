@@ -1,16 +1,16 @@
-import { InputHTMLAttributes } from "react";
-import { Radio } from "@components/data-entry/radio/Radio";
-import { Meta, StoryObj } from "@storybook/react";
+import { InputHTMLAttributes } from 'react';
+import { Radio } from '@components/data-entry/radio/Radio';
+import { Meta, StoryObj } from '@storybook/react';
 
 const meta: Meta = {
-  title: "components/data-entry/Radio/Radio",
+  title: 'components/data-entry/Radio/Radio',
   component: Radio,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   parameters: {
-    componentSubtitle: "라디오 버튼",
+    componentSubtitle: '라디오 버튼',
     docs: {
       source: {
-        type: "code",
+        type: 'code',
       },
     },
   },
@@ -30,6 +30,6 @@ export const Default: Story = {
     );
   },
   args: {
-    name: "test1",
+    name: 'test1',
   },
 };
