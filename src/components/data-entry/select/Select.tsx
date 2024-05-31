@@ -1,30 +1,32 @@
-import React, { ReactElement, useEffect, useRef, useState } from "react";
-import ReactDOM from "react-dom";
-import { usePopper } from "react-popper";
-import IcArrow from "@assets/icons/ic_select_arrow.svg?react";
-import { Input } from "@components";
-import { useOutsideClick } from "@hooks/useOutsideClick";
-import { AnyObject } from "@models/types/AnyObject";
-import { remUtil } from "@modules/utils/rem";
-import classNames from "classnames";
+import React, { ReactElement, useEffect, useRef, useState } from 'react';
+import ReactDOM from 'react-dom';
+import { usePopper } from 'react-popper';
+import IcToggleArrowDown from '@assets/icons/ic_select_toggle_arrow_down.svg?react';
+import IcToggleArrowUp from '@assets/icons/ic_select_toggle_arrow_up.svg?react';
+import { BodyPortal, Input } from '@components';
+import { useOutsideClick } from '@hooks/useOutsideClick';
+import { AnyObject } from '@models/types/AnyObject';
+import { remUtil } from '@modules/utils/rem';
+import classNames from 'classnames';
 
-import { ISelectProp } from "./Select.types";
-import { selectClasses } from "./SelectClasses";
+import { ISelectProp } from './Select.types';
+import { selectClasses } from './SelectClasses';
 
 function SelectFunc<T extends AnyObject>(
   props: ISelectProp<T>,
   ref: React.ForwardedRef<HTMLInputElement>,
 ) {
   const {
+    isSearchType,
+    title,
     onChange,
     fullWidth,
     value,
     bordered,
-    defaultOpen,
     defaultValue,
     disabled,
     placeholder,
-    placement = "bottom",
+    placement = 'bottom',
     open,
     offset = [0, 0],
     // status,
@@ -34,8 +36,9 @@ function SelectFunc<T extends AnyObject>(
     valuePath,
     items,
     selectWidth = 150,
-    listWidth = 150,
-    controlSize = "md",
+    listWidth,
+    listMaxHeight = 300,
+    controlSize = 'md',
     isError,
     preSuffixIcon,
     useBorder,
@@ -47,23 +50,30 @@ function SelectFunc<T extends AnyObject>(
     useEllipsis = false,
     ...inputProps
   } = props;
+
   const tempWidth =
-    typeof selectWidth !== "number"
-      ? remUtil.findNumber(selectWidth)
-      : selectWidth;
-  const width = fullWidth ? "100%" : `${tempWidth}px`;
+    typeof selectWidth !== 'number' ? remUtil.findNumber(selectWidth) : selectWidth;
+  const width = fullWidth ? '100%' : `${tempWidth}px`;
   const tempListWidth =
-    typeof listWidth !== "number" ? remUtil.findNumber(listWidth) : listWidth;
-  const tmpListWidth = tempListWidth < 150 ? "150px" : `${tempListWidth}px`;
-  const [init, setInit] = useState(false);
-  const [list, setList] =
-    useState<Array<{ label: string; value: string; disabled?: boolean }>>();
-  const [tmpList, setTmpList] =
-    useState<Array<{ label: string; value: string; disabled?: boolean }>>();
-  const [currentValue, setCurrentValue] = useState<string>("");
-  const [showOptions, setShowOptions] = useState<boolean>(defaultOpen ?? false);
-  const [hoverText, setHoverText] = useState("");
+    listWidth && typeof listWidth !== 'number'
+      ? remUtil.findNumber(listWidth)
+      : listWidth;
+
+  // const [init, setInit] = useState(false);
+  const [list, setList] = useState<
+    Array<{ label: string; value: string; disabled?: boolean }>
+  >([]);
+  const [tmpList, setTmpList] = useState<
+    Array<{ label: string; value: string; disabled?: boolean }>
+  >([]);
+  const [currentValue, setCurrentValue] = useState<string>('');
+  const [isSearch, setIsSearch] = useState<boolean>(false);
+  const [selectedValue, setSelectedValue] = useState<string>('');
+  const [showOptions, setShowOptions] = useState<boolean>(false);
+  const [hoverText, setHoverText] = useState('');
+  const [hoverIdx, setHoverIdx] = useState(0);
   const [indexNum, setIndexNum] = useState<number>(0);
+  const [ulWidth, setUlWidth] = useState<string>('0px');
   const selectRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement | null>(null);
   const popperElement = useRef<HTMLUListElement>(null);
@@ -75,13 +85,13 @@ function SelectFunc<T extends AnyObject>(
       placement: placement,
       modifiers: [
         {
-          name: "offset",
+          name: 'offset',
           options: {
             offset: offset,
           },
         },
       ],
-      strategy: "fixed",
+      strategy: 'fixed',
     },
   );
 
@@ -89,97 +99,127 @@ function SelectFunc<T extends AnyObject>(
     void update?.();
   };
 
-  const onChangeCurrentValue = (e: React.MouseEvent<HTMLElement>) => {
+  const onChangeCurrentValue = (e: React.MouseEvent<HTMLElement>, idx: number) => {
     e.stopPropagation();
     e.preventDefault();
+
     const text = e.target as HTMLElement;
-    findUserValue(text.innerText);
     setCurrentValue(text.innerText);
+    setSelectedValue(list[idx].value);
     setList(tmpList);
     setShowOptions((pre) => !pre);
+    findUserValue(text.innerText.trim());
     inputRef.current?.focus();
+    popperUpdate();
   };
 
   const findUserValue = (val: string) => {
-    const findValue = list?.filter((x) => x.label === val)[0].value;
-    onChange?.(findValue ?? null);
+    const findText = title && val.includes('전체') ? '전체' : val;
+    const findValue = list?.filter((x) => x.label.trim() === findText) ?? [];
+
+    if (findValue.length > 1) {
+      onChange?.(list[hoverIdx]?.value ?? null);
+    } else if (findValue.length === 1) {
+      onChange?.(findValue[0].value ?? null);
+    } else {
+      onChange?.(null);
+    }
   };
 
   const inputOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCurrentValue(e.target.value);
     setShowOptions(true);
+    setIsSearch(true);
+  };
+
+  const findRes = () => {
+    return tmpList?.find(
+      (x) =>
+        x.label.toLowerCase().includes(currentValue) &&
+        x.value === hoverText &&
+        !x.disabled,
+    );
+  };
+
+  const findResByHoverText = () => {
+    return tmpList?.find((x) => x.value === hoverText && !x.disabled);
   };
 
   const handleKeyArrow = (e: React.KeyboardEvent) => {
-    let flag = false;
+    const tmpStartIdx = list.findIndex((x) => !x.disabled);
     switch (e.code) {
-      case "ArrowDown":
+      case 'ArrowDown': {
         e.preventDefault();
         if (!showOptions) {
           setShowOptions((pre) => !pre);
-          // popperUpdate();
           setList(tmpList);
           break;
         }
-        setIndexNum((idx) => idx + 1);
+        let newIndex = indexNum + 1;
 
         if (
           popperElement.current &&
-          popperElement.current.childElementCount <= indexNum + 1
+          popperElement.current.childElementCount <= newIndex
         ) {
-          setIndexNum(0);
-          flag = true;
+          newIndex = tmpStartIdx;
         }
-        list?.map((x, idx) => {
-          if (idx === indexNum + 1) {
-            setHoverText(x.label);
+
+        list.forEach((x, index) => {
+          if (index === newIndex && x.disabled) {
+            newIndex += 1;
           }
+          if (newIndex >= list.length) newIndex = tmpStartIdx;
         });
-        if (flag) {
-          setHoverText(list ? list[0].label : "");
-          flag = false;
-        }
+
+        setHoverText(list ? list[newIndex].value : '');
+        setIndexNum(newIndex);
+        setHoverIdx(newIndex);
         break;
-      case "ArrowUp":
+      }
+      case 'ArrowUp': {
         e.preventDefault();
         if (!showOptions) {
           setShowOptions((pre) => !pre);
-          // popperUpdate();
           setList(tmpList);
           break;
         }
-        setIndexNum((idx) => idx - 1);
-        if (indexNum <= 0) {
-          const tmpNum = list ? list.length - 1 : 0;
-          setIndexNum(tmpNum);
-          flag = true;
-        }
 
-        list?.map((x, idx) => {
-          if (idx === indexNum - 1) {
-            setHoverText(x.label);
+        let newIndex = indexNum - 1;
+
+        list.forEach((x, idx) => {
+          if (newIndex >= 0 && newIndex === idx && x.disabled) {
+            newIndex -= 1;
           }
         });
-        if (flag) {
-          setHoverText(list ? list[list.length - 1].label : "");
-          flag = false;
+
+        if (newIndex < 0) {
+          newIndex = list ? list.length - 1 : tmpStartIdx;
+          list.forEach((x, idx) => {
+            if (newIndex >= 0 && newIndex === idx && x.disabled) {
+              newIndex -= 1;
+            }
+          });
         }
+        setIndexNum(newIndex);
+        setHoverIdx(newIndex);
+
+        setHoverText(list ? list[newIndex].value : '');
         break;
-      case "Escape":
+      }
+      case 'Escape':
         e.preventDefault();
-        setHoverText("");
+        setHoverText('');
         setIndexNum(0);
 
-        if (currentValue === "" || !showOptions) {
+        if (currentValue === '' || !showOptions) {
           setShowOptions(false);
         } else {
           setShowOptions(true);
         }
 
         break;
-      case "Enter":
+      case 'Enter':
         e.preventDefault();
-        // popperUpdate();
 
         if (!disabled) setShowOptions((pre) => !pre);
 
@@ -187,14 +227,34 @@ function SelectFunc<T extends AnyObject>(
           setList(tmpList);
           findUserValue(currentValue);
         } else {
-          setCurrentValue(hoverText);
-          findUserValue(hoverText);
+          if (list?.length === 1 && list[0].disabled) {
+            setShowOptions(false);
+            setCurrentValue('');
+          } else {
+            let res = findRes();
+            if (isSearch) {
+              if (!res) {
+                res = findResByHoverText();
+              }
+            } else {
+              res = findResByHoverText();
+            }
+            if (res) {
+              setSelectedValue(res.value);
+              setHoverIdx(tmpList.findIndex((x) => x.value === res!.value));
+              setCurrentValue(res.label);
+              findUserValue(res.label);
+            } else {
+              setShowOptions(false);
+              setCurrentValue('');
+            }
+          }
         }
         break;
-      case "Backspace":
+      case 'Backspace':
         setShowOptions(true);
         break;
-      case "Tab":
+      case 'Tab':
         setShowOptions(false);
         break;
     }
@@ -204,109 +264,197 @@ function SelectFunc<T extends AnyObject>(
   const iconClick = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
+
     if (!disabled) {
-      if (!showOptions) {
-        popperUpdate();
-        setShowOptions(true);
-        setList(tmpList);
-      } else {
-        setShowOptions(false);
-      }
+      // if (!showOptions) {
+      setShowOptions(!showOptions);
+      setList(tmpList);
+      // } else {
+      //   setShowOptions(false);
+      //   popperUpdate();
+      // }
     }
+    popperUpdate();
+  };
+
+  const resetList = () => {
+    setList([]);
   };
 
   useOutsideClick(
     selectRef,
     () => {
-      popperUpdate();
       inputRef.current?.blur();
       setShowOptions(false);
+      popperUpdate();
     },
-    "mousedown",
+    'mousedown',
   );
+
+  // useEffect(() => {
+  //   // if (showOptions) {
+  //   popperUpdate();
+  //   // }
+  // }, [showOptions]);
 
   useEffect(() => {
     if (inputRef) {
-      const text = inputRef.current?.value.toLowerCase() ?? "";
-      const searchList = tmpList?.filter((item) =>
-        item.label.toLowerCase().includes(text),
-      );
+      const text = inputRef.current?.value.toLowerCase() ?? '';
+      const searchList =
+        tmpList?.filter((item) => item.label.toLowerCase().includes(text)) ?? [];
       setList(searchList);
-      if (
-        currentValue !== "" &&
-        currentValue.toLowerCase() === text &&
-        searchList!.length > 0
-      ) {
-        setHoverText(currentValue);
-      } else {
+
+      if (currentValue !== '' && searchList?.length > 0) {
+        const tmpStartIdx =
+          selectedValue === ''
+            ? searchList?.findIndex((x) => !x.disabled)
+            : searchList?.findIndex((x) => x.value === selectedValue && !x.disabled);
+        setHoverIdx(tmpStartIdx === -1 ? 0 : tmpStartIdx);
         setHoverText(
-          searchList && searchList?.length > 0
-            ? searchList[0].label
-            : tmpList && tmpList?.length > 0
-              ? tmpList[0].label
-              : "",
+          tmpStartIdx === -1 ? searchList[0].value : searchList[tmpStartIdx].value,
         );
+      } else {
+        setHoverIdx(0);
+        setHoverText('');
       }
     }
   }, [currentValue]);
 
   useEffect(() => {
-    if (options) {
+    if (options && options.length > 0) {
       setList(options ?? []);
       setTmpList(options ?? []);
 
       if (defaultValue) {
         const findValue = options?.filter((x) => x.value === defaultValue)[0];
-        setCurrentValue(findValue ? findValue.label : defaultValue);
+        setCurrentValue(
+          findValue
+            ? title && findValue.label === '전체'
+              ? `${title} ${findValue.label}`
+              : findValue.label
+            : '',
+        );
+        setSelectedValue(findValue ? defaultValue : '');
       }
       if (value) {
         const findValue = options?.filter((x) => x.value === value)[0];
-        setCurrentValue(findValue ? findValue.label : value);
+        setSelectedValue(findValue ? value : '');
+        setCurrentValue(
+          findValue
+            ? title && findValue.label === '전체'
+              ? `${title} ${findValue.label}`
+              : findValue.label
+            : '',
+        );
       }
-      setHoverText(options.length > 0 ? options[0].label : "");
-    } else {
-      const key = displayLabel ?? "label";
-      const valueKey = valuePath ?? "value";
+      const tmpStartIdx = options.findIndex((x) => !x.disabled) ?? 0;
+      setHoverIdx(tmpStartIdx);
+      setHoverText(options.length > 0 ? options[tmpStartIdx].value : '');
+    } else if (items && items.length > 0) {
+      const key = displayLabel ?? 'label';
+      const valueKey = valuePath ?? 'value';
       const temp = items?.map((x) => ({
         label: x[key],
         value: x[valueKey],
-        disabled: x["disabled"],
+        disabled: x['disabled'],
       })) as Array<{ label: string; value: string; disabled?: boolean }>;
       setList(temp ?? []);
       setTmpList(temp ?? []);
       if (defaultValue) {
         const findValue = temp?.filter((x) => x.value === defaultValue)[0];
-        setCurrentValue(findValue ? findValue.label : defaultValue);
+        setCurrentValue(
+          findValue
+            ? title && findValue.label === '전체'
+              ? `${title} ${findValue.label}`
+              : findValue.label
+            : '',
+        );
       }
       if (value) {
         const findValue = temp?.filter((x) => x.value === value)[0];
-        setCurrentValue(findValue ? findValue.label : value);
+        setCurrentValue(
+          findValue
+            ? title && findValue.label === '전체'
+              ? `${title} ${findValue.label}`
+              : findValue.label
+            : '',
+        );
       }
-      setHoverText(temp?.length ? temp[0].label : "");
+      const tmpStartIdx = temp?.findIndex((x) => !x.disabled) ?? 0;
+      setHoverIdx(tmpStartIdx);
+      setHoverText(temp?.length ? temp[tmpStartIdx].value : '');
+    } else {
+      resetList();
     }
   }, [options, items]);
 
   useEffect(() => {
-    if (init) {
-      const findValue = tmpList?.filter((x) => x.value === value)[0];
-      setCurrentValue(findValue?.label ?? value ?? "");
-      setHoverText(findValue?.label ?? tmpList![0].label);
+    if (tmpList.length > 0) {
+      const findValue = tmpList.find((x) => x.value === value);
+
+      if (findValue) {
+        setCurrentValue(
+          title && findValue.label === '전체'
+            ? `${title} ${findValue.label}`
+            : findValue.label,
+        );
+        setHoverText(findValue.value);
+        setSelectedValue(findValue.value);
+      } else {
+        setCurrentValue('');
+        setHoverText(tmpList[0].value);
+        setSelectedValue('');
+      }
+    } else {
+      setCurrentValue('');
+      setHoverText('');
+      setSelectedValue('');
     }
-  }, [value]);
+
+    popperUpdate();
+  }, [value, tmpList]);
+
+  // useEffect(() => {
+  //   if (value && tmpList && tmpList.length > 0) {
+  //     const findValue = tmpList.find((x) => x.value === value);
+  //     if (findValue) {
+  //       setCurrentValue(
+  //         title && findValue.label === '전체'
+  //           ? `${title} ${findValue.label}`
+  //           : findValue.label,
+  //       );
+  //       setHoverText(findValue.value);
+  //       setSelectedValue(findValue.value);
+  //     } else {
+  //       setCurrentValue('');
+  //       setHoverText(tmpList[0].value);
+  //       setSelectedValue('');
+  //     }
+  //   }
+
+  //   popperUpdate();
+  // }, [value, tmpList]);
 
   useEffect(() => {
-    setInit(true);
+    if (referenceElement.current) {
+      const currentWidth = `${referenceElement.current.offsetWidth}px`;
+      setUlWidth(currentWidth);
+    }
   }, []);
 
+  // useEffect(() => {
+  //   setInit(true);
+  // }, []);
+
   const rootClassName = classNames(selectClasses.root, {
-    [selectClasses.placeholder]: placeholder && currentValue === "",
-    "w-full": fullWidth,
+    [selectClasses.placeholder]: placeholder && currentValue === '',
+    'w-full': fullWidth,
   });
 
   const sizeClassName = classNames({
-    [selectClasses.normal.sm]: controlSize === "sm",
-    [selectClasses.normal.md]: controlSize === "md",
-    [selectClasses.normal.lg]: controlSize === "lg",
+    [selectClasses.normal.sm]: controlSize === 'sm',
+    [selectClasses.normal.md]: controlSize === 'md',
+    [selectClasses.normal.lg]: controlSize === 'lg',
   });
 
   const borderClassName = classNames(
@@ -323,13 +471,13 @@ function SelectFunc<T extends AnyObject>(
   );
 
   const listClassNames = classNames({
-    [selectClasses.list.font.sm]: controlSize === "sm",
-    [selectClasses.list.font.md]: controlSize === "md",
-    [selectClasses.list.font.lg]: controlSize === "lg",
+    [selectClasses.list.font.sm]: controlSize === 'sm',
+    [selectClasses.list.font.md]: controlSize === 'md',
+    [selectClasses.list.font.lg]: controlSize === 'lg',
   });
 
   return (
-    <div className={classNames(rootClassName, sizeClassName)} ref={selectRef}>
+    <div className={classNames(rootClassName, sizeClassName, 'relative')} ref={selectRef}>
       <div
         ref={referenceElement}
         style={{
@@ -345,7 +493,7 @@ function SelectFunc<T extends AnyObject>(
           customPrefix={preSuffixIcon}
           ref={(current) => {
             if (ref) {
-              if (typeof ref === "function") {
+              if (typeof ref === 'function') {
                 ref(current);
               } else {
                 ref.current = current;
@@ -356,7 +504,9 @@ function SelectFunc<T extends AnyObject>(
           controlSize={controlSize}
           autoComplete="off"
           onClick={iconClick}
-          placeholder={placeholder}
+          placeholder={
+            placeholder === '선택' && title ? `${title} ${placeholder}` : placeholder
+          }
           type="text"
           onChange={inputOnChange}
           onKeyDown={handleKeyArrow}
@@ -364,91 +514,111 @@ function SelectFunc<T extends AnyObject>(
           readOnly={!filterOption || disabled}
           className={classNames(
             { [selectClasses.disabled]: disabled },
-            { "w-full": fullWidth },
+            { 'pr-[4px]': isSearchType },
+            'w-full',
             showOptions && !filterOption && open === undefined
-              ? "text-slate-400"
-              : "text-black",
+              ? 'text-slate-400'
+              : 'text-black',
             listClassNames,
             sizeClassName,
           )}
+          inputClassNames={classNames({
+            'h-[inherit] rounded-[var(--bc-rounded)]': isSearchType,
+          })}
           value={currentValue}
           isError={isError}
           useBorder={useBorder}
           useFocus={useFocus}
-          onBlur={() => setShowOptions(false)}
+          onBlur={(e) => {
+            setShowOptions(false);
+
+            if (e.target.value !== '') {
+              const selectedItem = tmpList?.find((x) => x.value === selectedValue);
+              const res =
+                selectedItem?.label === '전체' && title
+                  ? `${title} ${selectedItem?.label}`
+                  : selectedItem?.label;
+              setCurrentValue(res ?? '');
+            }
+          }}
           suffix={
             suffixIcon ? (
               <div
                 className={classNames(
-                  disabled
-                    ? selectClasses.icon.disabled
-                    : selectClasses.icon.root,
+                  disabled ? selectClasses.icon.disabled : selectClasses.icon.root,
                 )}
               >
                 {suffixIcon}
               </div>
             ) : (
               <div
-                className={classNames(
-                  disabled
-                    ? selectClasses.icon.disabled
-                    : selectClasses.icon.root,
-                )}
+                className={classNames(disabled ? selectClasses.icon.disabled : 'auto')}
               >
-                <IcArrow />
+                {showOptions ? (
+                  <IcToggleArrowDown fill={'black'} />
+                ) : (
+                  <IcToggleArrowUp fill={!disabled ? 'black' : '#d9d9d9'} />
+                )}
               </div>
             )
           }
         />
       </div>
 
-      {ReactDOM.createPortal(
+      <BodyPortal>
         <ul
+          ref={popperElement}
           {...attributes.popper}
           style={{
             ...styles.popper,
             ...style,
-            width: tmpListWidth,
-            visibility:
-              open === undefined
-                ? showOptions && init
-                  ? "visible"
-                  : "hidden"
-                : open && init
-                  ? "visible"
-                  : "hidden",
+            width: listWidth ? tempListWidth : ulWidth,
+            visibility: showOptions ? 'visible' : 'hidden',
+            // visibility:
+            //   open === undefined
+            //     ? showOptions && init
+            //       ? 'visible'
+            //       : 'hidden'
+            //     : open && init
+            //       ? 'visible'
+            //       : 'hidden',
+            maxHeight: `${listMaxHeight}px`,
+            overflowY: 'scroll',
           }}
-          ref={popperElement}
           className={classNames(selectClasses.list.root, listClassName)}
         >
-          {list?.length ? (
+          {list && list.length > 0 ? (
             list.map((x, idx) => {
               return !x.disabled ? (
                 <li
                   role="option"
-                  key={x.label}
-                  onMouseDown={onChangeCurrentValue}
+                  key={x.value}
+                  onMouseDown={(e) => onChangeCurrentValue(e, idx)}
                   onMouseEnter={(e) => {
-                    setHoverText(e.currentTarget.innerText);
+                    setHoverText(list[idx].value);
                     setIndexNum(idx);
+                    setHoverIdx(tmpList.findIndex((x) => x.value === list[idx].value));
                   }}
-                  title={x.label}
+                  title={x.label.trim()}
                   onMouseLeave={() => {
-                    !showOptions && setHoverText("");
+                    !showOptions && setHoverText('');
                     setIndexNum(idx);
                   }}
                   className={classNames(
-                    { [selectClasses.list.item]: x.label === currentValue },
-                    { [selectClasses.list.hover]: x.label === hoverText },
+                    {
+                      [selectClasses.list.item]: x.value === selectedValue,
+                    },
+                    { [selectClasses.list.hover]: x.value === hoverText },
                     selectClasses.list.overflow,
                     listClassNames,
                   )}
                 >
-                  {x.label}
+                  {x.label.trim() === '전체' && title && `${title} `}
+                  {x.label.trim()}
                 </li>
               ) : (
                 <li
-                  key={x.label}
+                  key={x.value}
                   role="option"
                   onMouseDown={(e) => {
                     e.stopPropagation();
@@ -456,6 +626,7 @@ function SelectFunc<T extends AnyObject>(
                   }}
                   className={classNames(disabledLiClassName, listClassNames)}
                 >
+                  {x.label.trim() === '전체' && `${title} `}
                   {x.label}
                 </li>
               );
@@ -467,15 +638,14 @@ function SelectFunc<T extends AnyObject>(
                 e.stopPropagation();
                 e.preventDefault();
               }}
-              className={classNames(listClassNames)}
-              style={{ cursor: "not-allowed" }}
+              className={classNames(listClassNames, 'p-2')}
+              style={{ cursor: 'not-allowed' }}
             >
               No data
             </li>
           )}
-        </ul>,
-        document.querySelector("body")!,
-      )}
+        </ul>
+      </BodyPortal>
     </div>
   );
 }

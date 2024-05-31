@@ -1,73 +1,58 @@
-import React, { ReactElement, useEffect, useRef, useState } from "react";
-import ReactDOM from "react-dom";
-import { usePopper } from "react-popper";
-import IcArrow from "@assets/icons/ic_select_arrow.svg?react";
-import { Input } from "@components/data-entry/input";
-import { useOutsideClick } from "@hooks/useOutsideClick";
-import { AnyObject } from "@models/types/AnyObject";
-import { remUtil } from "@modules/utils/rem";
-import classNames from "classnames";
+import React, { ReactElement, useEffect, useRef, useState } from 'react';
+import ReactDOM from 'react-dom';
+import { usePopper } from 'react-popper';
+import { IcSearch } from '@assets/icons';
+import IcToggleArrowDown from '@assets/icons/ic_select_toggle_arrow_down.svg?react';
+import IcToggleArrowUp from '@assets/icons/ic_select_toggle_arrow_up.svg?react';
+import { BodyPortal, Flex, Input, Tag } from '@components';
+import { useOutsideClick } from '@hooks/useOutsideClick';
+import { AnyObject } from '@models';
+import classNames from 'classnames';
 
-import { Checkbox } from "../checkbox/Checkbox";
+import { Checkbox } from '../checkbox/Checkbox';
 
-import { IMultipleSelectProp } from "./Select.types";
-import { selectClasses } from "./SelectClasses";
+import { multiSelectClasses } from './MultiSelectClasses';
+import { INewMultipleSelectProp } from './Select.types';
 
 function MultiSelectFunc<T extends AnyObject>(
-  props: IMultipleSelectProp<T>,
+  props: INewMultipleSelectProp<T>,
   ref: React.ForwardedRef<HTMLInputElement>,
 ) {
   const {
-    onChange,
-    fullWidth,
-    value,
-    bordered,
-    defaultOpen,
-    defaultValue,
-    disabled,
+    title,
     placeholder,
-    placement = "bottom",
-    open,
-    offset = [0, 0],
-    status,
-    suffixIcon,
+    isCheckbox = true,
+    value,
     options,
     displayLabel,
     valuePath,
     items,
-    selectWidth = 150,
-    listWidth = 150,
-    controlSize = "md",
-    isError,
-    limitNumber,
-    isCheckbox,
+    vertical = false,
     preSuffixIcon,
-    className,
+    fullWidth,
+    suffixIcon,
+    tagStyle,
+    tagBgColor,
+    selectWidth = 284,
+    listWidth,
+    listMaxHeight = 164,
+    isError,
+    disabled,
+    offset = [0, 0],
+    placement = 'bottom',
+    controlSize = 'md',
+    gap = 0,
     style,
-    ...inputProps
+    tagClassName,
+    useAllOption,
+    useTag = true,
+    filterOption = false,
+    tagExtra,
+    selectExtra,
+    allOptionsLabel,
+    onChange,
   } = props;
-  const tempWidth =
-    typeof selectWidth !== "number"
-      ? remUtil.findNumber(selectWidth)
-      : selectWidth;
-  const width = `${tempWidth}px`;
-  const tempListWidth =
-    typeof listWidth !== "number" ? remUtil.findNumber(listWidth) : listWidth;
-  const tmpListWidth = tempListWidth < 150 ? "150px" : `${tempListWidth}px`;
 
-  const [init, setInit] = useState(false);
-  const [list, setList] =
-    useState<Array<{ label: string; value: string; disabled?: boolean }>>();
-  const [tmpList, setTmpList] =
-    useState<Array<{ label: string; value: string; disabled?: boolean }>>();
-  const [currentValue, setCurrentValue] = useState<string[]>([]);
-  const [showOptions, setShowOptions] = useState<boolean>(defaultOpen ?? false);
-  const [hoverText, setHoverText] = useState<string>(""); //색칠...
-  const [searchKeyword, setSearchKeyword] = useState<string>("");
-  const [indexNum, setIndexNum] = useState<number>(0);
-  const [inputFocus, setInputFocus] = useState(false);
-  const selectRef = useRef<HTMLDivElement>(null);
-  const inputRef = useRef<HTMLInputElement | null>(null);
   const popperUl = useRef<HTMLUListElement>(null);
   const referenceDiv = useRef<HTMLDivElement>(null);
   const { styles, attributes, update } = usePopper(
@@ -78,558 +63,548 @@ function MultiSelectFunc<T extends AnyObject>(
 
       modifiers: [
         {
-          name: "offset",
+          name: 'offset',
           options: {
             offset: offset,
           },
         },
       ],
 
-      strategy: "fixed",
+      strategy: 'fixed',
     },
+  );
+  const [selectedNum, setSelectedNum] = useState(0);
+  const [disabledNum, setDisabledNum] = useState(0);
+  const [hoverText, setHoverText] = useState('');
+  const [list, setList] =
+    useState<
+      Array<{ label: string; value: string; disabled?: boolean; checked?: boolean }>
+    >();
+  const [tmpList, setTmpList] =
+    useState<
+      Array<{ label: string; value: string; disabled?: boolean; checked?: boolean }>
+    >();
+  const [selectedValue, setSelectedValue] = useState<
+    Array<{
+      label: string;
+      value: string;
+      disabled?: boolean;
+      checked?: boolean;
+    }>
+  >([]);
+  const [defaultSelected, setDefaultSelected] = useState<
+    Array<{
+      label: string;
+      value: string;
+      disabled?: boolean;
+      checked?: boolean;
+    }>
+  >([]);
+  const [showOptions, setShowOptions] = useState<boolean>(false);
+  const selectRef = useRef<HTMLDivElement>(null);
+  // const [isInitialValueSet, setIsInitialValueSet] = useState(false);
+  const [ulWidth, setUlWidth] = useState<string>('0px');
+  const [searchValue, setSearchValue] = useState<string>('');
+  const inputRef = useRef<HTMLInputElement | null>(null);
+  const prevListRef = useRef(list);
+
+  useEffect(() => {
+    if (selectRef.current) {
+      const currentWidth = `${selectRef.current.offsetWidth}px`;
+      setUlWidth(currentWidth);
+    }
+  }, []);
+
+  useEffect(() => {
+    const lowerCaseSearchValue = searchValue.toLowerCase();
+    const newList = tmpList?.filter((val) =>
+      lowerCaseSearchValue === ''
+        ? true
+        : val.label.toLowerCase().includes(lowerCaseSearchValue),
+    );
+    setList(newList);
+  }, [searchValue]);
+
+  useEffect(() => {
+    const temp =
+      options ??
+      items?.map((x) => ({
+        label: x[displayLabel ?? 'label'],
+        value: x[valuePath ?? 'value'],
+        disabled: x['disabled'],
+        checked: x['checked'],
+      })) ??
+      [];
+
+    const defaultSelected = temp.filter((x) => x.disabled && x.checked);
+    setDefaultSelected(defaultSelected);
+
+    setList(temp);
+    setTmpList(temp);
+    prevListRef.current = temp;
+  }, []);
+
+  useEffect(() => {
+    if (prevListRef.current && prevListRef.current.length > 0) {
+      const allOption = { label: allOptionsLabel ?? '전체', value: '' };
+      if (useAllOption) {
+        if (
+          !prevListRef.current?.find(
+            (item) => item.label === allOption.label && !item.disabled,
+          )
+        ) {
+          setList([allOption, ...prevListRef.current]);
+          setTmpList([allOption, ...prevListRef.current]);
+          setSelectedNum(prevListRef.current.length + 1);
+        }
+      } else {
+        prevListRef.current = prevListRef.current.filter(
+          (item) => item.label !== allOption.label,
+        );
+        setList(prevListRef.current);
+        setTmpList(prevListRef.current);
+        setSelectedNum(prevListRef.current.length);
+      }
+    }
+  }, [useAllOption, prevListRef]);
+
+  useEffect(() => {
+    setSelectedNum(selectedValue.length);
+  }, [selectedValue]);
+
+  useEffect(() => {
+    initValue();
+  }, [value, tmpList]);
+
+  useOutsideClick(
+    filterOption ? [selectRef, inputRef, popperUl] : [selectRef, popperUl],
+    () => {
+      setShowOptions(false);
+    },
+    'mousedown',
+    // true,
   );
 
   const popperUpdate = () => {
     void update?.();
   };
 
-  const onChangeCurrentValue = (e: React.MouseEvent<HTMLElement>) => {
-    e.stopPropagation();
-    e.preventDefault();
-    const text = (e.target as HTMLElement).innerText;
-    onChangeValue(text);
-    setShowOptions(true);
-    inputRef.current?.focus();
-  };
-
-  const findUserValue = (value: string[]) => {
-    const result: string[] = [];
-    list
-      ?.filter((x) => {
-        return value.includes(x.label);
-      })
-      .map((x) => result.push(x.value));
-    onChange?.(result ?? null);
-  };
-
-  const onChangeValue = (text: string) => {
-    if (text === "") {
-      return;
+  const findValidItem = (val: string) => {
+    const item = list?.find((k) => k.value === val);
+    if (item && item.disabled && !item.checked) {
+      item.checked = true;
     }
-    if (Array.isArray(currentValue) && currentValue.length >= 0) {
-      if (currentValue.includes(text)) {
-        const value: string[] = currentValue.filter(
-          (value: string) => value.toLowerCase() !== text.toLowerCase(),
-        );
-        findUserValue(value);
-        setCurrentValue(value);
-      } else {
-        if (
-          (limitNumber && limitNumber > currentValue.length) ||
-          !limitNumber
-        ) {
-          const value: string[] = [...currentValue, text];
-          setCurrentValue(value);
-          findUserValue(value);
-        }
-      }
-    }
-    popperUpdate();
+    return item;
   };
 
-  const handleKeyArrow = (e: React.KeyboardEvent) => {
-    let flag = false;
+  const initValue = (): void => {
+    let result: Array<{
+      label: string;
+      value: string;
+      disabled?: boolean;
+      checked?: boolean;
+    }> = [];
 
-    switch (e.code) {
-      case "ArrowDown":
-        e.preventDefault();
-        popperUpdate();
-        if (!showOptions) {
-          setShowOptions((pre) => !pre);
-          break;
-        }
-
-        setIndexNum((idx) => idx + 1);
-
-        if (
-          popperUl.current &&
-          popperUl.current.childElementCount <= indexNum + 1
-        ) {
-          setIndexNum(0);
-          flag = true;
-        }
-        list?.map((x, idx) => {
-          if (idx === indexNum + 1) {
-            setHoverText(x.label);
-          }
-        });
-        if (flag) {
-          setHoverText(list ? list[0].label : "");
-          flag = false;
-        }
-        break;
-      case "ArrowUp":
-        e.preventDefault();
-        popperUpdate();
-        if (!showOptions) {
-          setShowOptions((pre) => !pre);
-          break;
-        }
-        setIndexNum((idx) => idx - 1);
-        if (indexNum <= 0) {
-          const tmpNum = list ? list.length - 1 : 0;
-          setIndexNum(tmpNum);
-          flag = true;
-        }
-
-        list?.map((x, idx) => {
-          if (idx === indexNum - 1) {
-            setHoverText(x.label);
-          }
-        });
-        if (flag) {
-          setHoverText(list ? list[list.length - 1].label : "");
-          flag = false;
-        }
-        break;
-      case "Escape":
-        e.preventDefault();
-        setHoverText("");
-        setIndexNum(0);
-        setSearchKeyword("");
-        setShowOptions(false);
-        break;
-      case "Enter":
-        e.preventDefault();
-        if (!showOptions) {
-          setShowOptions(true);
-        } else {
-          if (list && list.length > 0) {
-            onChangeValue(hoverText);
-            setSearchKeyword("");
-            setList(tmpList);
-          }
-        }
-        popperUpdate();
-        break;
-      case "Backspace":
-        if (!searchKeyword) {
-          e.preventDefault();
-          if (Array.isArray(currentValue) && currentValue.length > 0) {
-            const text: string = currentValue[currentValue.length - 1];
-            onChangeValue(text);
-          }
-        }
-        break;
-      case "Tab":
-        setInputFocus(false);
-        setShowOptions(false);
-        break;
-    }
-  };
-  const iconClick = (e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    if (!disabled) {
-      if (!showOptions) {
-        setShowOptions(true);
-        popperUpdate();
-      } else {
-        setSearchKeyword("");
-        setList(tmpList);
-        setShowOptions(false);
-      }
-      setInputFocus(true);
-      inputRef.current?.focus();
+    if (Array.isArray(value)) {
+      result = value.map(findValidItem).filter(Boolean) as {
+        label: string;
+        value: string;
+        disabled: boolean;
+        checked: boolean;
+      }[];
     } else {
-      inputRef.current?.blur();
+      const tmp = findValidItem(value ?? '');
+      result = tmp ? [tmp] : [];
     }
+
+    const tmpNum = defaultSelected.every((x) => {
+      return result.some((y) => x.value === y.value);
+    });
+
+    let resNum = result.length;
+    if (!tmpNum && defaultSelected.length > 0) {
+      result = [...result, ...defaultSelected];
+      resNum++;
+    }
+
+    const disabledNum = tmpList?.filter((x) => x.disabled && !x.checked).length ?? 0;
+
+    setDisabledNum(disabledNum);
+
+    const isAllSelected =
+      useAllOption &&
+      Array.isArray(value) &&
+      (tmpList?.length ?? 0) - 1 === resNum + disabledNum;
+
+    if (isAllSelected) {
+      result = [
+        {
+          label: allOptionsLabel ?? '전체',
+          value: '',
+        },
+        ...result,
+      ];
+    }
+
+    setSelectedValue([...result]);
+    setSelectedNum(result.length);
   };
 
   const inputOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setShowOptions(true);
-    popperUpdate();
-    if (e.target.value.trim() === "") {
-      setList(tmpList);
-      setSearchKeyword("");
+    setSearchValue(e.target.value);
+  };
+
+  const onChangeValue = (text: {
+    label: string;
+    value: string;
+    disabled?: boolean;
+    checked?: boolean;
+  }) => {
+    if (text.label === '') {
       return;
     }
-    setSearchKeyword(e.target.value.trim());
-    const searchList = tmpList
-      ? tmpList.filter((element) =>
-          element.label
-            .toLowerCase()
-            .includes(e.target.value.toLowerCase().trim()),
-        )
-      : [];
-    setList(searchList);
 
-    setHoverText(searchList?.length ? searchList[0].label : "");
-    // const findNum = searchList.findIndex((x) => !x.disabled);
-    // setHoverText(findNum !== -1 ? searchList[findNum].label : '');
-  };
+    let res: Array<{
+      label: string;
+      value: string;
+      disabled?: boolean;
+      checked?: boolean;
+    }> = [];
 
-  const selectedClass = (x: string, y?: boolean) => {
-    console.log(y);
-    const value =
-      Array.isArray(currentValue) &&
-      currentValue.length > 0 &&
-      currentValue.includes(x)
-        ? selectClasses.list.item
-        : "";
-    return value;
-  };
-
-  const closeIconClick = (e: React.MouseEvent<HTMLElement>, text: string) => {
-    e.stopPropagation();
-    if (Array.isArray(currentValue) && currentValue.length > 0) {
-      onChangeValue(text);
-    }
-    inputRef.current?.focus();
-  };
-
-  useOutsideClick(
-    selectRef,
-    () => {
-      popperUpdate();
-      setInputFocus(false);
-      setShowOptions(false);
-      setSearchKeyword("");
-      setList(tmpList);
-    },
-    "mousedown",
-  );
-
-  useEffect(() => {
-    if (options) {
-      setList(options ?? []);
-      setTmpList(options ?? []);
-      const index = options.findIndex((x) => !x.disabled);
-      if (hoverText === "") {
-        if (index > -1) {
-          setHoverText(options[index].label);
-          setIndexNum(index);
-        } else {
-          setHoverText("");
-        }
-      }
-      if (defaultValue) {
-        if (Array.isArray(defaultValue)) {
-          const label = defaultValue.map((x) => {
-            const tmp = options?.filter((k) => k.value === x);
-            if (tmp.length > 0) return tmp[0].label;
-            else return x;
-          });
-
-          setCurrentValue(label);
-        } else {
-          const tmp = options?.find((x) => x.value === defaultValue);
-          const label = tmp ? tmp.label : defaultValue;
-
-          setCurrentValue([label]);
-        }
-      }
+    if (text.label === (allOptionsLabel ?? '전체') && text.value === '') {
+      res =
+        tmpList?.length === selectedNum + disabledNum
+          ? defaultSelected.length > 0
+            ? tmpList?.filter((x) => x.disabled && x.checked)
+            : []
+          : tmpList?.filter((x) => !x.disabled || (x.disabled && x.checked)) ?? [];
     } else {
-      const key = displayLabel ?? "label";
-      const valueKey = valuePath ?? "value";
-      const temp =
-        (items?.map((x) => ({
-          label: x[key],
-          value: x[valueKey],
-          disabled: x["disabled"],
-        })) as Array<{ label: string; value: string; disabled?: boolean }>) ??
-        [];
+      const isAllIncluded =
+        useAllOption &&
+        selectedValue.some(
+          (x) => x.label === (allOptionsLabel ?? '전체') && x.value === '',
+        );
+      const isSelected = selectedValue.some(
+        (x) =>
+          x.label === text.label &&
+          x.value === text.value &&
+          (!x.disabled || (x.disabled && x.checked)),
+      );
 
-      setList(temp ?? []);
-      setTmpList(temp ?? []);
-      if (defaultValue) {
-        if (Array.isArray(defaultValue)) {
-          const label = defaultValue.map((x) => {
-            const tmp = temp?.filter((k) => k.value === x);
-            if (tmp.length > 0) return tmp[0].label;
-            else return x;
-          });
+      if (isAllIncluded) {
+        res = selectedValue.filter(
+          (x) =>
+            x.value !== text.value &&
+            x.label !== (allOptionsLabel ?? '전체') &&
+            (!x.disabled || (x.disabled && x.checked)),
+        );
+      } else if (isSelected) {
+        res = selectedValue.filter(
+          (x) => x.value !== text.value && (!x.disabled || (x.disabled && x.checked)),
+        );
+      } else {
+        res = [...selectedValue, text];
 
-          setCurrentValue(label);
-        } else {
-          const tmp = temp?.filter((x) => x.value === defaultValue);
-          const label = tmp.length > 0 ? tmp[0].label : defaultValue;
-
-          setCurrentValue([label]);
+        if (useAllOption && tmpList!.length - 1 === res.length + disabledNum) {
+          res = [{ label: allOptionsLabel ?? '전체', value: '' }, ...res];
         }
       }
-      setHoverText(temp && temp.length > 0 ? temp[0].label : "");
     }
-  }, []);
 
-  useEffect(() => {
-    if (Array.isArray(value)) {
-      const label = value.map((x) => {
-        const tmp = tmpList?.find((k) => k.value === x);
-        if (tmp) return tmp.label;
-        else return x;
-      });
+    setSelectedValue(res);
+    findValue(res);
+  };
 
-      setCurrentValue(label);
-    } else {
-      const findValue = tmpList?.find((x) => x.value === value);
-      setCurrentValue(findValue ? [findValue.label] : []);
-    }
-  }, [value]);
+  const findValue = (value: { label: string; value: string; disabled?: boolean }[]) => {
+    const result: string[] = [];
+    value.forEach((x) => {
+      if (x.value !== '') result.push(x.value);
+    });
 
-  useEffect(() => {
-    setInit(true);
-  }, []);
+    onChange?.(result);
+    popperUpdate();
+  };
 
-  const rootClassName = classNames(
-    selectClasses.root,
-    selectClasses.multiSelect.root,
-    {
-      "w-full": fullWidth,
-    },
-    {
-      [selectClasses.normal.sm]: controlSize === "sm",
-      [selectClasses.normal.md]: controlSize === "md",
-      [selectClasses.normal.lg]: controlSize === "lg",
-    },
-  );
-
-  const selectClassName = classNames(
-    selectClasses.referenceElement,
-    {
-      [selectClasses.disabled]: disabled,
-      [selectClasses.status.error]: status === "error" || isError,
-      [selectClasses.status.warning]: status === "warning",
-    },
-
-    bordered === false
-      ? selectClasses.bordered.borderedNone
-      : selectClasses.bordered.root,
-  );
-
-  const focusClassName = classNames(
-    inputFocus && !status
-      ? selectClasses.focus.root
-      : selectClasses.focus.focusNone,
-  );
-
-  const disabledLiClassName = classNames(
-    selectClasses.list.overflow,
-    selectClasses.disabled,
-    selectClasses.list.disabled,
-  );
-  const fontClassName = classNames({
-    [selectClasses.list.font.sm]: controlSize === "sm",
-    [selectClasses.list.font.md]: controlSize === "md",
-    [selectClasses.list.font.lg]: controlSize === "lg",
+  const rootClassName = classNames(multiSelectClasses.root);
+  const controlSizeClassName = classNames({
+    [multiSelectClasses.normal.sm]: controlSize === 'sm',
+    [multiSelectClasses.normal.md]: controlSize === 'md',
+    [multiSelectClasses.normal.lg]: controlSize === 'lg',
   });
+  const multiSelectUl = classNames(multiSelectClasses.multiSelectUl.root);
+  const fontClassName = classNames({
+    [multiSelectClasses.multiSelectUl.font.sm]: controlSize === 'md',
+    [multiSelectClasses.multiSelectUl.font.md]: controlSize === 'lg',
+  });
+
   return (
-    <div
-      className={classNames(rootClassName, focusClassName)}
-      ref={selectRef}
-      onMouseDown={(e) => {
-        {
-          e.preventDefault();
-          e.stopPropagation();
-        }
-      }}
+    <Flex
+      title={title}
+      vertical={vertical}
+      gap={gap}
+      className={classNames(rootClassName, 'h-full')}
+      align={vertical ? 'flex-start' : 'center'}
+      style={{ width: `${fullWidth && '100%'}` }}
     >
-      <div
-        ref={referenceDiv}
-        style={{
-          ...style,
-          minWidth: width,
-        }}
-        onClick={iconClick}
-        className={classNames(selectClassName, className, "group")}
+      <Flex
+        ref={selectRef}
+        gap={useTag ? 8 : 0}
+        className={classNames(controlSizeClassName)}
+        style={{ width: `${fullWidth || selectExtra ? '100%' : selectWidth + 'px'}` }}
+        align="center"
       >
-        <div className={classNames(selectClasses.multiSelect.tag.area)}>
-          <span className={classNames(selectClasses.multiSelect.icon.prefix)}>
-            {preSuffixIcon}
-          </span>
-          {Array.isArray(currentValue) && currentValue.length > 0 ? (
-            currentValue.map((x: string) => (
-              <span
-                key={x}
-                className={classNames(selectClasses.multiSelect.tag.root)}
-              >
-                <span className={fontClassName} key={x}>
-                  {x}
-                </span>
-                <span
-                  onClick={(e) => closeIconClick(e, x)}
-                  className={classNames(
-                    selectClasses.multiSelect.tag.closeIcon,
-                  )}
-                >
-                  &#88;
-                </span>
-              </span>
-            ))
-          ) : (
-            <></>
+        <Flex
+          className={classNames(
+            showOptions ? multiSelectClasses.border : multiSelectClasses.normal.root,
+            disabled ? multiSelectClasses.disabled : 'bg-white',
+            {
+              [multiSelectClasses.error]: isError,
+              ['cursor-pointer']: !disabled,
+              [multiSelectClasses.errorBorder]: isError,
+            },
           )}
-          <div className={classNames(selectClasses.multiSelect.inputArea)}>
-            <span>{searchKeyword}</span>
-            <Input
-              className={classNames({
-                [selectClasses.disabled]: disabled,
-              })}
-              value={searchKeyword}
-              controlSize={controlSize}
-              type="text"
-              {...inputProps}
-              ref={(current) => {
-                if (ref) {
-                  if (typeof ref === "function") {
-                    ref(current);
-                  } else {
-                    ref.current = current;
-                  }
-                }
-                inputRef.current = current;
-              }}
-              onFocus={() => setInputFocus(true)}
-              onBlur={() => {
-                setInputFocus(false);
-                setShowOptions(false);
-              }}
-              disabled={disabled}
-              onChange={inputOnChange}
-              onKeyDown={handleKeyArrow}
-              useFocus={false}
-            />
-          </div>
-          {!searchKeyword &&
-            Array.isArray(currentValue) &&
-            currentValue.length === 0 && (
-              <span
-                className={classNames({
-                  [selectClasses.placeholder]:
-                    placeholder &&
-                    Array.isArray(currentValue) &&
-                    currentValue.length === 0,
-                })}
-              >
-                {placeholder}
-              </span>
-            )}
-        </div>
-
-        {suffixIcon ? (
-          <div
-            className={classNames(
-              disabled
-                ? selectClasses.multiSelect.icon.disabled
-                : selectClasses.multiSelect.icon.root,
-            )}
-          >
-            {suffixIcon}
-          </div>
-        ) : (
-          <div
-            className={classNames(
-              disabled
-                ? selectClasses.multiSelect.icon.disabled
-                : selectClasses.multiSelect.icon.root,
-            )}
-          >
-            <IcArrow />
-          </div>
-        )}
-      </div>
-
-      {ReactDOM.createPortal(
-        <ul
-          {...attributes.popper}
-          style={{
-            ...styles.popper,
-            ...style,
-            width: tmpListWidth,
-            visibility:
-              open === undefined
-                ? showOptions && init
-                  ? "visible"
-                  : "hidden"
-                : open && init
-                  ? "visible"
-                  : "hidden",
-            margin:
-              placement === "left" || placement === "right" ? "0 8px" : "8px 0",
+          onBlur={() => setShowOptions(false)}
+          ref={referenceDiv}
+          justify="space-between"
+          style={{ ...style, width: selectWidth ? selectWidth + 'px' : 'inherit' }}
+          align="center"
+          gap={4}
+          onClick={() => {
+            !disabled && setShowOptions(!showOptions);
+            setSearchValue('');
+            popperUpdate();
           }}
-          ref={popperUl}
-          className={classNames(selectClasses.list.root)}
         >
-          {list && list.length > 0 ? (
-            list.map((x, idx) => {
-              return !x.disabled ? (
-                <li
-                  role="option"
-                  key={x.label}
-                  onMouseDown={onChangeCurrentValue}
-                  onMouseEnter={(e) => {
-                    setHoverText(e.currentTarget.innerText);
-                    setIndexNum(idx);
+          {preSuffixIcon && <span>{preSuffixIcon}</span>}
+          <span
+            className={classNames(
+              fontClassName,
+              controlSizeClassName,
+              multiSelectClasses.text,
+              'text-body-text',
+            )}
+          >
+            {title} {selectedNum === 0 && placeholder}
+          </span>
+          <Flex gap={4} align="center" className="shrink-0">
+            {tmpList?.length === selectedNum + disabledNum ? (
+              <Tag
+                bordered={false}
+                color={disabled ? '#d9d9d9' : ''}
+                fontColor={disabled ? '#8A8A8E' : ''}
+                className={classNames('px-[6px] py-[2px] text-sub-title')}
+              >
+                {allOptionsLabel ?? '전체'}
+              </Tag>
+            ) : (
+              selectedNum !== 0 && (
+                <Tag bordered={false} className="px-[6px] py-[2px] text-sub-title">
+                  +{selectedNum}
+                </Tag>
+              )
+            )}
+
+            {suffixIcon ? (
+              <span>suffixIcon</span>
+            ) : showOptions ? (
+              <span>
+                <IcToggleArrowDown fill={'black'} />
+              </span>
+            ) : (
+              <span>
+                <IcToggleArrowUp fill={!disabled ? 'black' : '#d9d9d9'} />
+              </span>
+            )}
+          </Flex>
+        </Flex>
+        <Flex>{selectExtra}</Flex>
+        <BodyPortal>
+          <ul
+            ref={popperUl}
+            {...attributes.popper}
+            style={{
+              ...styles.popper,
+              ...style,
+              visibility: showOptions ? 'visible' : 'hidden',
+              margin:
+                placement === 'bottom'
+                  ? '8px 0 0px'
+                  : placement === 'left'
+                    ? '0 8px 0 0'
+                    : placement === 'right'
+                      ? '0 0 0 8px'
+                      : '0 0 8px',
+              padding: ' 8px 0 12px',
+              maxHeight: `${listMaxHeight}px`,
+              width: `${listWidth ? listWidth + 'px' : ulWidth}`,
+            }}
+            className={classNames(multiSelectUl, multiSelectClasses.multiSelectUl.border)}
+          >
+            {filterOption && (
+              <Flex justify="center" className="px-[12px] py-[4px]">
+                <Input
+                  className="w-full"
+                  customPrefix={<IcSearch />}
+                  onChange={inputOnChange}
+                  useFocus
+                  value={searchValue}
+                  // onBlur={() => setShowOptions(false)}
+                  ref={(current) => {
+                    if (ref) {
+                      if (typeof ref === 'function') {
+                        ref(current);
+                      } else {
+                        ref.current = current;
+                      }
+                    }
+                    inputRef.current = current;
                   }}
-                  onMouseLeave={() => {
-                    !showOptions && setHoverText("");
-                    setIndexNum(idx);
-                  }}
+                />
+              </Flex>
+            )}
+            {list && list.length > 0 ? (
+              list.map((x) => {
+                return !x.disabled ? (
+                  <li
+                    role="option"
+                    title={x.label.trim()}
+                    key={x.value.trim()}
+                    className={classNames(
+                      fontClassName,
+                      multiSelectClasses.multiSelectUl.font.root,
+                      {
+                        [multiSelectClasses.multiSelectUl.hover]:
+                          x.label.trim() === hoverText,
+                        [multiSelectClasses.multiSelectUl.selected]: selectedValue.some(
+                          (val) => x.value.trim() === val.value.trim(),
+                        ),
+                        [multiSelectClasses.multiSelectUl.hoverSelected]:
+                          x.value === hoverText &&
+                          selectedValue.some(
+                            (val) => x.value.trim() === val.value.trim(),
+                          ),
+                      },
+                      multiSelectClasses.multiSelectUl.overflow,
+                    )}
+                    onMouseDown={() => {
+                      onChangeValue(x);
+                    }}
+                    onMouseEnter={(e) => {
+                      setHoverText(x.value.trim());
+                    }}
+                    onMouseLeave={() => {
+                      !showOptions && setHoverText('');
+                    }}
+                  >
+                    {isCheckbox && (
+                      <Checkbox
+                        onMouseDown={() => onChangeValue(x)}
+                        checked={selectedValue.some(
+                          (val) => val.value.trim() === x.value.trim(),
+                        )}
+                      />
+                    )}
+                    {x.label.trim()}
+                  </li>
+                ) : (
+                  <li
+                    key={x.value.trim()}
+                    role="option"
+                    onMouseDown={(e) => {
+                      e.stopPropagation();
+                      e.preventDefault();
+                    }}
+                    className={classNames(
+                      multiSelectClasses.multiSelectUl.font.root,
+                      multiSelectClasses.multiSelectUl.overflow,
+                      // multiSelectClasses.multiSelectUl.disabled,
+                    )}
+                  >
+                    {isCheckbox && (
+                      <Checkbox
+                        // onClick={() => onChangeValue(x)}
+                        checked={list.some(
+                          (val) =>
+                            val.value.trim() === x.value.trim() &&
+                            val.checked &&
+                            val.disabled,
+                        )}
+                        disabled
+                      />
+                    )}
+                    {x.label}
+                  </li>
+                );
+              })
+            ) : (
+              <li
+                role="option"
+                className={classNames(
+                  fontClassName,
+                  multiSelectClasses.multiSelectUl.font.root,
+                )}
+                onMouseDown={(e) => {
+                  e.stopPropagation();
+                  e.preventDefault();
+                }}
+              >
+                No data
+              </li>
+            )}
+          </ul>
+        </BodyPortal>
+      </Flex>
+
+      {useTag && (
+        <Flex align="center">
+          <Flex gap={4}>
+            {selectedValue.some(
+              (x) => x.label === (allOptionsLabel ?? '전체') && x.value === '',
+            ) ? (
+              <Tag
+                className={classNames(
+                  'px-[12px] py-[6px]',
+                  tagClassName,
+                  'text-body-text',
+                )}
+                style={{ ...tagStyle, margin: '4px 0' }}
+                color={tagBgColor}
+                bordered={false}
+                key="all"
+                closeIcon={disabled ? false : true}
+                onClose={() =>
+                  onChangeValue({ label: allOptionsLabel ?? '전체', value: '' })
+                }
+              >
+                {(allOptionsLabel ?? '전체').trim()}
+              </Tag>
+            ) : (
+              selectedValue.map((x) => (
+                <Tag
                   className={classNames(
-                    Array.isArray(currentValue) &&
-                      currentValue.length > 0 &&
-                      currentValue.includes(x.label)
-                      ? selectedClass(x.label)
-                      : {
-                          [selectClasses.list.item]:
-                            x.label === currentValue[0],
-                        },
-                    { [selectClasses.list.hover]: x.label === hoverText },
-                    selectClasses.list.overflow,
-                    fontClassName,
+                    'px-[12px] py-[6px]',
+                    tagClassName,
+                    'text-body-text',
                   )}
+                  style={{ ...tagStyle, margin: '4px 0' }}
+                  color={tagBgColor}
+                  bordered={false}
+                  key={x.value}
+                  closeIcon={disabled ? false : !x.disabled && !x.checked}
+                  onClose={() => onChangeValue(x)}
                 >
-                  {isCheckbox && (
-                    <Checkbox checked={currentValue.includes(x.label)} />
-                  )}
-                  {x.label}
-                </li>
-              ) : (
-                <li
-                  key={x.label}
-                  role="option"
-                  onMouseDown={(e) => {
-                    e.stopPropagation();
-                    e.preventDefault();
-                  }}
-                  className={classNames(disabledLiClassName, fontClassName)}
-                >
-                  {x.label}
-                </li>
-              );
-            })
-          ) : (
-            <li
-              role="option"
-              onMouseDown={(e) => {
-                e.stopPropagation();
-                e.preventDefault();
-              }}
-              className={classNames(fontClassName)}
-            >
-              No data
-            </li>
-          )}
-        </ul>,
-        document.querySelector("body")!,
+                  {x.label.trim()}
+                </Tag>
+              ))
+            )}
+          </Flex>
+          <Flex>{tagExtra}</Flex>
+        </Flex>
       )}
-    </div>
+    </Flex>
   );
 }
-export const MultiSelect = React.forwardRef(MultiSelectFunc) as <
-  T extends object,
->(
-  props: IMultipleSelectProp<T> & {
-    ref?: React.ForwardedRef<HTMLInputElement>;
-  },
+
+export const MultiSelect = React.forwardRef(MultiSelectFunc) as <T extends object>(
+  props: INewMultipleSelectProp<T> & { ref?: React.ForwardedRef<HTMLInputElement> },
 ) => ReactElement;

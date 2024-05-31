@@ -1,49 +1,49 @@
-import { attachPrefixClasses } from "@modules/utils/generatePrefixClasses";
+import { attachPrefixClasses } from '@modules/utils/generatePrefixClasses';
 
 const classes = {
-  root: "",
-  disabled: "disabled",
-  placeholder: "placeholder",
-  container: "container",
-  normal: { root: "", sm: "sm", md: "md", lg: "lg" },
+  root: '',
+  disabled: 'disabled',
+  placeholder: 'placeholder',
+  container: 'container',
+  normal: { root: '', sm: 'sm', md: 'md', lg: 'lg' },
   focus: {
-    root: "",
-    focusNone: "focus-none",
+    root: '',
+    focusNone: 'focus-none',
   },
   status: {
-    error: "error",
-    warning: "warning",
+    error: 'error',
+    warning: 'warning',
   },
   bordered: {
-    root: "",
-    borderedNone: "bordered-none",
+    root: '',
+    borderedNone: 'bordered-none',
   },
-  referenceElement: "referenceElement",
+  referenceElement: 'referenceElement',
   icon: {
-    root: "",
-    disabled: "disabled",
+    root: '',
+    disabled: 'disabled',
   },
   list: {
-    root: "",
-    overflow: "overflow",
-    item: "item",
-    hover: "hover",
-    disabled: "disabled",
-    font: { root: "", sm: "sm", md: "md", lg: "lg" },
+    root: '',
+    overflow: 'overflow',
+    item: 'item',
+    hover: 'hover',
+    disabled: 'disabled',
+    font: { root: '', sm: 'sm', md: 'md', lg: 'lg' },
   },
   multiSelect: {
-    root: "",
+    root: '',
     tag: {
-      root: "",
-      area: "area",
-      closeIcon: "closeIcon",
+      root: '',
+      area: 'area',
+      closeIcon: 'closeIcon',
     },
-    inputArea: "inputArea",
+    inputArea: 'inputArea',
     icon: {
-      root: "",
-      disabled: "disabled",
-      prefix: "prefix",
+      root: '',
+      disabled: 'disabled',
+      prefix: 'prefix',
     },
   },
 };
-export const selectClasses = attachPrefixClasses(classes, "select");
+export const selectClasses = attachPrefixClasses(classes, 'select');

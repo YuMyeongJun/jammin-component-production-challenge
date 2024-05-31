@@ -1,7 +1,8 @@
-import { InputHTMLAttributes, ReactNode } from "react";
+import { InputHTMLAttributes, ReactNode } from 'react';
+import { Placement } from '@popperjs/core/lib/enums';
 
 export interface ISelectProp<T extends object>
-  extends Omit<InputHTMLAttributes<HTMLInputElement>, "onChange" | "value"> {
+  extends Omit<InputHTMLAttributes<HTMLInputElement>, 'onChange' | 'value'> {
   /**
    * select의 선 표시 여부
    * @default false
@@ -13,19 +14,13 @@ export interface ISelectProp<T extends object>
    * @default false
    * @type boolean
    */
-  defaultOpen?: boolean;
-  /**
-   * select 옵션을 처음에 표시할지 선택
-   * @default false
-   * @type boolean
-   */
   disabled?: boolean;
   /**
    * select 표시 위치 지정
    * @default 'right'
    * @type 'top' | 'bottom' | 'right' | 'left'
    */
-  placement?: "top" | "bottom" | "right" | "left";
+  placement?: Placement;
   /**
    * select 옵션을 표시할지 선택
    * @default false
@@ -37,7 +32,7 @@ export interface ISelectProp<T extends object>
    * @default
    * @type 'error' | 'warning'
    */
-  status?: "error" | "warning";
+  status?: 'error' | 'warning';
   /**
    * select 오른쪽 끝 화살표 대신 아이콘 삽입
    * @default
@@ -78,6 +73,7 @@ export interface ISelectProp<T extends object>
    * @type T[]
    */
   items?: T[];
+
   /**
    * select의 옵션값 위치 변경(위/아래, 왼/오)
    * @default [0,0]
@@ -120,11 +116,17 @@ export interface ISelectProp<T extends object>
    * @type string | number;
    */
   listWidth?: string | number;
+
+  /**
+   * select의 list max-height 지정
+   */
+  listMaxHeight?: number;
+
   /**
    * select의 컨트롤 크기와 글자 크기 지정
    * @type 'sm' | 'md' | 'lg'
    */
-  controlSize?: "sm" | "md" | "lg";
+  controlSize?: 'sm' | 'md' | 'lg';
   /**
    * select 앞에 추가로 데이터 삽입
    * @type ReactNode
@@ -150,7 +152,12 @@ export interface ISelectProp<T extends object>
    * @type string
    */
   listClassName?: string;
+
   useEllipsis?: boolean;
+
+  title?: string;
+  isSearchType?: boolean;
+
   /**
    * select onChange 함수 사용
    * @type (value: string | null) => void;
@@ -161,7 +168,7 @@ export interface ISelectProp<T extends object>
 export interface IMultipleSelectProp<T extends object>
   extends Omit<
     ISelectProp<T>,
-    "defaultValue" | "filterOption" | "onChange" | "value"
+    'options' | 'defaultValue' | 'selectWidth' | 'onChange' | 'value'
   > {
   /**
    * select default 값 지정
@@ -184,10 +191,157 @@ export interface IMultipleSelectProp<T extends object>
    * @type string | Array<string>;
    */
   value?: string | Array<string>;
+  /**
+   * select width 지정
+   * 크기를 넣으면 px로 적용
+   * @type  number;
+   */
+  selectWidth?: number;
+
+  options?: Array<{
+    label: string;
+    value: string;
+    disabled?: boolean;
+    checked?: boolean;
+  }>;
 
   /**
    * select onChange 함수 사용
    * @type (value: string[] | null) => void;
    */
   onChange?: (value: string[] | null) => void;
+}
+
+export interface INewMultipleSelectProp<T extends object>
+  extends Omit<
+    ISelectProp<T>,
+    'options' | 'defaultValue' | 'selectWidth' | 'onChange' | 'value'
+  > {
+  /**
+   * select default 값 지정
+   * @default
+   * @type string
+   */
+  defaultValue?: string | Array<string>;
+  /**
+   * select 선택 갯수 제한
+   * @type number
+   */
+  limitNumber?: number;
+  /**
+   * select에 체크박스 보여줄지 여부 선택
+   * @type boolean
+   */
+  isCheckbox?: boolean;
+  /**
+   * select value값 지정
+   * @type string | Array<string>;
+   */
+  value?: string | Array<string>;
+  /**
+   * select width 지정
+   * 크기를 넣으면 px로 적용
+   * @type  number;
+   */
+  selectWidth?: number;
+  /**
+   * 아이템들이 배치되는 축의 방향을 결정
+   * @default false
+   * @type boolean
+   */
+  vertical?: boolean;
+  /**
+    간격 (gutters)을 설정
+   * @type number
+   */
+  gap?: number;
+  /**
+    fontColor 지정
+   * @type string
+   */
+  tagFontColor?: string;
+  /**
+    css style 지정
+   * @type React.CSSProperties
+   */
+  tagStyle?: React.CSSProperties;
+  /**
+    tagBgColor 지정
+   * @type string
+   */
+  tagBgColor?: string;
+
+  tagClassName?: string;
+
+  useAllOption?: boolean;
+  useTag?: boolean;
+  allOptionsLabel?: string;
+  tagExtra?: ReactNode;
+  selectExtra?: ReactNode;
+  options?: Array<{
+    label: string;
+    value: string;
+    disabled?: boolean;
+    checked?: boolean;
+  }>;
+  /**
+   * select onChange 함수 사용
+   * @f (value: string[] | null) => void;
+   */
+  onChange?: (value: string[] | null) => void;
+}
+
+export interface ISelectGroupProp<T extends object>
+  extends Omit<
+    ISelectProp<T>,
+    'options' | 'items' | 'selectWidth' | 'displayLabel' | 'valuePath' | 'defaultValue'
+  > {
+  options?: Array<{
+    groupLabel: string;
+    options: Array<{
+      label: string;
+      value: string;
+      disabled?: boolean;
+    }>;
+  }>;
+
+  groupLabel?: string;
+  itemsLabel?: string;
+  displayLabel?: string;
+  valuePath?: string;
+  /**
+   * select width 지정
+   * 크기를 넣으면 px로 적용
+   * @type  number;
+   */
+  selectWidth?: number;
+  items?: T[];
+}
+
+export interface IMultipleSelectGroupProp<T extends object>
+  extends Omit<
+    INewMultipleSelectProp<T>,
+    'selectWidth' | 'defaultValue' | 'options' | 'items' | 'displayLabel' | 'valuePath'
+  > {
+  options?: Array<{
+    groupLabel: string;
+    options: Array<{
+      label: string;
+      value: string;
+      disabled?: boolean;
+      checked?: boolean;
+    }>;
+  }>;
+  /**
+   * select width 지정
+   * 크기를 넣으면 px로 적용
+   * @type  number;
+   */
+  selectWidth?: number;
+  groupLabel?: string;
+  itemsLabel?: string;
+  displayLabel?: string;
+  valuePath?: string;
+
+  items?: T[];
 }
