@@ -6,3 +6,5 @@ export * from './collapse';
 export * from './tab';
 export * from './tag';
 export * from './tooltip';
+export * from './calendar'
+export * from './table';
