@@ -1,6 +1,6 @@
-import { ITextareaProps } from "./Textarea.types";
+import { ITextareaProps } from './Textarea.types';
 
-export interface TitleCounterProps extends ITextareaProps {
+export interface ITitleCounterProps extends ITextareaProps {
   /**
    * Input의 title
    */

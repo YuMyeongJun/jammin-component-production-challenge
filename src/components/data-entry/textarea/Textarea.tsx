@@ -11,6 +11,7 @@ export const Textarea = forwardRef<HTMLTextAreaElement, ITextareaProps>((args, r
     readOnly,
     isError,
     direction,
+    showCount,
     controlSize = 'md',
     useFocus = true,
     ...inputProps
@@ -36,9 +37,11 @@ export const Textarea = forwardRef<HTMLTextAreaElement, ITextareaProps>((args, r
       [textareaClasses.size.lg]: controlSize === 'lg',
     },
     !useFocus
-      ? 'focus:border-[var(--jammin-border-color)] focus:ring-0 group-focus-within:border-[var(--jammin-border-color)]'
+      ? 'focus:border-[var(--bc-border-color)] focus:ring-0 group-focus-within:border-[var(--bc-border-color)]'
       : '',
   );
+
+  //console.log('@use focus', useFocus);
 
   return (
     <TextareaAutosize
@@ -54,3 +57,5 @@ export const Textarea = forwardRef<HTMLTextAreaElement, ITextareaProps>((args, r
     />
   );
 });
+
+Textarea.displayName = 'bc_textarea';
