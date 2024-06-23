@@ -1,0 +1,81 @@
+$ns: .jammin;
+$(ns) {
+  &-tooltip-container {
+    &::before,
+    &::after {
+      content: '';
+      @apply block w-[1px];
+
+      $(ns)-tooltip-data {
+        @apply inline-block;
+      }
+    }
+  }
+  &-tooltip-data {
+    @apply cursor-pointer;
+  }
+
+  &-tooltip {
+    @apply z-[999] flex items-center rounded-4 bg-white px-[10px] py-[5px] text-start text-red-950;
+
+    &-fontBold {
+      @apply font-bold;
+    }
+    &-font {
+      &-xs {
+        @apply text-[length:var(--jammin-font-size-xs)];
+      }
+      &-sm {
+        @apply text-[length:var(--jammin-font-size-sm)];
+      }
+
+      &-md {
+        @apply text-[length:var(--jammin-font-size-md)];
+      }
+
+      &-lg {
+        @apply text-[length:var(--jammin-font-size-lg)];
+      }
+    }
+    &-arrow {
+      @apply invisible;
+
+      &,
+      &::before {
+        @apply absolute h-[8px] w-[8px] bg-inherit;
+      }
+
+      &::before {
+        content: '';
+        @apply visible rotate-45;
+      }
+    }
+    &[data-popper-placement^='top'] > &-arrow {
+      @apply -bottom-[4px];
+    }
+
+    &[data-popper-placement^='bottom'] > &-arrow {
+      @apply -top-[4px];
+    }
+
+    &[data-popper-placement^='left'] > &-arrow {
+      @apply -right-[4px];
+    }
+
+    &[data-popper-placement^='right'] > &-arrow {
+      @apply -left-[4px];
+    }
+
+    &[data-arrow-visible^='false'] > &-arrow::before {
+      @apply invisible;
+    }
+
+    &[data-arrow-visible^='true'] > &-arrow::before {
+      @apply visible;
+    }
+  }
+
+  &-tooltip-base {
+    @apply h-auto break-all shadow-[0_6px_16px_0_rgba(0,0,0,0.08),0_3px_6px_-4px_rgba(0,0,0,0.12),0_9px_28px_8px_rgba(0,0,0,0.05)];
+  }
+}

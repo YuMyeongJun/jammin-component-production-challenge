@@ -1,0 +1,40 @@
+$ns: .jammin;
+
+$(ns) {
+  &-spin {
+    @apply text-center;
+
+    &-inline {
+      @apply inline-block;
+    }
+    &-children {
+      @apply absolute left-1/2 top-2/4 -translate-x-2/4 -translate-y-2/4 text-center;
+    }
+  }
+  &-spin-area {
+    @apply relative inline-block;
+
+    &-indicator > * {
+      @apply origin-[50%_50%] animate-[spin_5s_linear_infinite];
+    }
+  }
+  &-spin-option-bgColor {
+    @apply bg-slate-200 opacity-75;
+  }
+  &-spin-option-fullscreen {
+    @apply fixed left-0 top-0 z-[99999]	h-screen w-screen bg-slate-200 opacity-75;
+  }
+  &-spin-option-hidden {
+    @apply hidden;
+  }
+  &-spin-default {
+    @apply relative z-[99999] opacity-75;
+
+    &-spin {
+      @apply absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2;
+    }
+    &-children {
+      @apply relative z-0 bg-slate-200 opacity-75;
+    }
+  }
+}

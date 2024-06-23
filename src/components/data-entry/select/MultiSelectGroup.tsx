@@ -1,18 +1,18 @@
-import React, { ReactElement, useEffect, useRef, useState } from 'react';
-import ReactDOM from 'react-dom';
-import { usePopper } from 'react-popper';
-import { IcSearch } from '@assets/icons';
-import IcToggleArrowDown from '@assets/icons/ic_select_toggle_arrow_down.svg?react';
-import IcToggleArrowUp from '@assets/icons/ic_select_toggle_arrow_up.svg?react';
-import { BodyPortal, Flex, Input, Tag } from '@components';
-import { useOutsideClick } from '@hooks/useOutsideClick';
-import { AnyObject } from '@models';
-import classNames from 'classnames';
+import React, { ReactElement, useEffect, useRef, useState } from "react";
+import ReactDOM from "react-dom";
+import { usePopper } from "react-popper";
+import { IcSearch } from "@assets/icons";
+import IcToggleArrowDown from "@assets/icons/ic_select_toggle_arrow_down.svg?react";
+import IcToggleArrowUp from "@assets/icons/ic_select_toggle_arrow_up.svg?react";
+import { BodyPortal, Flex, Input, Tag } from "@components";
+import { useOutsideClick } from "@hooks/useOutsideClick";
+import { AnyObject } from "@models";
+import classNames from "classnames";
 
-import { Checkbox } from '../checkbox/Checkbox';
+import { Checkbox } from "../checkbox/Checkbox";
 
-import { multiSelectClasses } from './MultiSelectClasses';
-import { IMultipleSelectGroupProp } from './Select.types';
+import { multiSelectClasses } from "./MultiSelectClasses";
+import { IMultipleSelectGroupProp } from "./Select.types";
 
 function MultiSelectGroupFunc<T extends AnyObject>(
   props: IMultipleSelectGroupProp<T>,
@@ -39,8 +39,8 @@ function MultiSelectGroupFunc<T extends AnyObject>(
     isError,
     disabled,
     offset = [0, 0],
-    placement = 'bottom',
-    controlSize = 'md',
+    placement = "bottom",
+    controlSize = "md",
     tagClassName,
     gap = 0,
     style,
@@ -65,20 +65,20 @@ function MultiSelectGroupFunc<T extends AnyObject>(
 
       modifiers: [
         {
-          name: 'offset',
+          name: "offset",
           options: {
             offset: offset,
           },
         },
       ],
 
-      strategy: 'fixed',
+      strategy: "fixed",
     },
   );
 
   const [selectedNum, setSelectedNum] = useState(0);
-  const [searchValue, setSearchValue] = useState<string>('');
-  const [hoverText, setHoverText] = useState('');
+  const [searchValue, setSearchValue] = useState<string>("");
+  const [hoverText, setHoverText] = useState("");
   const [list, setList] = useState<
     Array<{
       groupLabel: string;
@@ -112,7 +112,7 @@ function MultiSelectGroupFunc<T extends AnyObject>(
   >([]);
 
   const [showOptions, setShowOptions] = useState<boolean>(false);
-  const [ulWidth, setUlWidth] = useState<string>('0px');
+  const [ulWidth, setUlWidth] = useState<string>("0px");
   const selectRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement | null>(null);
   const groupRef = useRef<HTMLLIElement[]>([]);
@@ -125,7 +125,7 @@ function MultiSelectGroupFunc<T extends AnyObject>(
   }, []);
 
   useEffect(() => {
-    if (searchValue === '') {
+    if (searchValue === "") {
       setList(tmpList);
     } else {
       const lowerCaseSearchValue = searchValue.toLowerCase();
@@ -151,10 +151,10 @@ function MultiSelectGroupFunc<T extends AnyObject>(
     if (options) {
       initSettingOption(options);
     } else {
-      const group = groupLabel ?? 'groupLabel';
-      const key = displayLabel ?? 'label';
-      const valueKey = valuePath ?? 'value';
-      const itemsName = itemsLabel ?? 'itemsLabel';
+      const group = groupLabel ?? "groupLabel";
+      const key = displayLabel ?? "label";
+      const valueKey = valuePath ?? "value";
+      const itemsName = itemsLabel ?? "itemsLabel";
 
       const temp = items?.map((item) => {
         const groupItems: any[] = item[itemsName];
@@ -164,8 +164,8 @@ function MultiSelectGroupFunc<T extends AnyObject>(
             ? groupItems.map((x: { [key: string]: any }) => ({
                 label: (x[key] as string)?.trim(),
                 value: (x[valueKey] as string)?.trim(),
-                disabled: x['disabled'] ?? false,
-                checked: x['checked'] ?? false,
+                disabled: x["disabled"] ?? false,
+                checked: x["checked"] ?? false,
               }))
             : [],
         };
@@ -209,7 +209,7 @@ function MultiSelectGroupFunc<T extends AnyObject>(
     () => {
       setShowOptions(false);
     },
-    'mousedown',
+    "mousedown",
   );
 
   const popperUpdate = () => {
@@ -217,7 +217,9 @@ function MultiSelectGroupFunc<T extends AnyObject>(
   };
 
   const findValidItem = (val: string) => {
-    const item = tmpList?.flatMap((x) => x.options).find((k) => k.value === val);
+    const item = tmpList
+      ?.flatMap((x) => x.options)
+      .find((k) => k.value === val);
     if (item && item.disabled && !item.checked) {
       item.checked = true;
     }
@@ -248,10 +250,10 @@ function MultiSelectGroupFunc<T extends AnyObject>(
   };
 
   const onChangeValue = (text: string) => {
-    if (text === '') {
+    if (text === "") {
       return;
     }
-    console.log('text');
+    console.log("text");
     const exists = selectedValue.some((item) => item.value === text);
 
     if (exists) {
@@ -274,14 +276,14 @@ function MultiSelectGroupFunc<T extends AnyObject>(
 
   const rootClassName = classNames(multiSelectClasses.root);
   const controlSizeClassName = classNames({
-    [multiSelectClasses.normal.sm]: controlSize === 'sm',
-    [multiSelectClasses.normal.md]: controlSize === 'md',
-    [multiSelectClasses.normal.lg]: controlSize === 'lg',
+    [multiSelectClasses.normal.sm]: controlSize === "sm",
+    [multiSelectClasses.normal.md]: controlSize === "md",
+    [multiSelectClasses.normal.lg]: controlSize === "lg",
   });
   const multiSelectUl = classNames(multiSelectClasses.multiSelectUl.root);
   const fontClassName = classNames({
-    [multiSelectClasses.multiSelectUl.font.sm]: controlSize === 'md',
-    [multiSelectClasses.multiSelectUl.font.md]: controlSize === 'lg',
+    [multiSelectClasses.multiSelectUl.font.sm]: controlSize === "md",
+    [multiSelectClasses.multiSelectUl.font.md]: controlSize === "lg",
   });
 
   return (
@@ -289,9 +291,9 @@ function MultiSelectGroupFunc<T extends AnyObject>(
       title={title}
       vertical={vertical}
       gap={gap}
-      className={classNames(rootClassName, 'h-full')}
-      align={vertical ? 'flex-start' : 'center'}
-      style={{ width: `${fullWidth && '100%'}` }}
+      className={classNames(rootClassName, "h-full")}
+      align={vertical ? "flex-start" : "center"}
+      style={{ width: `${fullWidth && "100%"}` }}
     >
       <Flex gap={useTag ? 8 : 0}>
         <Flex
@@ -301,27 +303,29 @@ function MultiSelectGroupFunc<T extends AnyObject>(
             controlSizeClassName,
             {
               [multiSelectClasses.errorBorder]: isError,
-              ['cursor-pointer']: !disabled,
+              ["cursor-pointer"]: !disabled,
             },
             // `${fullWidth ? 'w-full' : `w-[${selectWidth}]`}`,
           )}
-          style={{ width: `${fullWidth ? '100%' : `${selectWidth}px`}` }}
+          style={{ width: `${fullWidth ? "100%" : `${selectWidth}px`}` }}
         >
           <Flex
             className={classNames(
-              disabled ? multiSelectClasses.disabled : 'bg-white',
-              showOptions ? multiSelectClasses.border : multiSelectClasses.normal.root,
+              disabled ? multiSelectClasses.disabled : "bg-white",
+              showOptions
+                ? multiSelectClasses.border
+                : multiSelectClasses.normal.root,
               { [multiSelectClasses.error]: isError },
             )}
             ref={referenceDiv}
             justify="space-between"
-            style={{ ...style, width: 'inherit' }}
+            style={{ ...style, width: "inherit" }}
             align="center"
             gap={4}
             onBlur={() => setShowOptions(false)}
             onClick={() => {
               !disabled && setShowOptions(!showOptions);
-              setSearchValue('');
+              setSearchValue("");
               // popperUpdate();
             }}
           >
@@ -330,9 +334,10 @@ function MultiSelectGroupFunc<T extends AnyObject>(
               className={classNames(
                 fontClassName,
                 multiSelectClasses.text,
-                'text-body-text',
+                "text-body-text",
                 {
-                  'font-[var(--bc-placeholder-font-weight)]': !selectedNum && placeholder,
+                  "font-[var(--jammin-placeholder-font-weight)]":
+                    !selectedNum && placeholder,
                 },
               )}
             >
@@ -344,15 +349,18 @@ function MultiSelectGroupFunc<T extends AnyObject>(
               {totalOptionNum === selectedNum ? (
                 <Tag
                   bordered={false}
-                  color={disabled ? '#d9d9d9' : ''}
-                  fontColor={disabled ? '#8A8A8E' : ''}
-                  className={classNames('px-[6px] py-[2px] text-sub-title')}
+                  color={disabled ? "#d9d9d9" : ""}
+                  fontColor={disabled ? "#8A8A8E" : ""}
+                  className={classNames("px-[6px] py-[2px] text-sub-title")}
                 >
-                  {allOptionsLabel ?? '전체'}
+                  {allOptionsLabel ?? "전체"}
                 </Tag>
               ) : (
                 selectedNum !== 0 && (
-                  <Tag bordered={false} className="px-[6px] py-[2px] text-sub-title">
+                  <Tag
+                    bordered={false}
+                    className="px-[6px] py-[2px] text-sub-title"
+                  >
                     +{selectedNum}
                   </Tag>
                 )
@@ -360,9 +368,9 @@ function MultiSelectGroupFunc<T extends AnyObject>(
               {suffixIcon ? (
                 suffixIcon
               ) : showOptions ? (
-                <IcToggleArrowDown fill={'black'} />
+                <IcToggleArrowDown fill={"black"} />
               ) : (
-                <IcToggleArrowUp fill={!disabled ? 'black' : '#d9d9d9'} />
+                <IcToggleArrowUp fill={!disabled ? "black" : "#d9d9d9"} />
               )}
             </Flex>
           </Flex>
@@ -373,18 +381,18 @@ function MultiSelectGroupFunc<T extends AnyObject>(
               style={{
                 ...styles.popper,
                 ...style,
-                visibility: showOptions ? 'visible' : 'hidden',
+                visibility: showOptions ? "visible" : "hidden",
                 margin:
-                  placement === 'bottom'
-                    ? '8px 0 0px'
-                    : placement === 'left'
-                      ? '0 8px 0 0'
-                      : placement === 'right'
-                        ? '0 0 0 8px'
-                        : '0 0 8px',
-                padding: ' 8px 0 12px',
+                  placement === "bottom"
+                    ? "8px 0 0px"
+                    : placement === "left"
+                      ? "0 8px 0 0"
+                      : placement === "right"
+                        ? "0 0 0 8px"
+                        : "0 0 8px",
+                padding: " 8px 0 12px",
                 maxHeight: `${listMaxHeight}px`,
-                width: `${listWidth ? listWidth + 'px' : ulWidth}`,
+                width: `${listWidth ? listWidth + "px" : ulWidth}`,
               }}
               className={classNames(
                 multiSelectUl,
@@ -401,7 +409,7 @@ function MultiSelectGroupFunc<T extends AnyObject>(
                     value={searchValue}
                     ref={(current) => {
                       if (ref) {
-                        if (typeof ref === 'function') {
+                        if (typeof ref === "function") {
                           ref(current);
                         } else {
                           ref.current = current;
@@ -417,7 +425,7 @@ function MultiSelectGroupFunc<T extends AnyObject>(
                   <div key={idx}>
                     <li
                       key={x.groupLabel}
-                      className={classNames('text-body-text')}
+                      className={classNames("text-body-text")}
                       title={x.groupLabel}
                       ref={(ref: HTMLLIElement) => {
                         groupRef.current[idx] = ref!;
@@ -437,7 +445,7 @@ function MultiSelectGroupFunc<T extends AnyObject>(
                             key={`${x.groupLabel.trim()}_${option.value.trim()}`}
                             title={option.label.trim()}
                             className={classNames(
-                              'option',
+                              "option",
                               fontClassName,
                               multiSelectClasses.multiSelectUl.font.root,
                               {
@@ -447,7 +455,8 @@ function MultiSelectGroupFunc<T extends AnyObject>(
                                   selectedValue.some(
                                     (x) => x.value === option.value.trim(),
                                   ),
-                                [multiSelectClasses.multiSelectUl.hoverSelected]:
+                                [multiSelectClasses.multiSelectUl
+                                  .hoverSelected]:
                                   option.value.trim() === hoverText &&
                                   selectedValue.some(
                                     (x) => x.value === option.value.trim(),
@@ -455,17 +464,21 @@ function MultiSelectGroupFunc<T extends AnyObject>(
                               },
                               multiSelectClasses.multiSelectUl.overflow,
                             )}
-                            onMouseDown={() => onChangeValue(option.value.trim())}
+                            onMouseDown={() =>
+                              onChangeValue(option.value.trim())
+                            }
                             onMouseEnter={(e) => {
                               setHoverText(option.value.trim());
                             }}
                             onMouseLeave={() => {
-                              !showOptions && setHoverText('');
+                              !showOptions && setHoverText("");
                             }}
                           >
                             {isCheckbox && (
                               <Checkbox
-                                onClick={() => onChangeValue(option.value.trim())}
+                                onClick={() =>
+                                  onChangeValue(option.value.trim())
+                                }
                                 checked={selectedValue.some(
                                   (x) => x.value === option.value.trim(),
                                 )}
@@ -482,7 +495,7 @@ function MultiSelectGroupFunc<T extends AnyObject>(
                               e.preventDefault();
                             }}
                             className={classNames(
-                              'option',
+                              "option",
                               fontClassName,
                               multiSelectClasses.multiSelectUl.overflow,
                               multiSelectClasses.multiSelectUl.font.root,
@@ -491,12 +504,15 @@ function MultiSelectGroupFunc<T extends AnyObject>(
                           >
                             {isCheckbox && (
                               <Checkbox
-                                onClick={() => onChangeValue(option.value.trim())}
+                                onClick={() =>
+                                  onChangeValue(option.value.trim())
+                                }
                                 checked={list
                                   ?.flatMap((x) => x.options)
                                   .some(
                                     (val) =>
-                                      val.value.trim() === option.value.trim() &&
+                                      val.value.trim() ===
+                                        option.value.trim() &&
                                       val.disabled &&
                                       val.checked,
                                   )}
@@ -531,8 +547,8 @@ function MultiSelectGroupFunc<T extends AnyObject>(
           <Flex gap={4} align="center">
             {selectedValue.map((x, idx) => (
               <Tag
-                className={classNames(tagClassName, 'text-body-text')}
-                style={{ ...tagStyle, margin: '4px 0' }}
+                className={classNames(tagClassName, "text-body-text")}
+                style={{ ...tagStyle, margin: "4px 0" }}
                 closeIcon={disabled ? false : !x.disabled && !x.checked}
                 color={tagBgColor}
                 bordered={false}
@@ -552,5 +568,7 @@ function MultiSelectGroupFunc<T extends AnyObject>(
 export const MultiSelectGroup = React.forwardRef(MultiSelectGroupFunc) as <
   T extends object,
 >(
-  props: IMultipleSelectGroupProp<T> & { ref?: React.ForwardedRef<HTMLInputElement> },
+  props: IMultipleSelectGroupProp<T> & {
+    ref?: React.ForwardedRef<HTMLInputElement>;
+  },
 ) => ReactElement;

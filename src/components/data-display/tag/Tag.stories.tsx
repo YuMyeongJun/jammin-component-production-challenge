@@ -1,17 +1,17 @@
-import { Tag } from '@components/data-display/tag';
-import { Flex } from '@components/layout/flex';
-import IcSearch from '@icons/ic_search.svg?react';
-import { Meta, StoryObj } from '@storybook/react';
+import { Tag } from "@components/data-display/tag";
+import { Flex } from "@components/layout/flex";
+import IcSearch from "@icons/ic_search.svg?react";
+import { Meta, StoryObj } from "@storybook/react";
 
-import { ITagProps } from './Tag.types';
+import { ITagProps } from "./Tag.types";
 
 const meta: Meta<ITagProps> = {
-  title: 'components/data-display/Tag',
+  title: "components/data-display/Tag",
   component: Tag,
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   parameters: {
-    layout: 'fullscreen',
-    componentSubtitle: '태그 표시',
+    layout: "fullscreen",
+    componentSubtitle: "태그 표시",
   },
 };
 
@@ -21,16 +21,24 @@ type Story = StoryObj<ITagProps>;
 export const Default: Story = {
   render: (args) => {
     return (
-      <Flex style={{ height: 100, border: '1px solid' }} justify="center" align="center">
-        <Tag fontColor={args.fontColor} color={args.color} bordered={args.bordered}>
+      <Flex
+        style={{ height: 100, border: "1px solid" }}
+        justify="center"
+        align="center"
+      >
+        <Tag
+          fontColor={args.fontColor}
+          color={args.color}
+          bordered={args.bordered}
+        >
           Tag1
         </Tag>
       </Flex>
     );
   },
   args: {
-    fontColor: 'white',
-    color: 'var(--bc-primary-color-main)',
+    fontColor: "white",
+    color: "var(--jammin-primary-color-main)",
     bordered: true,
   },
 };
@@ -39,7 +47,7 @@ export const color: Story = {
   render: () => {
     return (
       <Flex
-        style={{ height: '100px', border: '1px solid' }}
+        style={{ height: "100px", border: "1px solid" }}
         justify="space-around"
         align="center"
       >
@@ -56,7 +64,7 @@ export const Bordered: Story = {
   render: () => {
     return (
       <Flex
-        style={{ height: '100px', border: '1px solid' }}
+        style={{ height: "100px", border: "1px solid" }}
         justify="center"
         align="center"
       >
@@ -70,7 +78,7 @@ export const Icon: Story = {
   render: () => {
     return (
       <Flex
-        style={{ height: '100px', border: '1px solid' }}
+        style={{ height: "100px", border: "1px solid" }}
         justify="center"
         align="center"
       >
@@ -84,14 +92,14 @@ export const onClose: Story = {
   render: () => {
     return (
       <Flex
-        style={{ height: '100px', border: '1px solid' }}
+        style={{ height: "100px", border: "1px solid" }}
         justify="space-around"
         align="center"
       >
         <Tag
           closeIcon={true}
           onClose={() => {
-            alert('클릭');
+            alert("클릭");
           }}
         >
           close TAG

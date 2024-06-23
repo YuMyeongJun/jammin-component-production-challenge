@@ -1,10 +1,10 @@
-import { forwardRef, useRef, useState } from 'react';
-import BasicClose from '@assets/icons/ic_basic_close.svg?react';
-import { Flex } from '@components';
-import classNames from 'classnames';
+import { forwardRef, useRef, useState } from "react";
+import BasicClose from "@assets/icons/ic_basic_close.svg?react";
+import { Flex } from "@components";
+import classNames from "classnames";
 
-import { ITagProps } from './Tag.types';
-import { tagClasses } from './TagClasses';
+import { ITagProps } from "./Tag.types";
+import { tagClasses } from "./TagClasses";
 
 export const Tag = forwardRef<HTMLSpanElement, ITagProps>((args, ref) => {
   const {
@@ -41,8 +41,8 @@ export const Tag = forwardRef<HTMLSpanElement, ITagProps>((args, ref) => {
       className={classNames(
         rootClassName,
         className,
-        `bg-[var(--bc-primary-color-light)]`,
-        'text-[var(--bc-primary-color-main)]',
+        `bg-[var(--jammin-primary-color-light)]`,
+        "text-[var(--jammin-primary-color-main)]",
       )}
       style={{
         ...style,
@@ -67,7 +67,7 @@ export const Tag = forwardRef<HTMLSpanElement, ITagProps>((args, ref) => {
           ref={closeRef}
         >
           {closeIcon === true ? (
-            <BasicClose fill={'var(--bc-primary-color-main)'} />
+            <BasicClose fill={"var(--jammin-primary-color-main)"} />
           ) : (
             closeIcon
           )}

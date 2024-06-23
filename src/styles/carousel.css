@@ -1,0 +1,130 @@
+$ns: .jammin;
+
+$(ns) {
+  &-carousel {
+
+    /* 캐로셀 안에 들어가는 슬라이더*/
+    &-component {
+      @apply flex justify-center items-center;
+
+      /* 캐로셀 내용(children)*/
+      .jammin-carousel-content-wrapper {
+        @apply flex overflow-hidden;
+      }
+    }
+
+    /* editable 타입에서의 상단 버튼 */
+    &-btn {
+      @apply flex justify-self-center items-center p-10pxr cursor-pointer bg-center bg-no-repeat bg-white border-[length:var(--jammin-border-width)] border-[var(--jammin-gray-color-light)] rounded-[var(--jammin-rounded)] w-32pxr h-32pxr;
+
+      &-wrapper {
+        @apply pb-12pxr;
+      }
+
+      &[data-button='add'] {
+        @apply bg-[url('@icons/ic_add_case.svg')] bg-[var(--jammin-primary-color-main)];
+
+        &:hover {
+          @apply bg-[var(--jammin-primary-color-dark)];
+        }
+
+        &:disabled {
+          @apply bg-blue-200;
+        }
+      }
+
+      &[data-button='delete'] {
+        @apply bg-[url('@icons/ic_delete_default.svg')];
+
+        &:hover {
+          @apply bg-[url('@icons/ic_delete.svg')];
+        }
+
+        &:disabled {
+          @apply bg-[url('@icons/ic_delete_case_disable.svg')];
+        }
+      }
+
+      &[data-button='prev'] {
+        @apply bg-[url('@icons/ic_carousel_prev_active.svg')];
+
+        &:hover {
+          @apply bg-[url('@icons/ic_carousel_prev_hover.svg')];
+        }
+
+        &:disabled {
+          @apply bg-[url('@icons/ic_carousel_prev_disable.svg')];
+        }
+      }
+
+      &[data-button='next'] {
+        @apply bg-[url('@icons/ic_carousel_next_active.svg')];
+
+
+        &:hover {
+          @apply bg-[url('@icons/ic_carousel_next_hover.svg')];
+        }
+
+        &:disabled {
+          @apply bg-[url('@icons/ic_carousel_next_disable.svg')];
+        }
+      }
+
+      /* 캐로셀 슬라이더 버튼 모양 */
+      &-circle {
+        @apply rounded-full;
+      }
+    }
+
+    /* 캐로셀 슬라이더 버튼 */
+    &-arrow-btn-wrapper {
+      @apply flex justify-between items-center px-1pxr z-20;
+    }
+
+    /* 캐로셀 index indicator */
+    &-dots {
+      @apply flex justify-center items-center gap-1 start-0 end-0 z-20;
+
+      &-button {
+        @apply relative w-5pxr h-5pxr rounded-full bg-[var(--jammin-gray-color-light)];
+
+        &[data-carousel-index='true'] {
+          @apply bg-[var(--jammin-primary-color-main)];
+        }
+      }
+    }
+
+    /* 캐로셀 슬라이더 버튼과 indicator의 opacity 조절 */
+    &-opacity {
+      &-30 {
+        .jammin-carousel-arrow-btn-wrapper {
+          @apply opacity-30;
+        }
+
+        .jammin-carousel-dots {
+          @apply opacity-30;
+        }
+      }
+
+      &-50 {
+        .jammin-carousel-arrow-btn-wrapper {
+          @apply opacity-50;
+        }
+
+        .jammin-carousel-dots {
+          @apply opacity-50;
+        }
+      }
+
+      &-70 {
+        .jammin-carousel-arrow-btn-wrapper {
+          @apply opacity-70;
+        }
+
+        .jammin-carousel-dots {
+          @apply opacity-70;
+        }
+      }
+    }
+  }
+}

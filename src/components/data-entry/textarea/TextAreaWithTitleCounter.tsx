@@ -1,9 +1,9 @@
-import { forwardRef, useCallback, useState } from 'react';
-import classNames from 'classnames';
+import { forwardRef, useCallback, useState } from "react";
+import classNames from "classnames";
 
-import { textareaClasses } from './TextareaClasses';
-import { ITitleCounterProps } from './TextareaWithTitleCounter.types';
-import { Textarea } from '.';
+import { textareaClasses } from "./TextareaClasses";
+import { ITitleCounterProps } from "./TextareaWithTitleCounter.types";
+import { Textarea } from ".";
 
 export const TextAreaWithTitleCounter = forwardRef<
   HTMLTextAreaElement,
@@ -26,9 +26,14 @@ export const TextAreaWithTitleCounter = forwardRef<
   } = args;
   const [count, setCount] = useState<number>();
 
-  const rootClassName = classNames(textareaClasses.wrapper, args.className, 'group');
+  const rootClassName = classNames(
+    textareaClasses.wrapper,
+    args.className,
+    "group",
+  );
   const textareaClassName = classNames(textareaClasses.root, args.className, {
-    'group-focus-within:border-[var(--bc-primary-color-main)]': direction !== 'inside',
+    "group-focus-within:border-[var(--jammin-primary-color-main)]":
+      direction !== "inside",
   });
 
   const handleTextArea = useCallback(
@@ -41,21 +46,25 @@ export const TextAreaWithTitleCounter = forwardRef<
 
   return (
     <div className={rootClassName}>
-      {direction && direction !== 'bottom' ? (
+      {direction && direction !== "bottom" ? (
         <div className={textareaClasses.titleCounterWrapper}>
           {label ? (
-            <span className={classNames(textareaClasses.label, { light: isLight })}>
+            <span
+              className={classNames(textareaClasses.label, { light: isLight })}
+            >
               {label}
               {required && <span className="required"> *</span>}
             </span>
           ) : null}
-          {direction === 'top' ? (
+          {direction === "top" ? (
             <div className={`${textareaClasses.children} ${childrenClassName}`}>
               {children}
             </div>
           ) : null}
-          {direction === 'top' ? (
-            <span className={classNames(`${textareaClasses.counter} ${direction}`)}>
+          {direction === "top" ? (
+            <span
+              className={classNames(`${textareaClasses.counter} ${direction}`)}
+            >
               {showCount && textLength ? textLength : count || 0}
               {showCount && `/${args.maxLength}`}
             </span>
@@ -69,12 +78,14 @@ export const TextAreaWithTitleCounter = forwardRef<
           {
             invalid:
               isError ||
-              (args.maxLength && args.textLength && args?.textLength > args.maxLength) ||
+              (args.maxLength &&
+                args.textLength &&
+                args?.textLength > args.maxLength) ||
               (count && args?.maxLength && count > args?.maxLength),
           },
           useFocus && !args.disabled
-            ? 'ring-[var(--bc-primary-color-light)] group-focus-within:border-[var(--bc-primary-color-main)] group-focus-within:ring-2'
-            : ' group-focus-within:border-[var(--bc-border-color)]',
+            ? "ring-[var(--jammin-primary-color-light)] group-focus-within:border-[var(--jammin-primary-color-main)] group-focus-within:ring-2"
+            : " group-focus-within:border-[var(--jammin-border-color)]",
         )}
       >
         <Textarea
@@ -85,17 +96,19 @@ export const TextAreaWithTitleCounter = forwardRef<
           maxLength={args.maxLength}
           ref={ref}
           readOnly={readOnly}
-          autoComplete={args.autoComplete ? 'true' : 'false'}
+          autoComplete={args.autoComplete ? "true" : "false"}
           disabled={args.disabled}
           style={style}
           direction={direction}
           useFocus={useFocus}
         />
 
-        {direction === 'inside' ? (
+        {direction === "inside" ? (
           <div className={textareaClasses.insideWrapper}>
             {
-              <div className={`${textareaClasses.children} ${childrenClassName}`}>
+              <div
+                className={`${textareaClasses.children} ${childrenClassName}`}
+              >
                 {children}
               </div>
             }
@@ -106,21 +119,25 @@ export const TextAreaWithTitleCounter = forwardRef<
           </div>
         ) : null}
       </div>
-      {direction === 'bottom' ? (
+      {direction === "bottom" ? (
         <div className={`${textareaClasses.titleCounterWrapper}`}>
           {label ? (
-            <span className={classNames(textareaClasses.label, { light: isLight })}>
+            <span
+              className={classNames(textareaClasses.label, { light: isLight })}
+            >
               {label}
               {required && <span className="required"> *</span>}
             </span>
           ) : null}
-          {direction === 'bottom' ? (
+          {direction === "bottom" ? (
             <div className={`${textareaClasses.children} ${childrenClassName}`}>
               {children}
             </div>
           ) : null}
-          {direction === 'bottom' ? (
-            <span className={classNames(`${textareaClasses.counter} ${direction}`)}>
+          {direction === "bottom" ? (
+            <span
+              className={classNames(`${textareaClasses.counter} ${direction}`)}
+            >
               {showCount && textLength ? textLength : count || 0}
               {showCount && `/${args.maxLength}`}
             </span>

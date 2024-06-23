@@ -1,0 +1,25 @@
+$ns: .jammin;
+
+$(ns) {
+  &-collapse {
+    &-header {
+      @apply flex items-center p-12pxr;
+
+      &-expand-icon {
+        @apply flex-none;
+
+        &.expand {
+          @apply rotate-180;
+        }
+      }
+
+      &-label {
+        @apply grow w-full;
+      }
+    }
+
+    &-children {
+      @apply p-12pxr;
+    }
+  }
+}

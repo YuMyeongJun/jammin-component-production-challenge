@@ -109,7 +109,7 @@ export const Input = forwardRef<HTMLInputElement, IInputProps>((args, ref) => {
     wrappingType
       ? inputClassNames
       : // useFocus사용하면서 에러가 아닐경우에 포커스가 되어있는 상태에서 파란색 ring css
-        `${args.className ?? ""} ${inputClasses.normal.root} ${useFocus && !isError ? "focus:ring-2 ring-[var(--bc-primary-color-light)] focus:border-[var(--bc-primary-color-main)]" : ""} `,
+        `${args.className ?? ""} ${inputClasses.normal.root} ${useFocus && !isError ? "focus:ring-2 ring-[var(--jammin-primary-color-light)] focus:border-[var(--jammin-primary-color-main)]" : ""} `,
     {
       // 에러가 발생하거나 maxLength보다 입력한 글자수가 많을 경우 빨간 ring css
       invalid: isError || (args.maxLength && textLength > args.maxLength),
@@ -132,10 +132,10 @@ export const Input = forwardRef<HTMLInputElement, IInputProps>((args, ref) => {
     wrappingType ? `${args.className ?? ""} ${inputClasses.wrapped.root}` : "",
     useFocus && !args.disabled
       ? // useFocus를 사용하면서 disable이 아닐경우 포커스 시 파란 ring css 적용
-        "focus-within:ring-2 ring-[var(--bc-primary-color-light)] focus-within:border-[var(--bc-primary-color-main)]"
+        "focus-within:ring-2 ring-[var(--jammin-primary-color-light)] focus-within:border-[var(--jammin-primary-color-main)]"
       : "",
     // border를 사용할 경우 border의 두께(셀렉트와 같이 input을 하위 컴포넌트로 사용할 경우에 useBorder 상태값 사용)
-    useBorder && "border-[length:var(--bc-border-width)]",
+    useBorder && "border-[length:var(--jammin-border-width)]",
     {
       // 에러가 난 상태이고 useBorder를 사용하는경우 또는 maxLength보다 입력한 글자수가 많을 경우(셀렉트와 같이 input을 하위 컴포넌트로 사용할 경우에 useBorder 상태값 사용)
       invalid:

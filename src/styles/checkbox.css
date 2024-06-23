@@ -15,38 +15,38 @@ $(ns) {
       @apply border-[1px] border-solid border-[var(--jammin-border-color)];
     }
     /* input */
-    $(ns)-input[type="checkbox"] {
+    $(ns)-input[type='checkbox'] {
       @apply relative m-0 h-16pxr w-16pxr cursor-[inherit] appearance-none rounded-[var(--jammin-rounded-sm)] border-[length:var(--jammin-border-width)] bg-white p-0 outline-offset-0;
       /* focus-visible:input-focus; */
       &:checked {
         &:disabled {
           @apply opacity-20;
         }
-        &[data-color="primary"] {
+        &[data-color='primary'] {
           @apply border-[var(--jammin-primary-color-main)] bg-[var(--jammin-primary-color-main)];
         }
 
-        &[data-color="secondary"] {
+        &[data-color='secondary'] {
           @apply border-[var(--jammin-secondary-color-main)] bg-[var(--jammin-secondary-color-main)];
         }
 
-        &[data-color="success"] {
+        &[data-color='success'] {
           @apply border-[var(--jammin-success-color-main)] bg-[var(--jammin-success-color-main)];
         }
 
-        &[data-color="error"] {
+        &[data-color='error'] {
           @apply border-[var(--jammin-error-color-main)] bg-[var(--jammin-error-color-main)];
         }
 
-        &[data-color="info"] {
+        &[data-color='info'] {
           @apply border-[var(--jammin-info-color-main)] bg-[var(--jammin-info-color-main)];
         }
 
-        &[data-color="warning"] {
+        &[data-color='warning'] {
           @apply border-[var(--jammin-warning-color-main)] bg-[var(--jammin-warning-color-main)];
         }
 
-        &[data-color="dark"] {
+        &[data-color='dark'] {
           @apply border-[var(--jammin-dark-color-main)] bg-[var(--jammin-dark-color-main)];
         }
         &::after {
@@ -54,7 +54,7 @@ $(ns) {
         }
       }
 
-      &[data-indeterminate="true"] {
+      &[data-indeterminate='true'] {
         & {
           @apply border-[var(--jammin-primarycolor-main)] bg-[var(--jammin-primary-color-main)];
         }
@@ -70,7 +70,7 @@ $(ns) {
     }
 
     &:has(.use-icon) {
-      $(ns)-input[type="checkbox"] {
+      $(ns)-input[type='checkbox'] {
         @apply bg-transparent;
       }
     }

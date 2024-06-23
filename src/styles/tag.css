@@ -1,0 +1,29 @@
+$ns: .jammin;
+$(ns) {
+  &-tag {
+    @apply h-fit rounded bg-gray-100 py-px pe-1 ps-1 text-center text-xs text-[#808080];
+    &-option {
+      &-inline {
+        @apply inline-block;
+      }
+      &-icon {
+        @apply inline-block pl-0 pr-1 align-text-bottom;
+
+        img {
+          @apply w-4 align-middle;
+        }
+      }
+    }
+
+    &-option-close {
+      @apply cursor-pointer pl-1 align-middle text-10pxr;
+    }
+    &-option-hidden {
+      @apply hidden;
+    }
+  }
+
+  &-tag-option-bordered {
+    @apply border border-zinc-300;
+  }
+}

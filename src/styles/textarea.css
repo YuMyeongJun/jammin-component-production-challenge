@@ -1,4 +1,4 @@
-$ns: .bc;
+$ns: .jammin;
 
 $(ns) {
   &-textarea {
@@ -25,12 +25,16 @@ $(ns) {
         @apply text-[length:var(--jammin-font-size-lg)];
       }
     }
+
+    &-counter {
+      @apply text-[#8A8A8E];
+    }
   }
 
   &-textarea-title-counter-wrapper {
     @apply flex w-full resize-none items-center justify-between rounded-[var(--jammin-rounded)];
 
-    .bc-textarea-label {
+    .jammin-textarea-label {
       @apply font-semibold;
 
       &.light {
@@ -38,10 +42,10 @@ $(ns) {
       }
     }
 
-    .bc-textarea-inside-wrapper {
+    .jammin-textarea-inside-wrapper {
       @apply flex items-end justify-between;
 
-      .bc-textarea-children {
+      .jammin-textarea-children {
         @apply text-left;
       }
     }
@@ -56,7 +60,7 @@ $(ns) {
         @apply border-[length:var(--jammin-border-width)] border-solid border-[var(--jammin-error-color-main)] ring-2 ring-[var(--jammin-error-color-light)];
       }
 
-      .bc-textarea-counter {
+      .jammin-textarea-counter {
         @apply py-2pxr pr-10pxr text-[length:var(--jammin-font-size-sm)];
       }
 

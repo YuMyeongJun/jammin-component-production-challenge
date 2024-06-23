@@ -1,16 +1,16 @@
-import React, { ReactElement, useEffect, useRef, useState } from 'react';
-import ReactDOM from 'react-dom';
-import { usePopper } from 'react-popper';
-import IcToggleArrowDown from '@assets/icons/ic_select_toggle_arrow_down.svg?react';
-import IcToggleArrowUp from '@assets/icons/ic_select_toggle_arrow_up.svg?react';
-import { BodyPortal, Input } from '@components';
-import { useOutsideClick } from '@hooks/useOutsideClick';
-import { AnyObject } from '@models/types/AnyObject';
-import { remUtil } from '@modules/utils/rem';
-import classNames from 'classnames';
+import React, { ReactElement, useEffect, useRef, useState } from "react";
+import ReactDOM from "react-dom";
+import { usePopper } from "react-popper";
+import IcToggleArrowDown from "@assets/icons/ic_select_toggle_arrow_down.svg?react";
+import IcToggleArrowUp from "@assets/icons/ic_select_toggle_arrow_up.svg?react";
+import { BodyPortal, Input } from "@components";
+import { useOutsideClick } from "@hooks/useOutsideClick";
+import { AnyObject } from "@models/types/AnyObject";
+import { remUtil } from "@modules/utils/rem";
+import classNames from "classnames";
 
-import { ISelectProp } from './Select.types';
-import { selectClasses } from './SelectClasses';
+import { ISelectProp } from "./Select.types";
+import { selectClasses } from "./SelectClasses";
 
 function SelectFunc<T extends AnyObject>(
   props: ISelectProp<T>,
@@ -26,7 +26,7 @@ function SelectFunc<T extends AnyObject>(
     defaultValue,
     disabled,
     placeholder,
-    placement = 'bottom',
+    placement = "bottom",
     open,
     offset = [0, 0],
     // status,
@@ -38,7 +38,7 @@ function SelectFunc<T extends AnyObject>(
     selectWidth = 150,
     listWidth,
     listMaxHeight = 300,
-    controlSize = 'md',
+    controlSize = "md",
     isError,
     preSuffixIcon,
     useBorder,
@@ -52,10 +52,12 @@ function SelectFunc<T extends AnyObject>(
   } = props;
 
   const tempWidth =
-    typeof selectWidth !== 'number' ? remUtil.findNumber(selectWidth) : selectWidth;
-  const width = fullWidth ? '100%' : `${tempWidth}px`;
+    typeof selectWidth !== "number"
+      ? remUtil.findNumber(selectWidth)
+      : selectWidth;
+  const width = fullWidth ? "100%" : `${tempWidth}px`;
   const tempListWidth =
-    listWidth && typeof listWidth !== 'number'
+    listWidth && typeof listWidth !== "number"
       ? remUtil.findNumber(listWidth)
       : listWidth;
 
@@ -66,14 +68,14 @@ function SelectFunc<T extends AnyObject>(
   const [tmpList, setTmpList] = useState<
     Array<{ label: string; value: string; disabled?: boolean }>
   >([]);
-  const [currentValue, setCurrentValue] = useState<string>('');
+  const [currentValue, setCurrentValue] = useState<string>("");
   const [isSearch, setIsSearch] = useState<boolean>(false);
-  const [selectedValue, setSelectedValue] = useState<string>('');
+  const [selectedValue, setSelectedValue] = useState<string>("");
   const [showOptions, setShowOptions] = useState<boolean>(false);
-  const [hoverText, setHoverText] = useState('');
+  const [hoverText, setHoverText] = useState("");
   const [hoverIdx, setHoverIdx] = useState(0);
   const [indexNum, setIndexNum] = useState<number>(0);
-  const [ulWidth, setUlWidth] = useState<string>('0px');
+  const [ulWidth, setUlWidth] = useState<string>("0px");
   const selectRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement | null>(null);
   const popperElement = useRef<HTMLUListElement>(null);
@@ -85,13 +87,13 @@ function SelectFunc<T extends AnyObject>(
       placement: placement,
       modifiers: [
         {
-          name: 'offset',
+          name: "offset",
           options: {
             offset: offset,
           },
         },
       ],
-      strategy: 'fixed',
+      strategy: "fixed",
     },
   );
 
@@ -99,7 +101,10 @@ function SelectFunc<T extends AnyObject>(
     void update?.();
   };
 
-  const onChangeCurrentValue = (e: React.MouseEvent<HTMLElement>, idx: number) => {
+  const onChangeCurrentValue = (
+    e: React.MouseEvent<HTMLElement>,
+    idx: number,
+  ) => {
     e.stopPropagation();
     e.preventDefault();
 
@@ -114,7 +119,7 @@ function SelectFunc<T extends AnyObject>(
   };
 
   const findUserValue = (val: string) => {
-    const findText = title && val.includes('전체') ? '전체' : val;
+    const findText = title && val.includes("전체") ? "전체" : val;
     const findValue = list?.filter((x) => x.label.trim() === findText) ?? [];
 
     if (findValue.length > 1) {
@@ -148,7 +153,7 @@ function SelectFunc<T extends AnyObject>(
   const handleKeyArrow = (e: React.KeyboardEvent) => {
     const tmpStartIdx = list.findIndex((x) => !x.disabled);
     switch (e.code) {
-      case 'ArrowDown': {
+      case "ArrowDown": {
         e.preventDefault();
         if (!showOptions) {
           setShowOptions((pre) => !pre);
@@ -171,12 +176,12 @@ function SelectFunc<T extends AnyObject>(
           if (newIndex >= list.length) newIndex = tmpStartIdx;
         });
 
-        setHoverText(list ? list[newIndex].value : '');
+        setHoverText(list ? list[newIndex].value : "");
         setIndexNum(newIndex);
         setHoverIdx(newIndex);
         break;
       }
-      case 'ArrowUp': {
+      case "ArrowUp": {
         e.preventDefault();
         if (!showOptions) {
           setShowOptions((pre) => !pre);
@@ -203,22 +208,22 @@ function SelectFunc<T extends AnyObject>(
         setIndexNum(newIndex);
         setHoverIdx(newIndex);
 
-        setHoverText(list ? list[newIndex].value : '');
+        setHoverText(list ? list[newIndex].value : "");
         break;
       }
-      case 'Escape':
+      case "Escape":
         e.preventDefault();
-        setHoverText('');
+        setHoverText("");
         setIndexNum(0);
 
-        if (currentValue === '' || !showOptions) {
+        if (currentValue === "" || !showOptions) {
           setShowOptions(false);
         } else {
           setShowOptions(true);
         }
 
         break;
-      case 'Enter':
+      case "Enter":
         e.preventDefault();
 
         if (!disabled) setShowOptions((pre) => !pre);
@@ -229,7 +234,7 @@ function SelectFunc<T extends AnyObject>(
         } else {
           if (list?.length === 1 && list[0].disabled) {
             setShowOptions(false);
-            setCurrentValue('');
+            setCurrentValue("");
           } else {
             let res = findRes();
             if (isSearch) {
@@ -246,15 +251,15 @@ function SelectFunc<T extends AnyObject>(
               findUserValue(res.label);
             } else {
               setShowOptions(false);
-              setCurrentValue('');
+              setCurrentValue("");
             }
           }
         }
         break;
-      case 'Backspace':
+      case "Backspace":
         setShowOptions(true);
         break;
-      case 'Tab':
+      case "Tab":
         setShowOptions(false);
         break;
     }
@@ -288,7 +293,7 @@ function SelectFunc<T extends AnyObject>(
       setShowOptions(false);
       popperUpdate();
     },
-    'mousedown',
+    "mousedown",
   );
 
   // useEffect(() => {
@@ -299,23 +304,28 @@ function SelectFunc<T extends AnyObject>(
 
   useEffect(() => {
     if (inputRef) {
-      const text = inputRef.current?.value.toLowerCase() ?? '';
+      const text = inputRef.current?.value.toLowerCase() ?? "";
       const searchList =
-        tmpList?.filter((item) => item.label.toLowerCase().includes(text)) ?? [];
+        tmpList?.filter((item) => item.label.toLowerCase().includes(text)) ??
+        [];
       setList(searchList);
 
-      if (currentValue !== '' && searchList?.length > 0) {
+      if (currentValue !== "" && searchList?.length > 0) {
         const tmpStartIdx =
-          selectedValue === ''
+          selectedValue === ""
             ? searchList?.findIndex((x) => !x.disabled)
-            : searchList?.findIndex((x) => x.value === selectedValue && !x.disabled);
+            : searchList?.findIndex(
+                (x) => x.value === selectedValue && !x.disabled,
+              );
         setHoverIdx(tmpStartIdx === -1 ? 0 : tmpStartIdx);
         setHoverText(
-          tmpStartIdx === -1 ? searchList[0].value : searchList[tmpStartIdx].value,
+          tmpStartIdx === -1
+            ? searchList[0].value
+            : searchList[tmpStartIdx].value,
         );
       } else {
         setHoverIdx(0);
-        setHoverText('');
+        setHoverText("");
       }
     }
   }, [currentValue]);
@@ -329,34 +339,34 @@ function SelectFunc<T extends AnyObject>(
         const findValue = options?.filter((x) => x.value === defaultValue)[0];
         setCurrentValue(
           findValue
-            ? title && findValue.label === '전체'
+            ? title && findValue.label === "전체"
               ? `${title} ${findValue.label}`
               : findValue.label
-            : '',
+            : "",
         );
-        setSelectedValue(findValue ? defaultValue : '');
+        setSelectedValue(findValue ? defaultValue : "");
       }
       if (value) {
         const findValue = options?.filter((x) => x.value === value)[0];
-        setSelectedValue(findValue ? value : '');
+        setSelectedValue(findValue ? value : "");
         setCurrentValue(
           findValue
-            ? title && findValue.label === '전체'
+            ? title && findValue.label === "전체"
               ? `${title} ${findValue.label}`
               : findValue.label
-            : '',
+            : "",
         );
       }
       const tmpStartIdx = options.findIndex((x) => !x.disabled) ?? 0;
       setHoverIdx(tmpStartIdx);
-      setHoverText(options.length > 0 ? options[tmpStartIdx].value : '');
+      setHoverText(options.length > 0 ? options[tmpStartIdx].value : "");
     } else if (items && items.length > 0) {
-      const key = displayLabel ?? 'label';
-      const valueKey = valuePath ?? 'value';
+      const key = displayLabel ?? "label";
+      const valueKey = valuePath ?? "value";
       const temp = items?.map((x) => ({
         label: x[key],
         value: x[valueKey],
-        disabled: x['disabled'],
+        disabled: x["disabled"],
       })) as Array<{ label: string; value: string; disabled?: boolean }>;
       setList(temp ?? []);
       setTmpList(temp ?? []);
@@ -364,25 +374,25 @@ function SelectFunc<T extends AnyObject>(
         const findValue = temp?.filter((x) => x.value === defaultValue)[0];
         setCurrentValue(
           findValue
-            ? title && findValue.label === '전체'
+            ? title && findValue.label === "전체"
               ? `${title} ${findValue.label}`
               : findValue.label
-            : '',
+            : "",
         );
       }
       if (value) {
         const findValue = temp?.filter((x) => x.value === value)[0];
         setCurrentValue(
           findValue
-            ? title && findValue.label === '전체'
+            ? title && findValue.label === "전체"
               ? `${title} ${findValue.label}`
               : findValue.label
-            : '',
+            : "",
         );
       }
       const tmpStartIdx = temp?.findIndex((x) => !x.disabled) ?? 0;
       setHoverIdx(tmpStartIdx);
-      setHoverText(temp?.length ? temp[tmpStartIdx].value : '');
+      setHoverText(temp?.length ? temp[tmpStartIdx].value : "");
     } else {
       resetList();
     }
@@ -394,21 +404,21 @@ function SelectFunc<T extends AnyObject>(
 
       if (findValue) {
         setCurrentValue(
-          title && findValue.label === '전체'
+          title && findValue.label === "전체"
             ? `${title} ${findValue.label}`
             : findValue.label,
         );
         setHoverText(findValue.value);
         setSelectedValue(findValue.value);
       } else {
-        setCurrentValue('');
+        setCurrentValue("");
         setHoverText(tmpList[0].value);
-        setSelectedValue('');
+        setSelectedValue("");
       }
     } else {
-      setCurrentValue('');
-      setHoverText('');
-      setSelectedValue('');
+      setCurrentValue("");
+      setHoverText("");
+      setSelectedValue("");
     }
 
     popperUpdate();
@@ -447,14 +457,14 @@ function SelectFunc<T extends AnyObject>(
   // }, []);
 
   const rootClassName = classNames(selectClasses.root, {
-    [selectClasses.placeholder]: placeholder && currentValue === '',
-    'w-full': fullWidth,
+    [selectClasses.placeholder]: placeholder && currentValue === "",
+    "w-full": fullWidth,
   });
 
   const sizeClassName = classNames({
-    [selectClasses.normal.sm]: controlSize === 'sm',
-    [selectClasses.normal.md]: controlSize === 'md',
-    [selectClasses.normal.lg]: controlSize === 'lg',
+    [selectClasses.normal.sm]: controlSize === "sm",
+    [selectClasses.normal.md]: controlSize === "md",
+    [selectClasses.normal.lg]: controlSize === "lg",
   });
 
   const borderClassName = classNames(
@@ -471,13 +481,16 @@ function SelectFunc<T extends AnyObject>(
   );
 
   const listClassNames = classNames({
-    [selectClasses.list.font.sm]: controlSize === 'sm',
-    [selectClasses.list.font.md]: controlSize === 'md',
-    [selectClasses.list.font.lg]: controlSize === 'lg',
+    [selectClasses.list.font.sm]: controlSize === "sm",
+    [selectClasses.list.font.md]: controlSize === "md",
+    [selectClasses.list.font.lg]: controlSize === "lg",
   });
 
   return (
-    <div className={classNames(rootClassName, sizeClassName, 'relative')} ref={selectRef}>
+    <div
+      className={classNames(rootClassName, sizeClassName, "relative")}
+      ref={selectRef}
+    >
       <div
         ref={referenceElement}
         style={{
@@ -493,7 +506,7 @@ function SelectFunc<T extends AnyObject>(
           customPrefix={preSuffixIcon}
           ref={(current) => {
             if (ref) {
-              if (typeof ref === 'function') {
+              if (typeof ref === "function") {
                 ref(current);
               } else {
                 ref.current = current;
@@ -505,7 +518,9 @@ function SelectFunc<T extends AnyObject>(
           autoComplete="off"
           onClick={iconClick}
           placeholder={
-            placeholder === '선택' && title ? `${title} ${placeholder}` : placeholder
+            placeholder === "선택" && title
+              ? `${title} ${placeholder}`
+              : placeholder
           }
           type="text"
           onChange={inputOnChange}
@@ -514,16 +529,16 @@ function SelectFunc<T extends AnyObject>(
           readOnly={!filterOption || disabled}
           className={classNames(
             { [selectClasses.disabled]: disabled },
-            { 'pr-[4px]': isSearchType },
-            'w-full',
+            { "pr-[4px]": isSearchType },
+            "w-full",
             showOptions && !filterOption && open === undefined
-              ? 'text-slate-400'
-              : 'text-black',
+              ? "text-slate-400"
+              : "text-black",
             listClassNames,
             sizeClassName,
           )}
           inputClassNames={classNames({
-            'h-[inherit] rounded-[var(--bc-rounded)]': isSearchType,
+            "h-[inherit] rounded-[var(--jammin-rounded)]": isSearchType,
           })}
           value={currentValue}
           isError={isError}
@@ -532,32 +547,38 @@ function SelectFunc<T extends AnyObject>(
           onBlur={(e) => {
             setShowOptions(false);
 
-            if (e.target.value !== '') {
-              const selectedItem = tmpList?.find((x) => x.value === selectedValue);
+            if (e.target.value !== "") {
+              const selectedItem = tmpList?.find(
+                (x) => x.value === selectedValue,
+              );
               const res =
-                selectedItem?.label === '전체' && title
+                selectedItem?.label === "전체" && title
                   ? `${title} ${selectedItem?.label}`
                   : selectedItem?.label;
-              setCurrentValue(res ?? '');
+              setCurrentValue(res ?? "");
             }
           }}
           suffix={
             suffixIcon ? (
               <div
                 className={classNames(
-                  disabled ? selectClasses.icon.disabled : selectClasses.icon.root,
+                  disabled
+                    ? selectClasses.icon.disabled
+                    : selectClasses.icon.root,
                 )}
               >
                 {suffixIcon}
               </div>
             ) : (
               <div
-                className={classNames(disabled ? selectClasses.icon.disabled : 'auto')}
+                className={classNames(
+                  disabled ? selectClasses.icon.disabled : "auto",
+                )}
               >
                 {showOptions ? (
-                  <IcToggleArrowDown fill={'black'} />
+                  <IcToggleArrowDown fill={"black"} />
                 ) : (
-                  <IcToggleArrowUp fill={!disabled ? 'black' : '#d9d9d9'} />
+                  <IcToggleArrowUp fill={!disabled ? "black" : "#d9d9d9"} />
                 )}
               </div>
             )
@@ -573,7 +594,7 @@ function SelectFunc<T extends AnyObject>(
             ...styles.popper,
             ...style,
             width: listWidth ? tempListWidth : ulWidth,
-            visibility: showOptions ? 'visible' : 'hidden',
+            visibility: showOptions ? "visible" : "hidden",
             // visibility:
             //   open === undefined
             //     ? showOptions && init
@@ -583,7 +604,7 @@ function SelectFunc<T extends AnyObject>(
             //       ? 'visible'
             //       : 'hidden',
             maxHeight: `${listMaxHeight}px`,
-            overflowY: 'scroll',
+            overflowY: "scroll",
           }}
           className={classNames(selectClasses.list.root, listClassName)}
         >
@@ -597,11 +618,13 @@ function SelectFunc<T extends AnyObject>(
                   onMouseEnter={(e) => {
                     setHoverText(list[idx].value);
                     setIndexNum(idx);
-                    setHoverIdx(tmpList.findIndex((x) => x.value === list[idx].value));
+                    setHoverIdx(
+                      tmpList.findIndex((x) => x.value === list[idx].value),
+                    );
                   }}
                   title={x.label.trim()}
                   onMouseLeave={() => {
-                    !showOptions && setHoverText('');
+                    !showOptions && setHoverText("");
                     setIndexNum(idx);
                   }}
                   className={classNames(
@@ -613,7 +636,7 @@ function SelectFunc<T extends AnyObject>(
                     listClassNames,
                   )}
                 >
-                  {x.label.trim() === '전체' && title && `${title} `}
+                  {x.label.trim() === "전체" && title && `${title} `}
                   {x.label.trim()}
                 </li>
               ) : (
@@ -626,7 +649,7 @@ function SelectFunc<T extends AnyObject>(
                   }}
                   className={classNames(disabledLiClassName, listClassNames)}
                 >
-                  {x.label.trim() === '전체' && `${title} `}
+                  {x.label.trim() === "전체" && `${title} `}
                   {x.label}
                 </li>
               );
@@ -638,8 +661,8 @@ function SelectFunc<T extends AnyObject>(
                 e.stopPropagation();
                 e.preventDefault();
               }}
-              className={classNames(listClassNames, 'p-2')}
-              style={{ cursor: 'not-allowed' }}
+              className={classNames(listClassNames, "p-2")}
+              style={{ cursor: "not-allowed" }}
             >
               No data
             </li>

@@ -1,10 +1,10 @@
-import { ForwardedRef, forwardRef, useRef, useState } from 'react';
-import IcTabClose from '@assets/icons/ic_basic_close.svg?react';
-import classNames from 'classnames';
+import { ForwardedRef, forwardRef, useRef, useState } from "react";
+import IcTabClose from "@assets/icons/ic_basic_close.svg?react";
+import classNames from "classnames";
 
-import { ITabProps } from './Tab.types';
-import { tabClasses as tabClasses, tabContainerClasses } from './TabClasses';
-import { tabItemClasses } from './TabItemClasses';
+import { ITabProps } from "./Tab.types";
+import { tabClasses as tabClasses, tabContainerClasses } from "./TabClasses";
+import { tabItemClasses } from "./TabItemClasses";
 
 export const Tab = forwardRef<HTMLDivElement, ITabProps>(
   (props: ITabProps, ref: ForwardedRef<HTMLDivElement>) => {
@@ -32,43 +32,44 @@ export const Tab = forwardRef<HTMLDivElement, ITabProps>(
     );
 
     const rootClassName = classNames(tabContainerClasses.root, {
-      [tabContainerClasses.horizontal]: type === 'horizontal',
-      [tabContainerClasses.vertical]: type === 'vertical',
-      [tabContainerClasses.left]: placement === 'left',
-      [tabContainerClasses.right]: placement === 'right',
-      [tabContainerClasses.vLeft]: type === 'vertical' && placement === 'left',
-      [tabContainerClasses.vRight]: type === 'vertical' && placement === 'right',
+      [tabContainerClasses.horizontal]: type === "horizontal",
+      [tabContainerClasses.vertical]: type === "vertical",
+      [tabContainerClasses.left]: placement === "left",
+      [tabContainerClasses.right]: placement === "right",
+      [tabContainerClasses.vLeft]: type === "vertical" && placement === "left",
+      [tabContainerClasses.vRight]:
+        type === "vertical" && placement === "right",
     });
 
     const tabClassesName = classNames(tabClasses.root, {
-      [tabClasses.horizontal]: type === 'horizontal',
-      [tabClasses.vertical]: type === 'vertical',
-      [tabClasses.left]: placement === 'left',
-      [tabClasses.right]: placement === 'right',
-      [tabClasses.center]: type === 'horizontal' && placement === 'center',
+      [tabClasses.horizontal]: type === "horizontal",
+      [tabClasses.vertical]: type === "vertical",
+      [tabClasses.left]: placement === "left",
+      [tabClasses.right]: placement === "right",
+      [tabClasses.center]: type === "horizontal" && placement === "center",
     });
 
     const tabItemClassName = classNames(tabItemClasses.root, {
-      [tabItemClasses.solid.root]: variant === 'solid',
-      [tabItemClasses.underline.root]: variant === 'underline',
-      [tabItemClasses.handle.root]: variant === 'handle',
-      [tabItemClasses.rounded.none]: rounded === 'none',
-      [tabItemClasses.rounded.sm]: rounded === 'sm',
-      [tabItemClasses.rounded.md]: rounded === 'md',
-      [tabItemClasses.rounded.lg]: rounded === 'lg',
-      [tabItemClasses.rounded.xl]: rounded === 'xl',
-      [tabItemClasses.color.primary]: color === 'primary',
-      [tabItemClasses.color.secondary]: color === 'secondary',
-      [tabItemClasses.color.success]: color === 'success',
-      [tabItemClasses.color.error]: color === 'error',
-      [tabItemClasses.color.info]: color === 'info',
-      [tabItemClasses.color.warning]: color === 'warning',
-      [tabItemClasses.color.gray]: color === 'gray',
-      [tabItemClasses.color.dark]: color === 'dark',
-      [tabItemClasses.size.sm]: size === 'sm',
-      [tabItemClasses.size.md]: size === 'md',
-      [tabItemClasses.size.lg]: size === 'lg',
-      [tabItemClasses.size.xl]: size === 'xl',
+      [tabItemClasses.solid.root]: variant === "solid",
+      [tabItemClasses.underline.root]: variant === "underline",
+      [tabItemClasses.handle.root]: variant === "handle",
+      [tabItemClasses.rounded.none]: rounded === "none",
+      [tabItemClasses.rounded.sm]: rounded === "sm",
+      [tabItemClasses.rounded.md]: rounded === "md",
+      [tabItemClasses.rounded.lg]: rounded === "lg",
+      [tabItemClasses.rounded.xl]: rounded === "xl",
+      [tabItemClasses.color.primary]: color === "primary",
+      [tabItemClasses.color.secondary]: color === "secondary",
+      [tabItemClasses.color.success]: color === "success",
+      [tabItemClasses.color.error]: color === "error",
+      [tabItemClasses.color.info]: color === "info",
+      [tabItemClasses.color.warning]: color === "warning",
+      [tabItemClasses.color.gray]: color === "gray",
+      [tabItemClasses.color.dark]: color === "dark",
+      [tabItemClasses.size.sm]: size === "sm",
+      [tabItemClasses.size.md]: size === "md",
+      [tabItemClasses.size.lg]: size === "lg",
+      [tabItemClasses.size.xl]: size === "xl",
     });
 
     const tabCloseClassName = classNames(
@@ -79,19 +80,20 @@ export const Tab = forwardRef<HTMLDivElement, ITabProps>(
     const tabClick = (idx: number) => {
       setIsSelected(idx + 1);
       setIsChildren(idx);
-      console.log('defaultTab : ' + defaultTab);
+      console.log("defaultTab : " + defaultTab);
     };
 
     const closeRef = useRef<HTMLButtonElement>(null);
 
     const getTabItemClassNames = (isSelected: boolean) =>
       classNames(tabItemClassName, tabItemClasses.root, {
-        [tabItemClasses.solid.root]: variant === 'solid',
-        [tabItemClasses.underline.root]: variant === 'underline',
-        [tabItemClasses.handle.root]: variant === 'handle',
-        [tabItemClasses.solid.selected]: isSelected && variant === 'solid',
-        [tabItemClasses.underline.selected]: isSelected && variant === 'underline',
-        [tabItemClasses.handle.selected]: isSelected && variant === 'handle',
+        [tabItemClasses.solid.root]: variant === "solid",
+        [tabItemClasses.underline.root]: variant === "underline",
+        [tabItemClasses.handle.root]: variant === "handle",
+        [tabItemClasses.solid.selected]: isSelected && variant === "solid",
+        [tabItemClasses.underline.selected]:
+          isSelected && variant === "underline",
+        [tabItemClasses.handle.selected]: isSelected && variant === "handle",
       });
 
     const handleClose = (idx: number) => {
@@ -141,7 +143,7 @@ export const Tab = forwardRef<HTMLDivElement, ITabProps>(
             );
           })}
         </div>
-        <div className="bc-tab-content-container">
+        <div className="jammin-tab-content-container">
           {items?.length && items[isSelected - 1].children}
         </div>
       </div>

@@ -1,0 +1,99 @@
+$prefix: jammin;
+$ns: .$(prefix)-tab-item;
+
+$(ns) {
+  & {
+    @apply flex cursor-pointer select-none flex-row items-center gap-3 bg-transparent text-center text-[14px] font-bold leading-[22px] tracking-[-0.43px] text-label-secondary;
+  }
+  /* &-selected {
+    @apply bg-white;
+  } */
+
+  /* solid tabItem */
+  /* &-solidSelected {
+    @apply bg-white text-primary-main;
+  } */
+  /* Underline tabItem */
+  &-underline {
+    @apply border-b-2 border-transparent bg-transparent px-4 py-2;
+  }
+  &-underlineSelected {
+    @apply border-b-primary-main bg-white;
+  }
+
+  /* handle tabItem */
+  &-handle {
+    @apply bg-transparent;
+  }
+  &-handleSelected {
+    @apply bg-white text-primary-main;
+  }
+
+  /* tab size */
+  &-sm {
+    @apply px-4 py-2 text-sm;
+  }
+  &-md {
+    @apply px-6 py-3 text-md;
+  }
+  &-lg {
+    @apply px-8 py-4 text-lg;
+  }
+  &-xl {
+    @apply px-10 py-5 text-xl;
+  }
+
+  /* round */
+  &-roundedSm {
+    @apply rounded-sm;
+  }
+  &-roundedMd {
+    @apply rounded-md;
+  }
+  &-roundedLg {
+    @apply rounded-lg;
+  }
+  &-roundedXl {
+    @apply rounded-xl;
+  }
+  &-square {
+    @apply rounded-none;
+  }
+
+  /* 선택된 tabItem */
+  &-selected {
+    @apply text-primary-main;
+  }
+
+  /* color */
+  &-primary&-solidSelected {
+    @apply bg-white text-[var(--jammin-primary-color-main)];
+  }
+  &-secondary&-solidSelected {
+    @apply bg-white text-[var(--jammin-secondary-color-main)];
+  }
+  &-error&-solidSelected {
+    @apply bg-white text-[var(--jammin-error-color-main)];
+  }
+  &-info&-solidSelected {
+    @apply bg-white text-[var(--jammin-info-color-main)];
+  }
+  &-warning&-solidSelected {
+    @apply bg-white text-[var(--jammin-warning-color-main)];
+  }
+  &-gray&-solidSelected {
+    @apply bg-white text-[var(--jammin-gray-color-main)];
+  }
+  &-dark&-solidSelected {
+    @apply bg-white text-[var(--jammin-dark-color-main)];
+  }
+
+  &-hidden {
+    @apply hidden;
+  }
+
+  /* tab 추가 */
+  /* &-addTabItem {
+    @apply flex items-center justify-center gap-1 font-pretendard text-[15px] font-bold leading-5 text-label-primary;
+  } */
+}

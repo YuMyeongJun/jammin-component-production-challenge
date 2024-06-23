@@ -1,0 +1,50 @@
+$prefix: jammin;
+$ns: .$(prefix)-tab;
+
+$(ns) {
+  &,
+  &-container {
+    @apply flex;
+
+    /* tab container 가로/세로 */
+    &-horizontal {
+      @apply flex-col;
+    }
+    &-vertical {
+      @apply flex-row;
+    }
+    &-vRight {
+      @apply flex-row-reverse;
+    }
+    &-hRight {
+      @apply flex-row;
+    }
+  }
+
+  /* type : tab 가로,세로 방향 */
+  &-horizontal {
+    @apply flex-row;
+  }
+  &-vertical {
+    @apply flex-col;
+  }
+
+  /**
+   * location : tab item 정렬
+   * container가 horizontal 일 때 : left/right/center
+   * veritcal 일 때 : left/right
+   */
+  &-left {
+    @apply justify-start;
+  }
+  &-right {
+    @apply justify-end;
+  }
+  &-center {
+    @apply justify-center;
+  }
+
+  &-content-container {
+    @apply grow items-start bg-white p-3 text-left text-xs;
+  }
+}

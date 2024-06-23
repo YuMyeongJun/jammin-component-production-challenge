@@ -1,0 +1,77 @@
+$ns: .jammin;
+$(ns) {
+  &-selectGroup {
+    .jammin-input-wrapped input:disabled {
+      @apply bg-inherit;
+    }
+    &-border {
+      @apply rounded-lg border-[1px] border-solid border-[var(--jammin-primary-color-main)] px-4 py-0;
+      &:hover {
+        @apply cursor-pointer border-[#38373E];
+      }
+    }
+    &-normal {
+      @apply rounded-lg border-[1px] border-solid border-[#3C3C4333] px-4 py-0;
+      &-sm {
+        @apply flex h-[var(--jammin-control-height-sm)] items-center text-[length:var(--jammin-font-size-sm)];
+      }
+      &-md {
+        @apply flex h-[var(--jammin-control-height)] items-center text-[length:var(--jammin-font-size-md)];
+      }
+      &-lg {
+        @apply flex h-[var(--jammin-control-height-lg)] items-center text-[length:var(--jammin-font-size-lg)];
+      }
+    }
+    &-error {
+      @apply rounded-lg border border-solid border-[var(--jammin-error-color-main)];
+    }
+    &-errorBorder {
+      @apply rounded-[0.7rem] border-[3px] border-solid border-[color:var(--focus-red\_focus,rgba(255,71,19,0.16))];
+    }
+    &-text {
+      @apply w-full px-0 text-start;
+    }
+    &-selectUl {
+      @apply z-999 overflow-y-scroll bg-white;
+      &-disabled {
+        @apply cursor-not-allowed rounded-[var(--jammin-rounded)] text-[var(--jammin-disable-text-color)];
+      }
+      &-border {
+        @apply rounded-lg border-[1px] border-solid border-[var(--jammin-primary-color-main)];
+        li {
+          @apply h-9 w-full px-[12px] py-[8px];
+          &.option {
+            @apply pl-[24px] pr-[12px] text-body-text;
+          }
+        }
+      }
+      &-hover {
+        @apply cursor-pointer bg-neutral-100;
+      }
+      &-selected {
+        @apply bg-[var(--jammin-primary-color-light)];
+      }
+      &-hoverSelected {
+        @apply bg-[var(--jammin-interaction-primary-color)];
+      }
+      &-font {
+        &-xs {
+          @apply text-[length:var(--jammin-font-size-xs)];
+        }
+        &-sm {
+          @apply text-[length:var(--jammin-font-size-sm)];
+        }
+        &-md {
+          @apply text-[length:var(--jammin-font-size-md)];
+        }
+
+        &-lg {
+          @apply text-[length:var(--jammin-font-size-lg)];
+        }
+      }
+      &-overflow {
+        @apply overflow-hidden text-ellipsis whitespace-nowrap break-all;
+      }
+    }
+  }
+}

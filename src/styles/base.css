@@ -7,6 +7,24 @@ textarea {
   @apply outline-none;
 }
 
+/* Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+  background-color: transparent;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 5px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #c9c9c9;
+  border-radius: 14px;
+  border: none;
+}
+
 :root {
   /* 기본 텍스트 색 */
   --jammin-text-color: #222222;
@@ -28,13 +46,13 @@ textarea {
   --jammin-font-size-lg: 18px;
   --jammin-font-size-xl: 20px;
 
-  --jammin-primary-color-main: #37a8fe;
-  --jammin-primary-color-light: #ebf6ff;
-  --jammin-primary-color-dark: #1d9afb;
+  --jammin-primary-color-main: #4478ff;
+  --jammin-primary-color-light: #a1bbff;
+  --jammin-primary-color-dark: #2659de;
 
-  --jammin-secondary-color-main: #636364;
-  --jammin-secondary-color-light: #dcdcdc;
-  --jammin-secondary-color-dark: #323232;
+  --jammin-secondary-color-main: #a855f7;
+  --jammin-secondary-color-light: #c084fc;
+  --jammin-secondary-color-dark: #7e22ce;
 
   --jammin-error-color-main: #ff4713;
   --jammin-error-color-light: #ff471329;
@@ -60,8 +78,8 @@ textarea {
   --jammin-dark-color-light: #424649;
   --jammin-dark-color-dark: #222222;
 
-  --jammin-disable-background: #f7f7fa;
-  --jammin-disable-text-color: #dcdcdc;
+  --jammin-disable-background: #8c8c9c1f;
+  --jammin-disable-text-color: #3c3c434d;
   --jammin-disable-border-color: #dcdcdc;
   --jammin-disable-cursor: not-allowed;
   --jammin-disable-opacity: 0.25;
@@ -72,22 +90,7 @@ textarea {
 
   --jammin-placeholder-text-color: #dcdcdc;
   --jammin-placeholder-font-weight: 500;
-}
 
-/* Chrome, Edge, and Safari */
-*::-webkit-scrollbar {
-  width: 1px;
-  height: 0px;
-  background-color: transparent;
-}
-
-*::-webkit-scrollbar-track {
-  background: transparent;
-  border-radius: 1px;
-}
-
-*::-webkit-scrollbar-thumb {
-  background-color: #c9c9c9;
-  border-radius: 10px;
-  border: none;
+  --jammin-interaction-primary-color: #00000033;
+  --jammin-interaction-secondary-color: #0000000d;
 }

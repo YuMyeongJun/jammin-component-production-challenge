@@ -26,7 +26,10 @@ $(ns) {
     }
     &-status {
       &-error {
-        @apply ring-2 ring-error-main;
+        @apply text-orange-600;
+        &:hover {
+          @apply cursor-pointer border-[#38373E] text-[#38373E];
+        }
       }
       &-warning {
         @apply ring-2 ring-yellow-500 ring-opacity-90;
@@ -34,9 +37,9 @@ $(ns) {
     }
     &-bordered {
       @apply border-[1px] border-solid;
-    }
-    &-bordered-none {
-      @apply border-none;
+      &-bordered-none {
+        @apply border-none;
+      }
     }
     &-referenceElement {
       @apply border-0;
@@ -54,19 +57,19 @@ $(ns) {
     }
 
     &-list {
-      @apply z-999 my-[8px]  rounded-[var(--jammin-rounded)] border-solid border-gray-200 bg-white p-[5px] shadow-[0_0_20px_0_rgba(0,0,0,0.15)];
+      @apply z-999 my-[8px]  rounded-[var(--jammin-rounded)] border-solid border-gray-200 bg-white shadow-[0_0_20px_0_rgba(0,0,0,0.15)];
 
-      li:not(.bc-select-list-disabled) {
+      li:not(.jammin-select-list-disabled) {
         @apply cursor-pointer;
       }
       &-overflow {
-        @apply overflow-hidden text-ellipsis whitespace-nowrap break-all px-[8px] py-[5px];
+        @apply overflow-hidden text-ellipsis whitespace-nowrap break-all px-[12px] py-[8px];
       }
       &-hover {
-        @apply rounded-[var(--jammin-rounded)] bg-neutral-100;
+        @apply bg-neutral-100;
       }
       &-item {
-        @apply rounded-[var(--jammin-rounded)] bg-blue-100 font-bold;
+        @apply rounded-[var(--jammin-rounded)]  bg-[var(--jammin-primary-color-light)] font-bold;
       }
       &-disabled {
         @apply bg-[#fff];
@@ -89,9 +92,12 @@ $(ns) {
       }
     }
     &-disabled {
-      @apply cursor-not-allowed rounded-[var(--jammin-rounded)] bg-[var(--jammin-disable-background)] text-[var(--jammin-disable-text-color)];
+      @apply cursor-not-allowed rounded-[var(--jammin-rounded)] text-[var(--jammin-disable-text-color)];
       input {
         @apply cursor-not-allowed rounded-[var(--jammin-rounded)];
+      }
+      input:disabled {
+        @apply bg-inherit;
       }
       svg {
         @apply cursor-not-allowed;

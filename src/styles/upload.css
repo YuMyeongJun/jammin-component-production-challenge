@@ -1,0 +1,63 @@
+$ns: .jammin;
+
+$(ns) {
+  &-upload {
+    @apply cursor-pointer border-none bg-[var(--jammin-primary-color-light)] text-[13px] font-bold  text-[var(--jammin-primary-color-main)];
+
+    svg {
+      @apply fill-[var(--jammin-primary-color-main)];
+    }
+    &:hover {
+      @apply bg-[var(--jammin-primary-color-dark)];
+    }
+
+    &-error {
+      @apply border-[length:var(--jammin-border-width)] !border-[var(--jammin-error-color-main)] ring-2 ring-[var(--jammin-error-color-light)];
+    }
+
+    &-prefix {
+      &-icon {
+        @apply pr-2;
+      }
+    }
+
+    &-shape-button {
+      @apply flex items-center justify-center rounded-[var(--jammin-rounded)] p-4pxr;
+
+      &.prefix-text {
+        @apply text-14pxr;
+      }
+    }
+
+    &-shape-area,
+    &-shape-drag {
+      @apply flex w-full items-center justify-center rounded-[var(--jammin-rounded)] border-[length:var(--jammin-border-width)] border-[var(--jammin-gray-color-light)] bg-center bg-no-repeat;
+
+      .jammin-upload-suffix-icon {
+        @apply flex items-center justify-center;
+      }
+
+      &:hover {
+        @apply bg-[var(--jammin-primary-color-dark)] opacity-20;
+
+        .jammin-upload-suffix-wrapper {
+          @apply hidden;
+        }
+      }
+    }
+    &-preview {
+      .file-list {
+        @apply flex items-center justify-between rounded-[var(--jammin-rounded)] text-start hover:bg-gray-100;
+
+        .name {
+          @apply text-sm font-bold tracking-[-.18px] text-label-primary;
+        }
+
+        .size {
+          @apply text-12pxr font-medium
+          leading-4 tracking-[-.15px] text-label-secondary;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,7 @@
+$ns: .jammin;
+
+$(ns) {
+  &-row-box-border {
+    @apply box-border;
+  }
+}

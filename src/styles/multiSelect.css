@@ -1,0 +1,82 @@
+$ns: .jammin;
+$(ns) {
+  &-multiSelect {
+    &-border {
+      @apply rounded-lg border-[1px] border-solid border-[var(--jammin-primary-color-main)] px-3 py-0;
+      &:hover {
+        @apply cursor-pointer border-[#38373E];
+      }
+    }
+    &-normal {
+      @apply box-border rounded-lg border-[1px] border-solid border-[#3C3C4333] px-3 py-0;
+      &-sm {
+        @apply flex h-[var(--jammin-control-height-sm)] items-center text-[length:var(--jammin-font-size-sm)];
+      }
+      &-md {
+        @apply flex h-[var(--jammin-control-height)] items-center text-[length:var(--jammin-font-size-md)];
+      }
+      &-lg {
+        @apply flex h-[var(--jammin-control-height-lg)] items-center text-[length:var(--jammin-font-size-lg)];
+      }
+    }
+    &-error {
+      @apply rounded-lg border border-solid border-[var(--jammin-error-color-main)];
+    }
+    &-errorBorder {
+      @apply rounded-[0.5rem] border-[var(--jammin-error-color-main)] ring-2 ring-[var(--jammin-error-color-light)];
+    }
+    &-disabled {
+      @apply cursor-not-allowed rounded-lg border border-solid border-[var(--jammin-disable-border-color)] bg-[var(--jammin-disable-background)] text-[var(--jammin-disable-text-color)];
+    }
+    &-text {
+      @apply w-full px-0 text-start;
+    }
+    &-multiSelectUl {
+      @apply z-999 overflow-y-scroll bg-white;
+      &-disabled {
+        @apply cursor-not-allowed rounded-[var(--jammin-rounded)] text-[var(--jammin-disable-text-color)];
+      }
+      &-border {
+        @apply rounded-lg border-[1px] border-solid border-[var(--jammin-primary-color-main)];
+        li {
+          @apply h-9 w-full px-3 py-2 text-body-text;
+          $(ns)-checkbox-wrapper {
+            @apply align-middle;
+          }
+          $(ns)-checkbox-checkbox {
+            @apply p-[0px] pr-[8px] !important;
+          }
+          &.option {
+            @apply pl-[24px] text-body-text;
+          }
+        }
+      }
+      &-hover {
+        @apply cursor-pointer bg-neutral-100;
+      }
+      &-selected {
+        @apply bg-[var(--jammin-primary-color-light)];
+      }
+      &-hoverSelected {
+        @apply bg-[var(--jammin-interaction-primary-color)];
+      }
+      &-font {
+        &-xs {
+          @apply text-[length:var(--jammin-font-size-xs)];
+        }
+        &-sm {
+          @apply text-[length:var(--jammin-font-size-sm)];
+        }
+        &-md {
+          @apply text-[length:var(--jammin-font-size-md)];
+        }
+        &-lg {
+          @apply text-[length:var(--jammin-font-size-lg)];
+        }
+      }
+      &-overflow {
+        @apply overflow-hidden text-ellipsis whitespace-nowrap break-all;
+      }
+    }
+  }
+}

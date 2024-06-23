@@ -197,7 +197,7 @@ $(ns) {
       @apply border-[var(--jammin-primary-color-main)] text-[var(--jammin-primary-color-main)];
 
       &:hover:not($(ns)-disabled) {
-        @apply bg-[var(--jammin-primary-color-light)];
+        @apply bg-[var(--jammin-gray-color-light)];
       }
     }
 
@@ -314,5 +314,215 @@ $(ns) {
     &:where($(ns)-outlined, $(ns)-dashed) {
       @apply border-[var(--jammin-disable-border-color)];
     }
+  }
+}
+
+$ns-ex: .jammin-btn-ex;
+
+$(ns-ex) {
+  & {
+    @apply relative flex items-center justify-center px-4 py-[10px] transition-colors text-body-action13;
+  }
+
+  /* focus */
+  & {
+    @apply outline-none ring-[color:var(--jammin-focus-outline-color)] ring-offset-[length:var(--jammin-focus-outline-offset)] focus:ring-[length:var(--jammin-focus-outline-size)];
+  }
+
+  /* hover */
+  & {
+    @apply before:z-0 hover:before:absolute hover:before:h-full hover:before:w-full hover:before:bg-black/10;
+  }
+
+  /* disabled */
+  & {
+    @apply disabled:cursor-[var(--jammin-disable-cursor)] disabled:border-0 disabled:border-[var(--jammin-disable-border-color)] disabled:bg-[var(--jammin-disable-background)] disabled:text-[var(--jammin-disable-text-color)];
+  }
+
+  /* disabled hover */
+  & {
+    @apply disabled:hover:border-[var(--jammin-disable-border-color)] disabled:hover:bg-[var(--jammin-disable-background)] disabled:hover:text-[var(--jammin-disable-text-color)] disabled:hover:before:hidden;
+  }
+
+  &-content {
+    @apply flex items-center justify-center;
+  }
+
+  &-gray {
+    & {
+      @apply border-[var(--jammin-gray-color-main)] bg-[var(--jammin-gray-color-main)] text-[var(--jammin-gray-color-main)];
+    }
+  }
+
+  &-twotone-gray {
+    & {
+      @apply border-[var(--jammin-gray-color-light)] bg-[var(--jammin-gray-color-light)] text-[var(--jammin-gray-color-main)];
+    }
+  }
+
+  &-primary {
+    @apply border-[var(--jammin-primary-color-main)] bg-[var(--jammin-primary-color-main)] text-[var(--jammin-primary-color-main)];
+  }
+
+  &-twotone-primary {
+    & {
+      @apply border-[var(--jammin-primary-color-light)] bg-[var(--jammin-primary-color-light)] text-[var(--jammin-primary-color-main)];
+    }
+  }
+
+  &-secondary {
+    @apply border-[var(--jammin-secondary-color-main)] bg-[var(--jammin-secondary-color-main)] text-[var(--jammin-secondary-color-main)];
+  }
+
+  &-twotone-secondary {
+    & {
+      @apply border-[var(--jammin-secondary-color-light)] bg-[var(--jammin-secondary-color-light)] text-[var(--jammin-secondary-color-main)];
+    }
+  }
+
+  &-error {
+    @apply border-[var(--jammin-error-color-main)] bg-[var(--jammin-error-color-main)] text-[var(--jammin-error-color-main)];
+  }
+
+  &-twotone-error {
+    & {
+      @apply border-[var(--jammin-error-color-light)] bg-[var(--jammin-error-color-light)] text-[var(--jammin-error-color-main)];
+    }
+  }
+
+  &-info {
+    @apply border-[var(--jammin-info-color-main)] bg-[var(--jammin-info-color-main)] text-[var(--jammin-info-color-main)];
+  }
+
+  &-twotone-info {
+    & {
+      @apply border-[var(--jammin-info-color-light)] bg-[var(--jammin-info-color-light)] text-[var(--jammin-info-color-main)];
+    }
+  }
+
+  &-success {
+    @apply border-[var(--jammin-success-color-main)] bg-[var(--jammin-success-color-main)] text-[var(--jammin-success-color-main)];
+  }
+
+  &-twotone-success {
+    & {
+      @apply border-[var(--jammin-success-color-light)] bg-[var(--jammin-success-color-light)] text-[var(--jammin-success-color-main)];
+    }
+  }
+
+  &-warning {
+    @apply border-[var(--jammin-warning-color-main)] bg-[var(--jammin-warning-color-main)] text-[var(--jammin-warning-color-main)];
+  }
+
+  &-twotone-warning {
+    & {
+      @apply border-[var(--jammin-warning-color-light)] bg-[var(--jammin-warning-color-light)] text-[var(--jammin-warning-color-main)];
+    }
+  }
+
+  &-dark {
+    @apply border-[var(--jammin-dark-color-main)] bg-[var(--jammin-dark-color-main)] text-[var(--jammin-dark-color-main)];
+  }
+
+  &-twotone-dark {
+    & {
+      @apply border-[var(--jammin-dark-color-light)] bg-[var(--jammin-dark-color-light)] text-[var(--jammin-dark-color-main)];
+    }
+  }
+
+  &-bordered,
+  &-dashed {
+    & {
+      @apply border bg-transparent;
+    }
+    /* hover */
+    & {
+      @apply hover:bg-transparent hover:before:bg-black/5;
+    }
+  }
+
+  &-dashed {
+    & {
+      @apply border-dashed;
+    }
+  }
+
+  &-fill {
+    & {
+      @apply text-white;
+    }
+    /* hover */
+    & {
+      @apply hover:text-white  hover:before:bg-black/20;
+    }
+  }
+
+  &-text {
+    & {
+      @apply bg-transparent;
+    }
+
+    /* diabled */
+    & {
+      @apply disabled:bg-transparent hover:disabled:bg-transparent;
+    }
+    /* hover */
+    & {
+      @apply hover:bg-transparent hover:before:bg-black/5;
+    }
+  }
+
+  &-round {
+    @apply rounded-[var(--jammin-rounded)] before:rounded-[var(--jammin-rounded)];
+  }
+
+  &-round-full {
+    @apply rounded-full before:rounded-full;
+  }
+
+  &-circle-sm {
+    @apply h-[var(--jammin-control-height-sm)] w-[var(--jammin-control-height-sm)] rounded-full p-0 before:rounded-full;
+  }
+
+  &-circle-md {
+    @apply h-[var(--jammin-control-height)] w-[var(--jammin-control-height)] rounded-full p-0 before:rounded-full;
+  }
+
+  &-circle-lg {
+    @apply h-[var(--jammin-control-height-lg)] w-[var(--jammin-control-height-lg)] rounded-full p-0 before:rounded-full;
+  }
+
+  &-sm {
+    @apply h-[var(--jammin-control-height-sm)];
+  }
+
+  &-md {
+    @apply h-[var(--jammin-control-height)];
+  }
+
+  &-lg {
+    @apply h-[var(--jammin-control-height-lg)];
+  }
+
+  &-prefix,
+  &-suffix {
+    @apply text-[1rem];
+    display: inherit;
+  }
+
+  &-prefix {
+    @apply mr-2;
+  }
+
+  &-suffix {
+    @apply ml-2;
+  }
+
+  svg {
+    @apply inline-block h-[1em] w-[1em] select-none fill-current text-inherit;
+  }
+
+  span {
+    @apply z-[1];
   }
 }

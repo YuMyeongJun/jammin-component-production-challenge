@@ -1,17 +1,17 @@
-import React, { ReactElement, useEffect, useRef, useState } from 'react';
-import ReactDOM from 'react-dom';
-import { usePopper } from 'react-popper';
-import { IcSearch } from '@assets/icons';
-import IcToggleArrowDown from '@assets/icons/ic_select_toggle_arrow_down.svg?react';
-import IcToggleArrowUp from '@assets/icons/ic_select_toggle_arrow_up.svg?react';
-import { BodyPortal, Flex, Input } from '@components';
-import { useOutsideClick } from '@hooks/useOutsideClick';
-import { AnyObject } from '@models/types/AnyObject';
-import classNames from 'classnames';
+import React, { ReactElement, useEffect, useRef, useState } from "react";
+import ReactDOM from "react-dom";
+import { usePopper } from "react-popper";
+import { IcSearch } from "@assets/icons";
+import IcToggleArrowDown from "@assets/icons/ic_select_toggle_arrow_down.svg?react";
+import IcToggleArrowUp from "@assets/icons/ic_select_toggle_arrow_up.svg?react";
+import { BodyPortal, Flex, Input } from "@components";
+import { useOutsideClick } from "@hooks/useOutsideClick";
+import { AnyObject } from "@models/types/AnyObject";
+import classNames from "classnames";
 
-import { ISelectGroupProp } from './Select.types';
-import { selectClasses } from './SelectClasses';
-import { selectGroupClasses } from './SelectGroupClasses';
+import { ISelectGroupProp } from "./Select.types";
+import { selectClasses } from "./SelectClasses";
+import { selectGroupClasses } from "./SelectGroupClasses";
 
 function SelectGroupFunc<T extends AnyObject>(
   props: ISelectGroupProp<T>,
@@ -25,7 +25,7 @@ function SelectGroupFunc<T extends AnyObject>(
     bordered,
     disabled,
     placeholder,
-    placement = 'bottom',
+    placement = "bottom",
     open,
     offset = [0, 0],
     suffixIcon,
@@ -38,7 +38,7 @@ function SelectGroupFunc<T extends AnyObject>(
     selectWidth = 284,
     listWidth,
     listMaxHeight = 272,
-    controlSize = 'md',
+    controlSize = "md",
     isError,
     preSuffixIcon,
     useBorder,
@@ -76,12 +76,12 @@ function SelectGroupFunc<T extends AnyObject>(
   const popperUl = useRef<HTMLUListElement>(null);
   const referenceDiv = useRef<HTMLDivElement>(null);
   const selectRef = useRef<HTMLDivElement>(null);
-  const [selectedValue, setSelectedValue] = useState<string>('');
-  const [searchValue, setSearchValue] = useState<string>('');
-  const [selectedLabel, setSelectedLabel] = useState<string>('');
+  const [selectedValue, setSelectedValue] = useState<string>("");
+  const [searchValue, setSearchValue] = useState<string>("");
+  const [selectedLabel, setSelectedLabel] = useState<string>("");
 
-  const [hoverText, setHoverText] = useState('');
-  const [ulWidth, setUlWidth] = useState<string>('0px');
+  const [hoverText, setHoverText] = useState("");
+  const [ulWidth, setUlWidth] = useState<string>("0px");
   const inputRef = useRef<HTMLInputElement | null>(null);
   const groupRef = useRef<HTMLLIElement[]>([]);
 
@@ -93,14 +93,14 @@ function SelectGroupFunc<T extends AnyObject>(
 
       modifiers: [
         {
-          name: 'offset',
+          name: "offset",
           options: {
             offset: offset,
           },
         },
       ],
 
-      strategy: 'fixed',
+      strategy: "fixed",
     },
   );
 
@@ -115,7 +115,7 @@ function SelectGroupFunc<T extends AnyObject>(
     () => {
       setShowOptions(false);
     },
-    'mousedown',
+    "mousedown",
   );
 
   const inputOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -130,7 +130,7 @@ function SelectGroupFunc<T extends AnyObject>(
   }, []);
 
   useEffect(() => {
-    if (searchValue === '') {
+    if (searchValue === "") {
       setList(tmpList);
     } else {
       const lowerCaseSearchValue = searchValue.toLowerCase();
@@ -156,10 +156,10 @@ function SelectGroupFunc<T extends AnyObject>(
       setList(options ?? []);
       setTmpList(options ?? []);
     } else {
-      const group = groupLabel ?? 'groupLabel';
-      const key = displayLabel ?? 'label';
-      const valueKey = valuePath ?? 'value';
-      const itemsName = itemsLabel ?? 'itemsLabel';
+      const group = groupLabel ?? "groupLabel";
+      const key = displayLabel ?? "label";
+      const valueKey = valuePath ?? "value";
+      const itemsName = itemsLabel ?? "itemsLabel";
 
       const temp = items?.map((item) => {
         const groupItems = item[itemsName];
@@ -169,7 +169,7 @@ function SelectGroupFunc<T extends AnyObject>(
             ? groupItems.map((x: { [key: string]: any }) => ({
                 label: x[key],
                 value: x[valueKey],
-                disabled: x['disabled'] ?? false,
+                disabled: x["disabled"] ?? false,
               }))
             : [],
         };
@@ -187,59 +187,64 @@ function SelectGroupFunc<T extends AnyObject>(
   }, [value]);
 
   const onChangeValue = (text: string, label: string) => {
-    if (text === '' || label === '') {
+    if (text === "" || label === "") {
       return;
     }
 
     setShowOptions(false);
-    setSearchValue('');
+    setSearchValue("");
 
-    setSelectedLabel(label.trim() ?? '');
-    setSelectedValue(text.trim() ?? '');
+    setSelectedLabel(label.trim() ?? "");
+    setSelectedValue(text.trim() ?? "");
     onChange?.(text.trim());
   };
 
   const findLabel = (value: string) => {
     const temp = list?.flatMap((x) => x.options);
-    const result = temp?.find((x) => x.value.trim() === value.trim())?.label.trim();
-    setSelectedLabel(result ?? '');
-    setSelectedValue(value.trim() ?? '');
-    onChange?.(result ? value : '');
+    const result = temp
+      ?.find((x) => x.value.trim() === value.trim())
+      ?.label.trim();
+    setSelectedLabel(result ?? "");
+    setSelectedValue(value.trim() ?? "");
+    onChange?.(result ? value : "");
     popperUpdate();
   };
 
   const rootClassName = classNames(selectGroupClasses.root);
   const controlSizeClassName = classNames({
-    [selectGroupClasses.normal.sm]: controlSize === 'sm',
-    [selectGroupClasses.normal.md]: controlSize === 'md',
-    [selectGroupClasses.normal.lg]: controlSize === 'lg',
+    [selectGroupClasses.normal.sm]: controlSize === "sm",
+    [selectGroupClasses.normal.md]: controlSize === "md",
+    [selectGroupClasses.normal.lg]: controlSize === "lg",
   });
   const selectUl = classNames(selectGroupClasses.selectUl.root);
   const fontClassName = classNames({
-    [selectGroupClasses.selectUl.font.sm]: controlSize === 'md',
-    [selectGroupClasses.selectUl.font.md]: controlSize === 'lg',
+    [selectGroupClasses.selectUl.font.sm]: controlSize === "md",
+    [selectGroupClasses.selectUl.font.md]: controlSize === "lg",
   });
 
   return (
-    <Flex vertical={false} className={classNames(rootClassName, controlSizeClassName)}>
+    <Flex
+      vertical={false}
+      className={classNames(rootClassName, controlSizeClassName)}
+    >
       <Flex
         ref={selectRef}
         gap={8}
         className={classNames({
-          ['cursor-not-allowed']: disabled,
+          ["cursor-not-allowed"]: disabled,
         })}
-        style={{ width: fullWidth ? '100%' : `${selectWidth}px` }}
+        style={{ width: fullWidth ? "100%" : `${selectWidth}px` }}
       >
         <Flex
           ref={referenceDiv}
           justify="space-between"
-          style={{ ...style, width: 'inherit' }}
+          style={{ ...style, width: "inherit" }}
           align="center"
           gap={4}
           onClick={() => {
             if (!disabled) {
               setShowOptions(!showOptions);
-              setSearchValue('');
+              setSearchValue("");
               popperUpdate();
             }
           }}
@@ -251,22 +256,26 @@ function SelectGroupFunc<T extends AnyObject>(
             controlSize={controlSize}
             autoComplete="off"
             placeholder={
-              placeholder === '선택' && title ? `${title} ${placeholder}` : placeholder
+              placeholder === "선택" && title
+                ? `${title} ${placeholder}`
+                : placeholder
             }
             type="text"
             disabled={disabled}
             readOnly={true}
             className={classNames(
-              'px-[12px]',
-              showOptions ? selectGroupClasses.border : selectGroupClasses.normal.root,
+              "px-[12px]",
+              showOptions
+                ? selectGroupClasses.border
+                : selectGroupClasses.normal.root,
               { [selectGroupClasses.error]: isError },
               controlSizeClassName,
               selectGroupClasses.text,
-              { 'w-full': fullWidth },
-              'text-body-text',
+              { "w-full": fullWidth },
+              "text-body-text",
               {
-                'font-[var(--bc-placeholder-font-weight)]':
-                  placeholder && selectedValue === '',
+                "font-[var(--jammin-placeholder-font-weight)]":
+                  placeholder && selectedValue === "",
               },
             )}
             value={selectedLabel}
@@ -277,19 +286,23 @@ function SelectGroupFunc<T extends AnyObject>(
               suffixIcon ? (
                 <div
                   className={classNames(
-                    disabled ? selectClasses.icon.disabled : selectClasses.icon.root,
+                    disabled
+                      ? selectClasses.icon.disabled
+                      : selectClasses.icon.root,
                   )}
                 >
                   {suffixIcon}
                 </div>
               ) : (
                 <div
-                  className={classNames(disabled ? selectClasses.icon.disabled : 'auto')}
+                  className={classNames(
+                    disabled ? selectClasses.icon.disabled : "auto",
+                  )}
                 >
                   {showOptions ? (
-                    <IcToggleArrowDown fill={'black'} />
+                    <IcToggleArrowDown fill={"black"} />
                   ) : (
-                    <IcToggleArrowUp fill={!disabled ? 'black' : '#d9d9d9'} />
+                    <IcToggleArrowUp fill={!disabled ? "black" : "#d9d9d9"} />
                   )}
                 </div>
               )
@@ -303,18 +316,18 @@ function SelectGroupFunc<T extends AnyObject>(
             style={{
               ...styles.popper,
               ...style,
-              visibility: showOptions ? 'visible' : 'hidden',
+              visibility: showOptions ? "visible" : "hidden",
               margin:
-                placement === 'bottom'
-                  ? '8px 0 0px'
-                  : placement === 'left'
-                    ? '0 8px 0 0'
-                    : placement === 'right'
-                      ? '0 0 0 8px'
-                      : '0 0 8px',
-              padding: ' 8px 0 12px',
+                placement === "bottom"
+                  ? "8px 0 0px"
+                  : placement === "left"
+                    ? "0 8px 0 0"
+                    : placement === "right"
+                      ? "0 0 0 8px"
+                      : "0 0 8px",
+              padding: " 8px 0 12px",
               maxHeight: `${listMaxHeight}px`,
-              width: `${listWidth ? listWidth + 'px' : ulWidth}`,
+              width: `${listWidth ? listWidth + "px" : ulWidth}`,
             }}
             className={classNames(selectUl, selectGroupClasses.selectUl.border)}
           >
@@ -329,7 +342,7 @@ function SelectGroupFunc<T extends AnyObject>(
                   onBlur={() => setShowOptions(false)}
                   ref={(current) => {
                     if (ref) {
-                      if (typeof ref === 'function') {
+                      if (typeof ref === "function") {
                         ref(current);
                       } else {
                         ref.current = current;
@@ -346,7 +359,7 @@ function SelectGroupFunc<T extends AnyObject>(
                 <div key={idx}>
                   <li
                     key={x.groupLabel}
-                    className={classNames('text-body-text')}
+                    className={classNames("text-body-text")}
                     title={x.groupLabel}
                     ref={(ref: HTMLLIElement) => {
                       groupRef.current[idx] = ref!;
@@ -366,7 +379,7 @@ function SelectGroupFunc<T extends AnyObject>(
                           title={option.label.trim()}
                           key={`${x.groupLabel.trim()}_${option.label.trim()}`}
                           className={classNames(
-                            'option',
+                            "option",
                             fontClassName,
                             selectGroupClasses.selectUl.font.root,
                             {
@@ -381,13 +394,16 @@ function SelectGroupFunc<T extends AnyObject>(
                             selectGroupClasses.selectUl.overflow,
                           )}
                           onMouseDown={() =>
-                            onChangeValue(option.value.trim(), option.label.trim())
+                            onChangeValue(
+                              option.value.trim(),
+                              option.label.trim(),
+                            )
                           }
                           onMouseEnter={(e) => {
                             setHoverText(option.value.trim());
                           }}
                           onMouseLeave={() => {
-                            !showOptions && setHoverText('');
+                            !showOptions && setHoverText("");
                           }}
                         >
                           {option.label.trim()}
@@ -401,7 +417,7 @@ function SelectGroupFunc<T extends AnyObject>(
                             e.preventDefault();
                           }}
                           className={classNames(
-                            'option',
+                            "option",
                             fontClassName,
                             selectGroupClasses.selectUl.font.root,
                             selectGroupClasses.selectUl.disabled,
@@ -420,7 +436,7 @@ function SelectGroupFunc<T extends AnyObject>(
                 className={classNames(
                   fontClassName,
                   selectGroupClasses.selectUl.font.root,
-                  'text-center text-label-secondary text-body-text',
+                  "text-center text-label-secondary text-body-text",
                 )}
                 onMouseDown={(e) => {
                   e.stopPropagation();
@@ -436,6 +452,8 @@ function SelectGroupFunc<T extends AnyObject>(
     </Flex>
   );
 }
-export const SelectGroup = React.forwardRef(SelectGroupFunc) as <T extends object>(
+export const SelectGroup = React.forwardRef(SelectGroupFunc) as <
+  T extends object,
+>(
   props: ISelectGroupProp<T> & { ref?: React.ForwardedRef<HTMLInputElement> },
 ) => ReactElement;
