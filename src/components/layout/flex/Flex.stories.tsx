@@ -1,15 +1,15 @@
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from '@storybook/react';
 
-import { Flex } from "./Flex";
-import { IFlexProps } from "./Flex.types";
+import { Flex } from './Flex';
+import { IFlexProps } from './Flex.types';
 
 const meta: Meta<IFlexProps> = {
-  title: "components/layout/Flex",
+  title: 'components/layout/Flex',
   component: Flex,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   parameters: {
-    layout: "fullscreen",
-    componentSubtitle: "각 요소들을 유동적으로 배치하는 레이아웃 배치 기능",
+    layout: 'fullscreen',
+    componentSubtitle: '각 요소들을 유동적으로 배치하는 레이아웃 배치 기능',
   },
 };
 
@@ -19,7 +19,7 @@ type Story = StoryObj<IFlexProps>;
 export const Default: Story = {
   render: (args) => {
     return (
-      <div style={{ height: 100, border: "1px solid" }}>
+      <div style={{ height: 100, border: '1px solid' }}>
         <Flex
           vertical={args.vertical}
           justify={args.justify}
@@ -33,12 +33,12 @@ export const Default: Story = {
             <div
               key={i}
               style={{
-                width: "25%",
+                width: '25%',
                 height: 30,
-                backgroundColor: i % 2 ? "#1677ff" : "#1677ffbf",
-                textAlign: "center",
-                fontWeight: "bold",
-                color: "white",
+                backgroundColor: i % 2 ? '#1677ff' : '#1677ffbf',
+                textAlign: 'center',
+                fontWeight: 'bold',
+                color: 'white',
               }}
             >
               {i + 1}
@@ -50,10 +50,10 @@ export const Default: Story = {
   },
   args: {
     vertical: false,
-    justify: "center",
-    align: "center",
+    justify: 'center',
+    align: 'center',
     gap: 10,
-    wrap: "nowrap",
+    wrap: 'nowrap',
     reverse: false,
   },
 };
@@ -61,18 +61,18 @@ export const Default: Story = {
 export const Vertical: Story = {
   render: () => {
     return (
-      <div style={{ height: 100, border: "1px solid" }}>
+      <div style={{ height: 100, border: '1px solid' }}>
         <Flex vertical style={{ height: 100 }}>
           {Array.from({ length: 3 }).map((_, i) => (
             <div
               key={i}
               style={{
-                width: "25%",
+                width: '25%',
                 height: 30,
-                backgroundColor: i % 2 ? "#1677ff" : "#1677ffbf",
-                textAlign: "center",
-                fontWeight: "bold",
-                color: "white",
+                backgroundColor: i % 2 ? '#1677ff' : '#1677ffbf',
+                textAlign: 'center',
+                fontWeight: 'bold',
+                color: 'white',
               }}
             >
               {i + 1}
@@ -87,18 +87,18 @@ export const Vertical: Story = {
 export const Justify: Story = {
   render: (args) => {
     return (
-      <div style={{ height: 100, border: "1px solid" }}>
+      <div style={{ height: 100, border: '1px solid' }}>
         <Flex justify={args.justify}>
           {Array.from({ length: 3 }).map((_, i) => (
             <div
               key={i}
               style={{
-                width: "25%",
+                width: '25%',
                 height: 30,
-                backgroundColor: i % 2 ? "#1677ff" : "#1677ffbf",
-                textAlign: "center",
-                fontWeight: "bold",
-                color: "white",
+                backgroundColor: i % 2 ? '#1677ff' : '#1677ffbf',
+                textAlign: 'center',
+                fontWeight: 'bold',
+                color: 'white',
               }}
             >
               {i + 1}
@@ -109,24 +109,24 @@ export const Justify: Story = {
     );
   },
   args: {
-    justify: "flex-end",
+    justify: 'flex-end',
   },
 };
 export const Reverse: Story = {
   render: () => {
     return (
-      <div style={{ height: 100, border: "1px solid" }}>
+      <div style={{ height: 100, border: '1px solid' }}>
         <Flex reverse>
           {Array.from({ length: 3 }).map((_, i) => (
             <div
               key={i}
               style={{
-                width: "25%",
+                width: '25%',
                 height: 30,
-                backgroundColor: i % 2 ? "#1677ff" : "#1677ffbf",
-                textAlign: "center",
-                fontWeight: "bold",
-                color: "white",
+                backgroundColor: i % 2 ? '#1677ff' : '#1677ffbf',
+                textAlign: 'center',
+                fontWeight: 'bold',
+                color: 'white',
               }}
             >
               {i + 1}
@@ -141,18 +141,18 @@ export const Reverse: Story = {
 export const Gap: Story = {
   render: () => {
     return (
-      <div style={{ height: 100, border: "1px solid" }}>
+      <div style={{ height: 100, border: '1px solid' }}>
         <Flex gap={8}>
           {Array.from({ length: 3 }).map((_, i) => (
             <div
               key={i}
               style={{
-                width: "25%",
+                width: '25%',
                 height: 30,
-                backgroundColor: i % 2 ? "#1677ff" : "#1677ffbf",
-                textAlign: "center",
-                fontWeight: "bold",
-                color: "white",
+                backgroundColor: i % 2 ? '#1677ff' : '#1677ffbf',
+                textAlign: 'center',
+                fontWeight: 'bold',
+                color: 'white',
               }}
             >
               {i + 1}
@@ -167,18 +167,18 @@ export const Gap: Story = {
 export const Wrap: Story = {
   render: () => {
     return (
-      <div style={{ height: 100, border: "1px solid" }}>
+      <div style={{ height: 100, border: '1px solid' }}>
         <Flex gap={8} wrap="wrap">
           {Array.from({ length: 5 }).map((_, i) => (
             <div
               key={i}
               style={{
-                width: "25%",
+                width: '25%',
                 height: 30,
-                backgroundColor: i % 2 ? "#1677ff" : "#1677ffbf",
-                textAlign: "center",
-                fontWeight: "bold",
-                color: "white",
+                backgroundColor: i % 2 ? '#1677ff' : '#1677ffbf',
+                textAlign: 'center',
+                fontWeight: 'bold',
+                color: 'white',
               }}
             >
               {i + 1}
@@ -189,21 +189,21 @@ export const Wrap: Story = {
     );
   },
 };
-export const WrapReverse: Story = {
+export const Wrap_Reverse: Story = {
   render: () => {
     return (
-      <div style={{ height: 100, border: "1px solid" }}>
+      <div style={{ height: 100, border: '1px solid' }}>
         <Flex gap={8} wrap="wrap-reverse">
           {Array.from({ length: 5 }).map((_, i) => (
             <div
               key={i}
               style={{
-                width: "25%",
+                width: '25%',
                 height: 30,
-                backgroundColor: i % 2 ? "#1677ff" : "#1677ffbf",
-                textAlign: "center",
-                fontWeight: "bold",
-                color: "white",
+                backgroundColor: i % 2 ? '#1677ff' : '#1677ffbf',
+                textAlign: 'center',
+                fontWeight: 'bold',
+                color: 'white',
               }}
             >
               {i + 1}
