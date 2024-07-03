@@ -1,0 +1,25 @@
+$ns: .bc;
+$(ns) {
+  &-dropdown-container {
+    &::before,
+    &::after {
+      content: '';
+      @apply block w-[1px];
+
+      $(ns)-dropdown-data {
+        @apply inline-block;
+      }
+    }
+  }
+  &-dropdown-data {
+    @apply cursor-pointer;
+  }
+
+  &-dropdown {
+    @apply z-[999] flex items-center rounded-4 bg-white px-[10px] py-[5px] text-start text-red-950;
+  }
+
+  &-dropdown-base {
+    @apply block h-auto cursor-pointer break-all py-2 shadow-[0_6px_16px_0_rgba(0,0,0,0.08),0_3px_6px_-4px_rgba(0,0,0,0.12),0_9px_28px_8px_rgba(0,0,0,0.05)];
+  }
+}
