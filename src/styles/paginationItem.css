@@ -1,0 +1,161 @@
+$prefix: jammin;
+$ns: .$(prefix)-pagination-item;
+
+/* prettier-ignore */
+$(ns) {
+  & {
+    @apply flex justify-center items-center box-border py-0 my-0 h-auto tracking-[0.01em] text-center;
+    /* focus-visible:input-focus; */
+  }
+
+  /* icon */
+  &-icon {
+    @apply -mx-[8px] my-[0];
+  }
+
+  /* size */
+  &-sm {
+    @apply mx-px px-[4px] min-w-[26px] h-[26px] text-sm;
+
+    $(ns)-icon {
+      @apply text-[10px];
+    }
+  }
+
+  &-md {
+    @apply mx-[2px] px-[6px] min-w-[32px] h-[32px] text-base;
+
+    $(ns)-icon {
+      @apply text-[14px];
+    }
+  }
+
+  &-lg {
+    @apply mx-[3px] px-[10px] min-w-[40px] h-[40px] text-lg;
+
+    $(ns)-icon {
+      @apply text-[18px];
+    }
+  }
+
+  /* shape */
+  &-round {
+    @apply rounded-[var(--jammin-rounded)];
+  }
+
+  &-circle {
+    @apply rounded-full;
+  }
+
+  /* variant */
+  &-contained:not($(ns)-ellipsis) {
+    &:hover:not($(ns)-disabled) {
+      @apply bg-[#0000000a];
+    }
+
+    &$(ns)-selected {
+      @apply bg-[#00000014];
+
+      &:hover:not($(ns)-disabled) {
+        @apply bg-[#0000001f];
+      }
+
+      &$(ns)-containedPrimary {
+        @apply bg-[var(--jammin-primary-color-main)] text-white;
+
+        &:hover:not($(ns)-disabled) {
+          @apply bg-[var(--jammin-primary-color-light)];
+        }
+      }
+
+      &$(ns)-containedSecondary {
+        @apply bg-[var(--jammin-secondary-color-main)] text-white;
+
+        &:hover:not($(ns)-disabled) {
+          @apply bg-[var(--jammin-secondary-color-light)];
+        }
+      }
+
+      $(ns)-disabled {
+        @apply text-[#00000042];
+      }
+    }
+  }
+
+  &-text:not($(ns)-ellipsis) {
+    &:hover:not($(ns)-disabled) {
+      @apply bg-[#0000000a];
+    }
+
+    &$(ns)-selected {
+      @apply font-bold;
+
+      &$(ns)-textPrimary {
+        @apply text-[var(--jammin-primary-color-main)];
+      }
+
+      &$(ns)-textSecondary {
+        @apply text-[var(--jammin-secondary-color-main)];
+      }
+
+      $(ns)-disabled {
+        @apply text-[#00000042];
+      }
+    }
+  }
+
+  &-outlined:not($(ns)-ellipsis) {
+    @apply border-[var(--jammin-gray-color-light)];
+
+    &:hover:not($(ns)-disabled) {
+      @apply bg-[#0000000a];
+    }
+
+    &$(ns)-selected {
+      @apply bg-[#00000014];
+
+      &:hover:not($(ns)-disabled) {
+        @apply bg-[#0000001f];
+      }
+
+      &$(ns)-outlinedPrimary {
+        @apply border-[var(--jammin-primary-color-main)] bg-[var(--jammin-primary-color-light)];
+
+        &:hover:not($(ns)-disabled) {
+          @apply bg-[var(--jammin-primary-color-light)];
+        }
+      }
+
+      &$(ns)-outlinedSecondary {
+        @apply border-[var(--jammin-secondary-color-main)] bg-[var(--jammin-secondary-color-light)];
+
+        &:hover:not($(ns)-disabled) {
+          @apply bg-[var(--jammin-secondary-color-light)];
+        }
+      }
+
+      $(ns)-disabled {
+        @apply text-[#00000042];
+      }
+    }
+  }
+
+  /* disabled */
+  &-disabled {
+    @apply opacity-[0.38];
+
+    &:where(:not($(ns)-ellipsis)) {
+      @apply cursor-not-allowed;
+    }
+  }
+
+  /* svg */
+  svg {
+    @apply shrink-0 inline-block w-[1em] h-[1em] fill-current transition-[fill] duration-200 ease-in-out delay-[0ms] select-none;
+  }
+
+  /* img */
+  img {
+    @apply w-full h-full text-center object-cover text-transparent [text-indent:10000px];
+  }
+}

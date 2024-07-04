@@ -60,4 +60,4 @@ export const Textarea = forwardRef<HTMLTextAreaElement, ITextareaProps>(
   },
 );
 
-Textarea.displayName = "bc_textarea";
+Textarea.displayName = "jammin_textarea";

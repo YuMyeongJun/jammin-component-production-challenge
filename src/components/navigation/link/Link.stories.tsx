@@ -1,30 +1,32 @@
-import { Link as ReactRouterLink, Outlet, useLocation } from 'react-router-dom';
-import { Card } from '@components/data-display/card/Card';
-import { Meta, StoryObj } from '@storybook/react';
-import classNames from 'classnames';
+import { Link as ReactRouterLink, Outlet, useLocation } from "react-router-dom";
+import { Card } from "@components/data-display/card/Card";
+import { Meta, StoryObj } from "@storybook/react";
+import classNames from "classnames";
 import {
   reactRouterOutlets,
   reactRouterParameters,
   withRouter,
-} from 'storybook-addon-remix-react-router';
+} from "storybook-addon-remix-react-router";
 
-import { Link } from './index';
-import { LinkProps } from './Link.types';
+import { Link } from "./index";
+import { LinkProps } from "./Link.types";
 
 const FlexBox = ({
   className,
   children,
 }: React.PropsWithChildren<React.AnchorHTMLAttributes<HTMLDivElement>>) => {
   return (
-    <div className={classNames('flex items-center gap-4 p-2', className)}>{children}</div>
+    <div className={classNames("flex items-center gap-4 p-2", className)}>
+      {children}
+    </div>
   );
 };
 
 const meta: Meta<LinkProps> = {
-  title: 'components/navigation/Link',
+  title: "components/navigation/Link",
   component: Link,
   decorators: [withRouter],
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   argTypes: {
     overlay: { control: { type: undefined } },
   },
@@ -43,21 +45,21 @@ export const Default: Story = {
   },
   argTypes: {
     color: {
-      control: 'select',
+      control: "select",
     },
     size: {
-      control: 'select',
+      control: "select",
     },
   },
   args: {
-    component: 'a',
-    href: '#basics',
+    component: "a",
+    href: "#basics",
     disabled: false,
-    underline: 'always',
-    children: 'Link',
-    color: 'primary',
-    size: 'md',
-    prefix: 'bc',
+    underline: "always",
+    children: "Link",
+    color: "primary",
+    size: "md",
+    prefix: "jammin",
   },
 };
 
@@ -240,7 +242,11 @@ export const Security: Story = {
   render: () => {
     return (
       <FlexBox>
-        <Link href="https://google.com" target="_blank" rel="noopener noreferrer">
+        <Link
+          href="https://google.com"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           Security
         </Link>
       </FlexBox>
@@ -256,11 +262,11 @@ export const Security: Story = {
  * - 디자인은 링크라기보다는 버튼에 가깝습니다.
  */
 export const PolymorphicComponent: Story = {
-  name: 'As a button',
+  name: "As a button",
   render: () => {
     return (
       <FlexBox>
-        <Link component="button" onClick={() => alert('link')}>
+        <Link component="button" onClick={() => alert("link")}>
           Do something
         </Link>
       </FlexBox>
@@ -299,11 +305,11 @@ export const ThirdPartyReactRouting: Story = {
     reactRouter: reactRouterParameters({
       routing: reactRouterOutlets([
         {
-          path: '',
+          path: "",
           element: <p>index</p>,
         },
         {
-          path: 'account',
+          path: "account",
           element: <p>account</p>,
         },
       ]),

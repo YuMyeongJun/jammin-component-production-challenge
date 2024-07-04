@@ -62,36 +62,36 @@ $(ns) {
   /* color */
   &:not($(ns)-disabled) {
     /* default */
-    @apply text-[(var(--bc-text-color))];
+    @apply text-[(var(--jammin-text-color))];
 
     /* primary */
     &$(ns)-primary {
-      @apply text-[var(--bc-primary-color-main)];
+      @apply text-[var(--jammin-primary-color-main)];
     }
 
     /* secondary */
     &$(ns)-secondary {
-      @apply text-[var(--bc-secondary-color-main)];
+      @apply text-[var(--jammin-secondary-color-main)];
     }
 
     /* success */
     &$(ns)-success {
-      @apply text-[var(--bc-success-color-main)];
+      @apply text-[var(--jammin-success-color-main)];
     }
 
     /* error */
     &$(ns)-error {
-      @apply text-[var(--bc-error-color-main)];
+      @apply text-[var(--jammin-error-color-main)];
     }
 
     /* info */
     &$(ns)-info {
-      @apply text-[var(--bc-info-color-main)];
+      @apply text-[var(--jammin-info-color-main)];
     }
 
     /* warning */
     &$(ns)-warning {
-      @apply text-[var(--bc-warning-color-main)];
+      @apply text-[var(--jammin-warning-color-main)];
     }
 
     /* dark */

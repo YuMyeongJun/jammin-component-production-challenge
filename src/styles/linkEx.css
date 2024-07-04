@@ -1,0 +1,121 @@
+$ns: .jammin;
+/* prettier-ignore */
+$(ns) {
+  &-linkEx {
+    /* default */  
+    @apply inline-flex items-center relative m-0 p-0 rounded-none border-0 bg-transparent cursor-pointer appearance-none underline-offset-[0.25em];
+  
+    /* component button */
+    button& {
+      @apply select-none;
+    }
+
+    /* underline */
+    &-underline-none {
+      @apply no-underline;
+    }
+
+    &-underline-hover {
+      @apply no-underline hover:underline;
+    }
+
+    &-underline-always {
+      @apply underline;
+    }
+
+    /* overlay */
+    &-overlay {
+      position: initial;
+
+      :after {
+        @apply content-[''] block absolute inset-0;
+      }
+    }
+
+    /*  svg */
+    svg {
+      @apply text-[1.25em] text-current;
+    }
+
+    /* size */
+    &-xs {
+      @apply text-xs;
+    }
+
+    &-sm {
+      @apply text-sm;
+    }
+
+    &-md {
+      @apply text-base;
+    }
+
+    &-lg {
+      @apply text-lg;
+    }
+
+    /* color */
+
+    /* primary */
+    &-primary {
+      @apply !text-[var(--jammin-primary-color-main)];
+      &.bc-linkEx-hover:hover {
+        @apply !text-[var(--jammin-primary-color-light)];
+      }
+    }
+    /* secondary */
+    &-secondary {
+      @apply text-[var(--jammin-secondary-color-main)];
+
+      &.bc-linkEx-hover:hover {
+        @apply !text-[var(--jammin-secondary-color-light)];
+      }
+    }
+    /* success */
+    &-success {
+      @apply text-[var(--jammin-success-color-main)];
+
+      &.bc-linkEx-hover:hover {
+        @apply !text-[var(--jammin-success-color-light)];
+      }
+    }
+    /* error */
+    &-error {
+      @apply text-[var(--jammin-error-color-main)];
+
+      &.bc-linkEx-hover:hover {
+        @apply !text-[var(--jammin-error-color-light)];
+      }
+    }
+    /* info */
+    &-info {
+      @apply text-[var(--jammin-info-color-main)];
+
+      &.bc-linkEx-hover:hover {
+        @apply !text-[var(--jammin-info-color-light)];
+      }
+    }
+    /* warning */
+    &-warning {
+      @apply text-[var(--jammin-warning-color-main)];
+
+      &.bc-linkEx-hover:hover {
+        @apply !text-[var(--jammin-warning-color-light)];
+      }
+    }
+    /* dark */
+    &-dark {
+      @apply text-[var(--jammin-dark-color-main)];
+
+      &.bc-linkEx-hover:hover {
+        @apply !text-[var(--jammin-dark-color-light)];
+      }
+    }
+
+    /* disabled */
+    &-disabled,
+    &:disabled {
+      @apply !text-[var(--jammin-disable-text-color)] cursor-not-allowed;
+    }
+  }
+}

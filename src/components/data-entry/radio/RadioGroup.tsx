@@ -1,13 +1,14 @@
-import { forwardRef } from 'react';
-import { Flex } from '@components/layout/flex';
+import { forwardRef } from "react";
+import { Flex } from "@components/layout/flex";
 
-import { Radio } from './Radio';
-import { radioClasses } from './RadioClasses';
-import { IRadioOptionsProps } from './RadioGroup.types';
+import { Radio } from "./Radio";
+import { radioClasses } from "./RadioClasses";
+import { IRadioOptionsProps } from "./RadioGroup.types";
 
 export const RadioGroup = forwardRef<HTMLInputElement, IRadioOptionsProps>(
   (args, ref) => {
-    const { style, options, name, disabled, vertical, gap, ...inputProps } = args;
+    const { style, options, name, disabled, vertical, gap, ...inputProps } =
+      args;
 
     return (
       <Flex vertical={vertical} gap={gap} className={radioClasses.groupWrapper}>
@@ -30,4 +31,4 @@ export const RadioGroup = forwardRef<HTMLInputElement, IRadioOptionsProps>(
   },
 );
 
-RadioGroup.displayName = 'bc_radio_group';
+RadioGroup.displayName = "jammin_radio_group";
