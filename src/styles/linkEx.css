@@ -59,7 +59,7 @@ $(ns) {
     /* primary */
     &-primary {
       @apply !text-[var(--jammin-primary-color-main)];
-      &.bc-linkEx-hover:hover {
+      &.jammin-linkEx-hover:hover {
         @apply !text-[var(--jammin-primary-color-light)];
       }
     }
@@ -67,7 +67,7 @@ $(ns) {
     &-secondary {
       @apply text-[var(--jammin-secondary-color-main)];
 
-      &.bc-linkEx-hover:hover {
+      &.jammin-linkEx-hover:hover {
         @apply !text-[var(--jammin-secondary-color-light)];
       }
     }
@@ -75,7 +75,7 @@ $(ns) {
     &-success {
       @apply text-[var(--jammin-success-color-main)];
 
-      &.bc-linkEx-hover:hover {
+      &.jammin-linkEx-hover:hover {
         @apply !text-[var(--jammin-success-color-light)];
       }
     }
@@ -83,7 +83,7 @@ $(ns) {
     &-error {
       @apply text-[var(--jammin-error-color-main)];
 
-      &.bc-linkEx-hover:hover {
+      &.jammin-linkEx-hover:hover {
         @apply !text-[var(--jammin-error-color-light)];
       }
     }
@@ -91,7 +91,7 @@ $(ns) {
     &-info {
       @apply text-[var(--jammin-info-color-main)];
 
-      &.bc-linkEx-hover:hover {
+      &.jammin-linkEx-hover:hover {
         @apply !text-[var(--jammin-info-color-light)];
       }
     }
@@ -99,7 +99,7 @@ $(ns) {
     &-warning {
       @apply text-[var(--jammin-warning-color-main)];
 
-      &.bc-linkEx-hover:hover {
+      &.jammin-linkEx-hover:hover {
         @apply !text-[var(--jammin-warning-color-light)];
       }
     }
@@ -107,7 +107,7 @@ $(ns) {
     &-dark {
       @apply text-[var(--jammin-dark-color-main)];
 
-      &.bc-linkEx-hover:hover {
+      &.jammin-linkEx-hover:hover {
         @apply !text-[var(--jammin-dark-color-light)];
       }
     }

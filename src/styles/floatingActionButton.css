@@ -1,0 +1,114 @@
+$ns: .jammin;
+
+$(ns) {
+  &-floating-action-button {
+    @apply fixed z-100 block;
+
+    /* 메뉴 floating action button 일 경우 처음 노출되는 버튼 외에는 숨김 처리*/
+    .bc-badge {
+      @apply invisible;
+
+      /* 처음 보이는 버튼(숨김처리 되지 않은 floating button)*/
+      &:last-child {
+        @apply visible;
+
+        /* 뱃지 사용 활성화 하지 않은 경우 */
+        .bc-badge-area {
+          @apply invisible;
+        }
+      }
+    }
+
+    /* 메뉴 floating action button 사용시 open 상태*/
+    &.open {
+      .bc-badge {
+        @apply visible cursor-pointer;
+
+        /* 뱃지 사용 활성화 하지 않은 경우 */
+        .bc-badge-area {
+          @apply invisible;
+        }
+      }
+    }
+
+    /* 뱃지 카운터가 있을경우 */
+    &-badge-counter {
+      .bc-badge {
+        .bc-badge-area {
+          @apply opacity-0;
+        }
+
+        /* 처음 보이는 버튼(숨김처리 되지 않은 floating button)*/
+        &:last-child {
+          .bc-badge-area {
+            @apply visible opacity-100;
+          }
+        }
+      }
+
+      /* 뱃지 카운터가 있고 메뉴가 열린 상태 */
+      &.open {
+        .bc-badge-area {
+          @apply !visible opacity-100 transition-opacity duration-500 ease-in;
+        }
+
+        /* 메뉴 오픈 상태일 때 처음 노출되는 버튼의 뱃지는 사라지도록 설정*/
+        .bc-badge:last-child {
+          .bc-badge-area {
+            @apply !invisible;
+          }
+        }
+      }
+    }
+
+    &-btn {
+      @apply flex items-center justify-center bg-white;
+
+      &:hover {
+        @apply opacity-70;
+      }
+
+      button {
+        @apply flex flex-col items-center justify-center;
+      }
+
+      &-display-none {
+        @apply hidden;
+      }
+    }
+
+    &-hidden-menu {
+      @apply pointer-events-none invisible opacity-0;
+
+      &:hover {
+        @apply opacity-0;
+      }
+
+      &.open {
+        @apply pointer-events-auto visible opacity-100 transition-opacity duration-300 ease-in;
+      }
+    }
+
+    &-cancel-button {
+      &.open {
+        @apply flex flex-col items-end;
+      }
+    }
+
+    &-icon {
+      @apply h-20pxr w-20pxr bg-center bg-no-repeat;
+    }
+
+    &-description {
+      @apply max-h-4 max-w-28pxr overflow-hidden text-10pxr font-light;
+    }
+
+    &-circle {
+      @apply h-40pxr w-40pxr rounded-full border-[length:var(--jammin-border-width)];
+    }
+
+    &-square {
+      @apply h-40pxr w-40pxr rounded-lg border-[length:var(--jammin-border-width)];
+    }
+  }
+}
