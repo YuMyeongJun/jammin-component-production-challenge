@@ -1,0 +1,97 @@
+$ns: .jammin;
+
+$(ns) {
+  &-switch-ex {
+    @apply relative inline-flex cursor-pointer items-center;
+
+    &-input {
+      @apply sr-only;
+    }
+
+    &-bar {
+      @apply h-8pxr w-20pxr rounded-full bg-[var(--jammin-gray-color-light)];
+
+      &.jammin-switch-ex-size {
+        &-sm {
+          @apply h-10pxr w-18pxr;
+        }
+
+        &-md {
+          @apply h-14pxr w-24pxr;
+        }
+
+        &-lg {
+          @apply h-16pxr w-28pxr;
+        }
+
+        &-xl {
+          @apply h-18pxr w-32pxr;
+        }
+      }
+
+      &::after {
+        @apply absolute left-0 top-2pxr h-8pxr w-8pxr rounded-full bg-white transition-all content-[''];
+
+        &.jammin-switch-ex-size {
+          &-sm {
+            @apply left-1pxr top-1pxr h-8pxr w-8pxr;
+          }
+
+          &-md {
+            @apply left-2pxr h-10pxr w-10pxr;
+          }
+
+          &-lg {
+            @apply left-2pxr h-12pxr w-12pxr;
+          }
+
+          &-xl {
+            @apply left-2pxr h-14pxr w-14pxr;
+          }
+        }
+      }
+    }
+
+    input[type='checkbox']:checked:not(:disabled) ~ .jammin-switch-ex-bar {
+      @apply bg-[var(--jammin-primary-color-main)];
+
+      &.jammin-switch-ex-color {
+        &-primary {
+          @apply bg-[var(--jammin-primary-color-main)];
+        }
+
+        &-secondary {
+          @apply bg-[var(--jammin-secondary-color-main)];
+        }
+
+        &-success {
+          @apply bg-[var(--jammin-success-color-main)];
+        }
+
+        &-error {
+          @apply bg-[var(--jammin-error-color-main)];
+        }
+
+        &-info {
+          @apply bg-[var(--jammin-info-color-main)];
+        }
+
+        &-warning {
+          @apply bg-[var(--jammin-warning-color-main)];
+        }
+
+        &-gray {
+          @apply bg-[var(--jammin-gray-color-main)];
+        }
+
+        &-dark {
+          @apply bg-[var(--jammin-dark-color-main)];
+        }
+      }
+
+      &::after {
+        @apply translate-x-full;
+      }
+    }
+  }
+}
