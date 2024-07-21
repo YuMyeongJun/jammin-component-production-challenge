@@ -1,0 +1,117 @@
+$ns: .jammin;
+
+/* $(ns) {
+  &-checkbox-ex {
+    @apply inline-flex  items-center;
+
+    input {
+      @apply h-4 w-4 rounded-4 accent-[var(--jammin-primary-color-main)];
+    }
+
+    &-secondary input {
+      @apply accent-[var(--jammin-secondary-color-main)];
+    }
+
+    &-success input {
+      @apply accent-[var(--jammin-success-color-main)];
+    }
+
+    &-error input {
+      @apply accent-[var(--jammin-error-color-main)];
+    }
+
+    &-info input {
+      @apply accent-[var(--jammin-info-color-main)];
+    }
+
+    &-warning input {
+      @apply accent-[var(--jammin-warning-color-main)];
+    }
+
+    &-dark input {
+      @apply accent-[var(--jammin-gray-color-main)];
+    }
+
+    &-label {
+      @apply ml-1;
+    }
+  }
+} */
+
+$(ns) {
+  &-checkbox-ex {
+    @apply inline-flex items-center;
+
+    input {
+      @apply relative h-4 w-4 appearance-none rounded-4 border-[length:var(--jammin-border-width)] border-solid border-[var(--jammin-border-color)] bg-white;
+
+      &:checked {
+        @apply border-[var(--jammin-primary-color-main)] bg-[var(--jammin-primary-color-main)];
+      }
+      &:checked::after {
+        @apply absolute left-[15%] top-[-45%] content-[url('@icons/ic_checkbox_checked.svg')];
+      }
+
+      &:checked:disabled,
+      &:disabled {
+        @apply cursor-not-allowed opacity-40;
+      }
+    }
+
+    &-secondary input {
+      &:checked {
+        @apply border-[var(--jammin-secondary-color-main)] bg-[var(--jammin-secondary-color-main)];
+      }
+    }
+
+    &-success input {
+      &:checked {
+        @apply border-[var(--jammin-success-color-main)] bg-[var(--jammin-success-color-main)];
+      }
+    }
+
+    &-error input {
+      &:checked {
+        @apply border-[var(--jammin-error-color-main)] bg-[var(--jammin-error-color-main)];
+      }
+    }
+
+    &-info input {
+      &:checked {
+        @apply border-[var(--jammin-info-color-main)] bg-[var(--jammin-info-color-main)];
+      }
+    }
+
+    &-warning input {
+      &:checked {
+        @apply border-[var(--jammin-warning-color-main)] bg-[var(--jammin-warning-color-main)];
+      }
+    }
+
+    &-dark input {
+      &:checked {
+        @apply border-[var(--jammin-dark-color-main)] bg-[var(--jammin-dark-color-main)];
+      }
+    }
+
+    &-gray input {
+      &:checked {
+        @apply border-[var(--jammin-gray-color-main)] bg-[var(--jammin-gray-color-main)];
+      }
+    }
+
+    &-label {
+      @apply ml-1;
+    }
+
+    &-indeterminate input {
+      &:checked::after {
+        @apply absolute left-[15%] top-[-70%] text-base content-[url('@icons/ic_checkbox_indeterminate.svg')];
+      }
+    }
+
+    &-disabled-label {
+      @apply text-[var(--jammin-gray-color-light)];
+    }
+  }
+}
