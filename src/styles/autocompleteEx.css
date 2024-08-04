@@ -1,0 +1,46 @@
+$ns: .jammin;
+
+$(ns) {
+  &-autocompleteEx {
+    @apply inline-block;
+
+    &-container {
+      @apply z-999 min-w-154pxr rounded-[var(--jammin-rounded)] border-[length:var(--jammin-border-width)] border-[var(--jammin-border-color)] bg-white p-5pxr;
+    }
+
+    &-input:focus {
+      @apply border-[var(--jammin-primary-color-main)] ring-2 ring-[var(--jammin-primary-color-light)];
+    }
+
+    &-list {
+      @apply flex h-32pxr w-138pxr items-center gap-8pxr rounded-[var(--jammin-rounded)] border-[length:var(--jammin-border-width)] border-white px-8pxr py-12pxr;
+      &-sm {
+        @apply text-[length:var(--jammin-font-size-sm)];
+      }
+
+      &-md {
+        @apply text-[length:var(--jammin-font-size-md)];
+      }
+
+      &-lg {
+        @apply text-[length:var(--jammin-font-size-lg)];
+      }
+
+      &:hover {
+        @apply bg-blue-100;
+      }
+
+      &-items-name {
+        @apply overflow-hidden text-ellipsis whitespace-nowrap;
+      }
+
+      &.disable {
+        @apply text-[var(--jammin-disable-text-color)];
+      }
+
+      &-focused {
+        @apply bg-blue-100;
+      }
+    }
+  }
+}
