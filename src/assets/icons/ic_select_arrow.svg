@@ -4,11 +4,11 @@ width="16"
 height="16"
 viewBox="0 0 16 16"
 fill="none"
+stroke="#B5B4B4"
+strokeWidth="2"
 >
     <path
     d="M4 6L8 9L12 6"
-    stroke="#B5B4B4"
-    strokeWidth="2"
     strokeLinecap="round"
     strokeLinejoin="round"
     />
