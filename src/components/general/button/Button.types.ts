@@ -1,13 +1,11 @@
-import React from "react";
+import React from 'react';
 import {
   OverridableComponent,
   OverridableTypeMap,
   OverrideProps,
-} from "@models/types/OverridableComponent";
+} from '@models/types/OverridableComponent';
 
-export interface ButtonTypeMap<
-  DefaultComponent extends React.ElementType = "button",
-> {
+export interface ButtonTypeMap<DefaultComponent extends React.ElementType = 'button'> {
   props: {
     /**
      * `true`인 경우 구성요소의 스타일은 기본 버튼 스타일로 적용됩니다.
@@ -23,14 +21,14 @@ export interface ButtonTypeMap<
      * @default 'default'
      */
     color?:
-      | "default"
-      | "primary"
-      | "secondary"
-      | "success"
-      | "error"
-      | "info"
-      | "warning"
-      | "dark";
+      | 'default'
+      | 'primary'
+      | 'secondary'
+      | 'success'
+      | 'error'
+      | 'info'
+      | 'warning'
+      | 'dark';
     /**
      * `true`인 경우 구성 요소가 비활성화됩니다.
      * @default false
@@ -54,12 +52,12 @@ export interface ButtonTypeMap<
      * 구성 요소의 모양입니다.
      * @default 'round'
      */
-    shape?: "default" | "circle" | "round";
+    shape?: 'default' | 'circle' | 'round';
     /**
      * 구성 요소의 크기입니다.
      * @default 'md'
      */
-    size?: "xs" | "sm" | "md" | "lg";
+    size?: 'xs' | 'sm' | 'md' | 'lg';
     /**
      * 자식 앞에 배치되는 icon 요소입니다.
      */
@@ -78,24 +76,23 @@ export interface ButtonTypeMap<
      * 구성 요소의 사용할 변형입니다.
      * @default 'outlined'
      */
-    variant?: "contained" | "outlined" | "text" | "dashed";
+    variant?: 'contained' | 'outlined' | 'text' | 'dashed';
   };
   defaultComponent: DefaultComponent;
 }
 
 export interface ExtendButtonTypeMap<TypeMap extends OverridableTypeMap> {
-  props: TypeMap["props"] & ButtonTypeMap["props"];
-  defaultComponent: TypeMap["defaultComponent"];
+  props: TypeMap['props'] & ButtonTypeMap['props'];
+  defaultComponent: TypeMap['defaultComponent'];
 }
 
 export type ButtonProps<
-  RootComponentType extends
-    React.ElementType = ButtonTypeMap["defaultComponent"],
+  RootComponentType extends React.ElementType = ButtonTypeMap['defaultComponent'],
 > = OverrideProps<ButtonTypeMap<RootComponentType>, RootComponentType> & {
   component?: React.ElementType;
 };
 
 export type ExtendButton<TypeMap extends OverridableTypeMap> = ((
-  props: { href: string } & OverrideProps<ExtendButtonTypeMap<TypeMap>, "a">,
+  props: { href: string } & OverrideProps<ExtendButtonTypeMap<TypeMap>, 'a'>,
 ) => JSX.Element) &
   OverridableComponent<ExtendButtonTypeMap<TypeMap>>;

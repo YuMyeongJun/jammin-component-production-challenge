@@ -1,10 +1,9 @@
-import React, { forwardRef } from "react";
+import React from "react";
 import { act, fireEvent, render } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
 
 import { Button } from "./Button";
 import { buttonClasses as classes } from "./buttonClasses";
-import { ButtonProps } from "./Button.types";
 
 describe("<Button />", () => {
   it("렌더링 됩니다.", () => {
@@ -74,18 +73,15 @@ describe("Props: href", () => {
   });
 
   it('커스텀 component와 to가 사용되는 경우 role="button"을 추가하지 마세요.', () => {
-    const CustomLink = forwardRef(
-      (
-        props: ButtonProps<React.ElementType>,
-        ref: React.ForwardedRef<HTMLAnchorElement>,
-      ) => {
+    const CustomLink = React.forwardRef(
+      (props: any, ref: React.ForwardedRef<HTMLAnchorElement>) => {
         const { to, ...other } = props;
         return <a data-testid="customLink" ref={ref} href={to} {...other} />;
       },
     );
 
     const { getByText } = render(
-      <Button component={CustomLink} to="https://google.com">
+      <Button<any> component={CustomLink} to="https://google.com">
         Hello
       </Button>,
     );

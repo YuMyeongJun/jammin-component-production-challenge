@@ -68,7 +68,7 @@ export const Button = forwardRef(function Button<
       buttonProps.tabIndex = tabIndex ?? 0;
     }
     if (disabled) {
-      buttonProps.tabIndex = disabled ? tabIndex ?? 0 : -1;
+      buttonProps.tabIndex = disabled ? (tabIndex ?? 0) : -1;
     }
   }
 

@@ -1,23 +1,20 @@
 import * as React from "react";
 import { Link as ReactRouterLink, Outlet, useLocation } from "react-router-dom";
-
+import { Button, ButtonProps } from "@components/general/button";
 import { Meta, StoryObj } from "@storybook/react";
 import classNames from "classnames";
 import {
   reactRouterOutlets,
   reactRouterParameters,
   withRouter,
-} from "storybook-addon-react-router-v6";
+} from "storybook-addon-remix-react-router";
 
 import "../../../index.css";
-import { Button } from "./Button";
-import { ButtonProps } from "./Button.types";
 
 const meta: Meta<ButtonProps> = {
-  title: "components/data-entry/Button",
+  title: "components/general/Button",
   component: Button,
   tags: ["autodocs"],
-  decorators: [withRouter],
 };
 
 export default meta;
@@ -59,8 +56,8 @@ export const Default: Story = {
     variant: {
       control: "select",
     },
-    startIcon: { control: { type: null } },
-    endIcon: { control: { type: null } },
+    startIcon: { control: { type: undefined } },
+    endIcon: { control: { type: undefined } },
   },
   args: {
     component: "button",

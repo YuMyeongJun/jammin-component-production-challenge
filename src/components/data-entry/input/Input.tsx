@@ -11,7 +11,7 @@ import classNames from "classnames";
 
 import { IInputProps } from "./Input.types";
 import { inputClasses as classes } from "./InputClasses";
-import { Button } from "../button";
+import { Button } from "@components/general";
 
 export const Input = forwardRef<HTMLInputElement, IInputProps>((args, ref) => {
   const inputRef = useRef<HTMLInputElement | null>(null);
